@@ -6,6 +6,7 @@ public class Score : MonoBehaviour {
 	public static int blocksSmashed = 0;
 	public static int livesLost = 0;
 	// Use this for initialization
+    //This is a change
 	void Start () {
 	
 	}
