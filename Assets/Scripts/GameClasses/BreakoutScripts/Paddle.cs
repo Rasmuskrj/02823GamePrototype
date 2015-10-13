@@ -12,4 +12,12 @@ public class Paddle : MonoBehaviour {
 	void Update () {
 	
 	}
+    void MoveLeft()
+    {
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -12.5f, 12.5f), -10.0f, 0.0f);
+    }
+    void MoveRight()
+    {
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -12.5f, 12.5f), -10.75f, 0.0f);
+    }
 }
