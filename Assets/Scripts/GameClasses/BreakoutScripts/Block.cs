@@ -12,8 +12,10 @@ public class Block : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
+        GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>().DoOnTrigger(gameObject.GetComponent<Collider>());
+            
         Destroy(gameObject);
     }
 }
