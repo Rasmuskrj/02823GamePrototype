@@ -13,22 +13,23 @@ public class Ball : MonoBehaviour {
         rb.velocity=(Vec * initialspeed);
         mag = rb.velocity.magnitude;
         Debug.Log(rb.velocity);
+        TriggerScript.setBall(this);
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-    public void DoOnTrigger (Collider collider)
+    public void DoOnTrigger (GameObject other)
     {
-        Vector3 contactPoint = collider.ClosestPointOnBounds(gameObject.transform.position);
+        //Debug.Log("WHAT IS WRONG WITH YOU");
+
+        Collider collider = gameObject.GetComponent<Collider>();
+        Vector3 contactPoint = collider.ClosestPointOnBounds(other.transform.position);
+        Debug.Log(contactPoint);
         Vector3 normal = Vector3.Normalize(gameObject.transform.position - contactPoint);
         rb.velocity = rb.velocity - 2 * Vector2.Dot(rb.velocity, normal) * normal;
         rb.velocity = rb.velocity.normalized * mag;
     }
-    void OnTriggerEnter (Collider collider)
-    {
-        DoOnTrigger(collider);
-
-    }
+    
 }
