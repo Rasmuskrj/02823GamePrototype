@@ -3,24 +3,41 @@ using System.Collections;
 
 public class Ball : MonoBehaviour {
     public float initialspeed = 1.0f;
-    public Rigidbody rb;
+    public Rigidbody2D rb;
     private float mag;
+    private float minAngVel = 3f;
     // Use this for initialization
     void Start () {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         float xDir = Random.Range(-1.0f, 1.0f);
-        Vector3 Vec = new Vector3(xDir, 1, 0);
+        Vector2 Vec = new Vector2(xDir, 1);
         rb.velocity=(Vec * initialspeed);
         mag = rb.velocity.magnitude;
-        Debug.Log(rb.velocity);
-        TriggerScript.setBall(this);
+        //Debug.Log(rb.velocity);
+        //TriggerScript.setBall(this);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
-    public void DoOnTrigger (GameObject other)
+    void FixedUpdate()
+    {
+        if (Mathf.Abs(rb.velocity.y) <= minAngVel)
+        {
+            float sign = 1;
+            if (Mathf.Sign(rb.velocity.y) == -1) { sign = -1; }
+            rb.velocity = new Vector2(rb.velocity.x, 5*sign);
+        }
+        if (Mathf.Abs(rb.velocity.x) <= minAngVel)
+        {
+            float sign = 1;
+            if (Mathf.Sign(rb.velocity.x) == -1) { sign = -1; }
+            rb.velocity = new Vector2(minAngVel*sign, rb.velocity.y);
+        }
+        rb.velocity = rb.velocity.normalized * mag;
+    }
+    /*public void DoOnTrigger (GameObject other)
     {
         //Debug.Log("WHAT IS WRONG WITH YOU");
 
@@ -30,6 +47,6 @@ public class Ball : MonoBehaviour {
         Vector3 normal = Vector3.Normalize(gameObject.transform.position - contactPoint);
         rb.velocity = rb.velocity - 2 * Vector2.Dot(rb.velocity, normal) * normal;
         rb.velocity = rb.velocity.normalized * mag;
-    }
-    
+    }*/
+
 }
