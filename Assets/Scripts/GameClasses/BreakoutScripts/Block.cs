@@ -13,7 +13,8 @@ public class Block : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider collider)
     {
-        GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>().DoOnTrigger(gameObject.GetComponent<Collider>());
+        //Vector3 contactPoint = collider.ClosestPointOnBounds(gameObject.transform.position);
+        GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>().DoOnTrigger(gameObject);
             
         Destroy(gameObject);
     }

@@ -21,9 +21,9 @@ public class BallSpawner : MonoBehaviour {
         newball.position = player2.position + offset;
         newball.rotation = Quaternion.identity;
         newball.parent = player2;
-
+        
         new WaitForSeconds(2);
-        //newball.parent = null;
+        newball.parent = null;
         newball.GetComponent<Rigidbody>().AddForce(offset * initialspeed);
     }
     // Update is called once per frame
