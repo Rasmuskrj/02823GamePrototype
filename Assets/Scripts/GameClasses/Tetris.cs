@@ -13,11 +13,11 @@ public class Tetris : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	
 	}
-    public void moveX(float axisx)
+    public void MoveX(float axisx)
     {
 
     }
-    public void moveY(float axisy)
+    public void MoveY(float axisy)
     {
 
     }

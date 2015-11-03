@@ -39,11 +39,11 @@ public class InputController : MonoBehaviour {
 	void Update () {
 	    if(Mathf.Abs(Input.GetAxis ("Horrizontal")) > 0.1f)
         {
-            p1Games[currentP1Game].moveX(Input.GetAxis("Horrizontal"));
+            p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal"));
         }
         if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
         {
-            p1Games[currentP1Game].moveY(Input.GetAxis("Vertical"));
+            p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical"));
         }
     }
 }
