@@ -13,4 +13,12 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	
 	}
+    public void moveX(float axisx)
+    {
+
+    }
+    public void moveY(float axisy)
+    {
+
+    }
 }

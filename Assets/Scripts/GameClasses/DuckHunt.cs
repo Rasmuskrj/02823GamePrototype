@@ -12,4 +12,12 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
 	void Update () {
 	
 	}
+    public void moveX(float axisx)
+    {
+
+    }
+    public void moveY(float axisy)
+    {
+
+    }
 }

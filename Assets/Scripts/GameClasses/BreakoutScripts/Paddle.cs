@@ -13,7 +13,7 @@ public class Paddle : MonoBehaviour {
 	
 	}
     
-    void Move(float axisx)
+    void MoveX(float axisx)
     {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x+axisx, -12.5f, 12.5f), -10.0f, 0.0f);
     }
