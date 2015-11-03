@@ -4,6 +4,7 @@ using System.Collections;
 public class Breakout : MonoBehaviour, IGameTypeInterface
 {
     public Transform paddle;
+    public int score = 0;
 	// Use this for initialization
 	void Start () {
 
