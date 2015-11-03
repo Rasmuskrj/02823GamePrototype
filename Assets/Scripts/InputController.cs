@@ -16,6 +16,19 @@ public class InputController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "GameSet")
+            {
+                foreach (Transform subChild in child.transform)
+                {
+                    if (subChild.tag == "Game")
+                    {
+                        game = subChild.GetComponent<IGameTypeInterface>();
+                    }
+                }
+            }
+        }
     }
     void GameSetup(IGameTypeInterface[] gameRotation)
     {
@@ -40,9 +53,9 @@ public class InputController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Mathf.Abs(Input.GetAxis ("Horrizontal")) > 0.1f)
+	    if(Mathf.Abs(Input.GetAxis ("Horizontal")) > 0.1f)
         {
-            game.MoveX(Input.GetAxis("Horrizontal"));
+            game.MoveX(Input.GetAxis("Horizontal"));
             //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
         }
         if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
