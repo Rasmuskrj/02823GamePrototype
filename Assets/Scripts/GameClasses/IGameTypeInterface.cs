@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-interface IGameTypeInterface
+public interface IGameTypeInterface
 {
     void MoveX(float axisx);
     void MoveY(float axisy);
