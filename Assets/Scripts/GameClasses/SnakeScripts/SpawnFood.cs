@@ -12,7 +12,8 @@ public class SpawnFood : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Spawn food every 4 seconds, starting in 3
-        InvokeRepeating("SpawnSnakeFood", 3, 4);
+        // InvokeRepeating("SpawnSnakeFood", 3, 4);
+        SpawnSnakeFood();
     }
 
     void SpawnSnakeFood()
@@ -27,6 +28,10 @@ public class SpawnFood : MonoBehaviour {
     }
         // Update is called once per frame
     void Update () {
+        if (GameObject.Find("foodPrefab(Clone)") == null)
+        {
+            SpawnSnakeFood();
+        }
 	
 	}
 }

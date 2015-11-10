@@ -12,7 +12,10 @@ public class SnakeHead : MonoBehaviour {
     bool ate = false;
     public GameObject tailPrefab;
     protected bool paused;
-    int speed = 30;
+    public GameObject foodPrefab;
+    private NavMeshPath path;
+
+
 
 
 
@@ -21,19 +24,18 @@ public class SnakeHead : MonoBehaviour {
     void Start () {
        
         InvokeRepeating("move", 0.5f, 0.2f);
-       
+         
+
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-       
-
 
     }
+   
+   
     
-
-
 
 
 
@@ -67,6 +69,7 @@ public class SnakeHead : MonoBehaviour {
     void FixedUpdate()
     {
         controling();
+        
 
         
     }
@@ -96,13 +99,14 @@ public class SnakeHead : MonoBehaviour {
 
      void move() {
         Vector2 v = transform.position;
-
+       
         if (action)
         {
            transform.Translate(dir);
 
             if (ate)
             {
+                
                 // Load Prefab into the world
                 GameObject g = (GameObject)Instantiate(tailPrefab, v, Quaternion.identity);
 
@@ -127,6 +131,9 @@ public class SnakeHead : MonoBehaviour {
        
 
     }
+
+    
+
 
 
 }
