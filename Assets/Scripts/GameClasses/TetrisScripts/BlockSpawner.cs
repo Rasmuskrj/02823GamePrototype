@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BlockSpawner : MonoBehaviour {
+
+    public List<GameObject> SpawnableObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -12,4 +15,5 @@ public class BlockSpawner : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }
