@@ -74,16 +74,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
-        {
-            MoveX(Input.GetAxis("Horizontal"));
-            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
-        {
-            MoveY(Input.GetAxis("Vertical"));
-            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
-        }
 	}
 
     void drawBlock()
