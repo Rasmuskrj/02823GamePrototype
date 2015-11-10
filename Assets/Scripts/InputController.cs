@@ -3,64 +3,75 @@ using System.Collections;
 
 public class InputController : MonoBehaviour {
 
-    private IGameTypeInterface[] p1Games;
-    private IGameTypeInterface[] p2Games;
-    private IGameTypeInterface[] p3Games;
-    private IGameTypeInterface[] p4Games;
-    private int currentP1Game;
-    private int currentP2Game;
-    private int currentP3Game;
-    private int currentP4Game;
-    public IGameTypeInterface game;
+    private IGameTypeInterface p1Game;
+    private IGameTypeInterface p2Game;
+    private IGameTypeInterface p3Game;
+    private IGameTypeInterface p4Game;
 
 
     // Use this for initialization
     void Start () {
-        foreach (Transform child in transform)
+    }
+    public void GameSetup(IGameTypeInterface[] games)
+    {
+        switch (games.Length)
         {
-            if (child.tag == "GameSet")
-            {
-                foreach (Transform subChild in child.transform)
-                {
-                    if (subChild.tag == "Game")
-                    {
-                        game = subChild.GetComponent<IGameTypeInterface>();
-                    }
-                }
-            }
+            default:
+                p4Game = games[3];
+                goto case 3;
+            case 3:
+                p3Game = games[2];
+                goto case 2;
+            case 2:
+                p2Game = games[1];
+                goto case 1;
+            case 1:
+                p1Game = games[0];
+                break;
         }
-    }
-    void GameSetup(IGameTypeInterface[] gameRotation)
-    {
-        currentP1Game = 0;
-        currentP2Game = 0;
-        currentP3Game = 0;
-        currentP4Game = 0;
-        /*
-        assosiategames(p1Games, gameRotation[0], gameRotation[1], gameRotation[2], gameRotation[3]);
-        assosiategames(p2Games, gameRotation[0], gameRotation[1], gameRotation[2], gameRotation[3]);
-        assosiategames(p3Games, gameRotation[0], gameRotation[1], gameRotation[2], gameRotation[3]);
-        assosiategames(p4Games, gameRotation[0], gameRotation[1], gameRotation[2], gameRotation[3]);*/ //for later use
-    }
-    private void assosiategames(IGameTypeInterface[] games, IGameTypeInterface game1, IGameTypeInterface game2, IGameTypeInterface game3, IGameTypeInterface game4)
-    {
-        games = new IGameTypeInterface[4];
-        games[0] = game1;
-        games[1] = game2;
-        games[2] = game3;
-        games[3] = game4;
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Mathf.Abs(Input.GetAxis ("Horizontal")) > 0.1f)
+        if (Mathf.Abs(Input.GetAxis ("P1Horizontal")) > 0.1f)
         {
-            game.MoveX(Input.GetAxis("Horizontal"));
+            p1Game.MoveX(Input.GetAxis("P1Horizontal"));
+            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
+            
+        }
+        if (Mathf.Abs(Input.GetAxis("P1Vertical")) > 0.1f)
+        {
+            p1Game.MoveY(Input.GetAxis("P1Vertical"));
+            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("P2Horizontal")) > 0.1f)
+        {
+            p2Game.MoveX(Input.GetAxis("P2Horizontal"));
             //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
         }
-        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
+        if (Mathf.Abs(Input.GetAxis("P2Vertical")) > 0.1f)
         {
-            game.MoveY(Input.GetAxis("Vertical"));
+            p2Game.MoveY(Input.GetAxis("P2Vertical"));
+            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("P3Horizontal")) > 0.1f)
+        {
+            p3Game.MoveX(Input.GetAxis("P3Horizontal"));
+            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("P3Vertical")) > 0.1f)
+        {
+            p3Game.MoveY(Input.GetAxis("P3Vertical"));
+            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("P4Horizontal")) > 0.1f)
+        {
+            p4Game.MoveX(Input.GetAxis("P4Horizontal"));
+            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("P4Vertical")) > 0.1f)
+        {
+            p4Game.MoveY(Input.GetAxis("P4Vertical"));
             //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
         }
     }

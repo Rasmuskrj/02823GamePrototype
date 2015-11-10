@@ -16,8 +16,10 @@ public class BreakoutBlockSpawner : MonoBehaviour {
         {
             Transform newBlock;
             newBlock = Instantiate(BlockPrefab);
-            newBlock.position = new Vector3(-4.5f + i, 10.5f);
             newBlock.parent = gameObject.transform;
+            newBlock.localPosition = new Vector3(-4.5f + i, 10.5f);
+            
+            
         }
     }
     void DecentLine()
