@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TetrisController : MonoBehaviour {
+public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
     public struct mapVal
     {
@@ -59,22 +59,31 @@ public class TetrisController : MonoBehaviour {
     private void CreateWalls()
     {
         GameObject leftWall = Instantiate(cube) as GameObject;
-        leftWall.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y + mapHeight/2, 0);
+        leftWall.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + mapHeight/2, 0);
         leftWall.transform.localScale += new Vector3(0, mapHeight + 2, 0);
         GameObject rightWall = Instantiate(cube) as GameObject;
-        rightWall.transform.position = new Vector3(gameObject.transform.position.x + mapWidth + 1, gameObject.transform.position.y + mapHeight/2, 0);
+        rightWall.transform.position = new Vector3(gameObject.transform.position.x + mapWidth, gameObject.transform.position.y + mapHeight/2, 0);
         rightWall.transform.localScale += new Vector3(0, mapHeight + 2, 0);
         GameObject topWall = Instantiate(cube) as GameObject;
         topWall.transform.position = new Vector3(gameObject.transform.position.x + mapWidth/2, gameObject.transform.position.y + mapHeight + 1, 0);
-        topWall.transform.localScale += new Vector3(mapWidth + 2, 0, 0);
+        topWall.transform.localScale += new Vector3(mapWidth, 0, 0);
         GameObject botWall = Instantiate(cube) as GameObject;
         botWall.transform.position = new Vector3(gameObject.transform.position.x + mapWidth/2, gameObject.transform.position.y - 1, 0);
-        botWall.transform.localScale += new Vector3(mapWidth + 2, 0, 0);
+        botWall.transform.localScale += new Vector3(mapWidth, 0, 0);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+        {
+            MoveX(Input.GetAxis("Horizontal"));
+            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
+        }
+        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
+        {
+            MoveY(Input.GetAxis("Vertical"));
+            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
+        }
 	}
 
     void drawBlock()
@@ -97,11 +106,16 @@ public class TetrisController : MonoBehaviour {
         }
         moveBlock();
         drawBlock();
+        drawMap();
+    }
+
+    private void drawMap()
+    {
         for (int i = 0; i < mapWidth; i++)
         {
             for (int j = 0; j < mapHeight; j++)
             {
-                if (tetris2DMap[i,j].cubeInPos && !tetris2DMap[i,j].cubeDrawn)
+                if (tetris2DMap[i, j].cubeInPos && !tetris2DMap[i, j].cubeDrawn)
                 {
                     float posX = gameObject.transform.position.x + i;
                     float posY = gameObject.transform.position.y + j;
@@ -117,15 +131,24 @@ public class TetrisController : MonoBehaviour {
     {
         bool willCollide = false;
         List<TetrisBlock.CoOrd> lowestCoOrds = activeBlock.GetLowestYCoOrds();
-        for (int i = 0; i < lowestCoOrds.Count; i++)
+        TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
+
+        for (int i = 0; i < coords.Length; i++)
         {
-            if (lowestCoOrds[i].yCord <= 0 || tetris2DMap[lowestCoOrds[i].xCord, lowestCoOrds[i].yCord - 1].cubeInPos )
+            if (coords[i].yCord <= 0 || (tetris2DMap[coords[i].xCord, coords[i].yCord - 1].cubeInPos && !activeBlock.CheckIfCoOrdInBlock(new TetrisBlock.CoOrd(coords[i].xCord, coords[i].yCord - 1))))
             {
                 willCollide = true;
             }
         }
+
+        /*for (int i = 0; i < lowestCoOrds.Count; i++)
+        {
+            if (lowestCoOrds[i].yCord <= 0 || tetris2DMap[lowestCoOrds[i].xCord, lowestCoOrds[i].yCord - 1].cubeInPos)
+            {
+                willCollide = true;
+            }
+        }*/
         if (!willCollide) {
-            TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
             for (int i = 0; i < coords.Length; i++)
             {
                 Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
@@ -147,5 +170,42 @@ public class TetrisController : MonoBehaviour {
         activeBlock = new TetrisBlock();
         activeBlock.pos = new TetrisBlock.CoOrd(5, 20);
         activeBlock.CalculateAdditionalPos();
+    }
+
+    public void MoveX(float axisx)
+    {
+        if (activeBlock != null)
+        {
+            int offset = axisx < 0 ? -1 : 1;
+            bool limitCheck = false;
+            if (offset == -1)
+            {
+                limitCheck = activeBlock.CheckOutOfBounds(0, true);
+            }
+            else
+            {
+                limitCheck = activeBlock.CheckOutOfBounds(mapWidth, false);
+            }
+            if (limitCheck)
+            {
+                TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
+                for (int i = 0; i < coords.Length; i++)
+                {
+                    Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
+                }
+                activeBlock.pos = new TetrisBlock.CoOrd(activeBlock.pos.xCord + offset, activeBlock.pos.yCord);
+                activeBlock.CalculateAdditionalPos();
+                drawBlock();
+                drawMap();
+            }
+        }
+    }
+
+    public void MoveY(float axisy)
+    {
+        
     }
 }

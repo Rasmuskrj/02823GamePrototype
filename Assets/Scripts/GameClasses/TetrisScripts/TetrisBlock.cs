@@ -68,6 +68,45 @@ public class TetrisBlock {
         return returnArr;
     }
 
+    public bool CheckOutOfBounds(int limit, bool left)
+    {
+        for (int i = 0; i < additionalPos.Length; i++)
+        {
+            if(left){
+                if (additionalPos[i].xCord - 1 <= limit)
+                {
+                    //Debug.Log(additionalPos[i].xCord - 1 > limit);
+                    return false;
+                }
+            }
+            else
+            {
+                if (additionalPos[i].xCord + 1 >= limit)
+                {
+                    //Debug.Log(additionalPos[i].xCord - 1 > limit);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public bool CheckIfCoOrdInBlock(CoOrd coord)
+    {
+        if (pos.xCord == coord.xCord && pos.yCord == coord.yCord)
+        {
+            return true;
+        }
+        for (int i = 0; i < additionalPos.Length; i++)
+        {
+            if (additionalPos[i].xCord == coord.xCord && additionalPos[i].yCord == coord.yCord)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void GetOffsets()
     {
         int selector = Random.Range(0, 4);
