@@ -15,8 +15,8 @@ public class TriggerScript : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnTriggerEnter(Collider collider)
+    /*void OnTriggerEnter(Collider collider)
     {
         ball.DoOnTrigger(gameObject);
-    }
+    }*/
 }
