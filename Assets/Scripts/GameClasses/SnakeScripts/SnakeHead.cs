@@ -13,7 +13,7 @@ public class SnakeHead : MonoBehaviour {
     public GameObject tailPrefab;
     protected bool paused;
     public GameObject foodPrefab;
-    
+    public Camera cam;
 
 
 

@@ -16,7 +16,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             cube = null;
         }
     }
-
+    public Camera cam;
     public TetrisBlock activeBlock;
     public int mapWidth = 10;
     public int mapHeight = 60;
@@ -197,5 +197,9 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public void MoveY(float axisy)
     {
         
+    }
+    public void SetCamera(Rect rect)
+    {
+        cam.rect = rect;
     }
 }

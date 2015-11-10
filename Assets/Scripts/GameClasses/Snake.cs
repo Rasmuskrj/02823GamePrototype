@@ -5,8 +5,9 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 {
     public Vector2 dir = Vector2.right;
     public SnakeHead snakeHead;
-	// Use this for initialization
-	void Start () {
+    public Camera cam;
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -45,5 +46,9 @@ public class Snake : MonoBehaviour, IGameTypeInterface
         }
             
 
+    }
+    public void SetCamera(Rect rect)
+    {
+        cam.rect = rect;
     }
 }

@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Tetris : MonoBehaviour, IGameTypeInterface
 {
-
-	// Use this for initialization
-	void Start () {
+    public Camera cam;
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -20,5 +20,9 @@ public class Tetris : MonoBehaviour, IGameTypeInterface
     public void MoveY(float axisy)
     {
 
+    }
+    public void SetCamera(Rect rect)
+    {
+        cam.rect = rect;
     }
 }
