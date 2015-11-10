@@ -9,22 +9,21 @@ public class BallSpawner : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        LaunchBall(1);
+        LaunchBall();
     }
-    void LaunchBall(int player)
+    public void LaunchBall()
     {
         Vector3 offset;
         Transform newball;
-
+        
         offset = new Vector3(0f, 1f, 0f);
         newball = Instantiate(ballprefab);
-        newball.position = player2.position + offset;
+        newball.localPosition = player2.position + offset;
         newball.rotation = Quaternion.identity;
-        newball.parent = player2;
+        newball.parent = transform;
 
         Vector2 offset2D = new Vector2(offset.x, offset.y);
         new WaitForSeconds(2);
-        newball.parent = null;
         newball.GetComponent<Rigidbody2D>().AddForce(offset2D * initialspeed);
     }
     // Update is called once per frame

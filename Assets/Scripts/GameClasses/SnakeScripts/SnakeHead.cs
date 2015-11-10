@@ -13,8 +13,7 @@ public class SnakeHead : MonoBehaviour {
     public GameObject tailPrefab;
     protected bool paused;
     public GameObject foodPrefab;
-    private NavMeshPath path;
-
+    
 
 
 
@@ -40,20 +39,25 @@ public class SnakeHead : MonoBehaviour {
 
 
 
-    private Vector2 controling()
-    {
+   //private Vector2 controling()
+   // {
         
   
-            if (Input.GetKey(KeyCode.RightArrow) && dir!=Vector2.left)
-                dir = Vector2.right;
-            else if (Input.GetKey(KeyCode.LeftArrow) && dir != Vector2.right)
-                dir = -Vector2.right; // '-right' means 'left'
-            else if (Input.GetKey(KeyCode.UpArrow) && dir != -Vector2.up)
-                dir = Vector2.up;
-            else if (Input.GetKey(KeyCode.DownArrow) && dir != Vector2.up)
-                dir = -Vector2.up;    // '-up' means 'down'
+   //        if (Input.GetKey(KeyCode.RightArrow) && dir!=Vector2.left)
+   //             dir = Vector2.right;
+   //        else if (Input.GetKey(KeyCode.LeftArrow) && dir != Vector2.right)
+   //          dir = -Vector2.right; // '-right' means 'left'
+   //         else if (Input.GetKey(KeyCode.UpArrow) && dir != -Vector2.up)
+   //             dir = Vector2.up;
+   //         else if (Input.GetKey(KeyCode.DownArrow) && dir != Vector2.up)
+   //             dir = -Vector2.up;    // '-up' means 'down'
       
-        return dir;
+   //     return dir;
+   // }
+
+    public void SetDir(Vector2 newDir)
+    {
+        dir = newDir;
     }
 
     void OnPauseGame()
@@ -68,7 +72,7 @@ public class SnakeHead : MonoBehaviour {
 
     void FixedUpdate()
     {
-        controling();
+        //controling();
         
 
         

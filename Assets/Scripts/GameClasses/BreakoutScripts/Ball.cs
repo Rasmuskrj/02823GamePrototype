@@ -19,7 +19,11 @@ public class Ball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (transform.localPosition.y < -11)
+        {
+            gameObject.GetComponentInParent<BallSpawner>().LaunchBall();
+            Destroy(gameObject);
+        }
 	}
     void FixedUpdate()
     {
