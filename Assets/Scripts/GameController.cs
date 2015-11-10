@@ -16,8 +16,8 @@ public class GameController : MonoBehaviour {
     void Start () {
         inputController.GameSetup(new IGameTypeInterface[] {MakeGame(Breakout, gamePos1),
                                                             MakeGame(Breakout, gamePos2),
-                                                            MakeGame(Breakout, gamePos3),
-                                                            MakeGame(Breakout, gamePos4) });
+                                                            MakeGame(Snake, gamePos3),
+                                                            MakeGame(Snake, gamePos4) });
 	}
     IGameTypeInterface MakeGame(Transform game, Vector2 pos)
     {

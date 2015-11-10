@@ -16,20 +16,34 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 	}
     public void MoveX(float axisx)
     {
+        Debug.Log(axisx);
 
         if (axisx > 0.5f && dir != Vector2.left)
+        {
             dir = Vector2.right;
-        else if (axisx<0.5f && dir != Vector2.right)
+            snakeHead.SetDir(dir);
+        }
+        else if (axisx<-0.5f && dir != Vector2.right)
+        {
             dir = -Vector2.right; // '-right' means 'left'
-        snakeHead.SetDir(dir);
+            snakeHead.SetDir(dir);
+        }
+            
+            
         }
     public void MoveY(float axisy)
     {
         if (axisy > 0.5f && dir != -Vector2.up)
+        {
             dir = Vector2.up;
-        else if (axisy<0.5f && dir != Vector2.up)
+            snakeHead.SetDir(dir);
+        }
+        else if (axisy<-0.5f && dir != Vector2.up)
+        {
             dir = -Vector2.up;    // '-up' means 'down'
-        snakeHead.SetDir(dir);
+            snakeHead.SetDir(dir);
+        }
+            
 
     }
 }
