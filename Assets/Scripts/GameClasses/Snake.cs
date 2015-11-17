@@ -57,7 +57,7 @@ public class Snake : MonoBehaviour, IGameTypeInterface
         cam.rect = rect;
     }
 
-    public void InceaseDifficulty()
+    public void IncreaseDifficulty()
     {
         
     }

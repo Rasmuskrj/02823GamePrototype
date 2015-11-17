@@ -41,7 +41,7 @@ public class Ball : MonoBehaviour {
         }
         rb.velocity = rb.velocity.normalized * mag;
     }
-    public void InceaseMag()
+    public void IncreaseMag()
     {
         mag++;
     }

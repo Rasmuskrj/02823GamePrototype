@@ -8,6 +8,6 @@ public interface IGameTypeInterface
     void MoveY(float axisy);
     void MoveXRaw(float axisy);
     void MoveYRaw(float axisy);
-    void InceaseDifficulty();
+    void IncreaseDifficulty();
 
 }

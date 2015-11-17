@@ -26,7 +26,7 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
     {
         cam.rect = rect;
     }
-    public void InceaseDifficulty()
+    public void IncreaseDifficulty()
     {
 
     }

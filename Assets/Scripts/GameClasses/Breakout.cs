@@ -7,6 +7,7 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public int score = 0;
     public Camera cam;
     public Ball ball;
+    public bool isAI;
 	// Use this for initialization
 	void Start () {
 
@@ -14,7 +15,7 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
 	}
     public void MoveX(float axisx)
     {
@@ -32,8 +33,8 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     {
         cam.rect = rect;
     }
-    public void InceaseDifficulty()
+    public void IncreaseDifficulty()
     {
-        ball.InceaseMag();
+        ball.IncreaseMag();
     }
 }

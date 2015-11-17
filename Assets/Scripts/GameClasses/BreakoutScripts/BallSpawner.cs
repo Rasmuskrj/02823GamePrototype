@@ -25,7 +25,7 @@ public class BallSpawner : MonoBehaviour {
         Vector2 offset2D = new Vector2(offset.x, offset.y);
         new WaitForSeconds(2);
         newball.GetComponent<Rigidbody2D>().AddForce(offset2D * initialspeed);
-        breakout.ball = newball.GetComponent<Ball>();
+        breakout.ball = newball.gameObject.GetComponent<Ball>();
     }
     // Update is called once per frame
     void Update () {
