@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour {
     }
     public void IncreaseMag()
     {
-        mag++;
+        mag*=1.1f;
     }
     /*public void DoOnTrigger (GameObject other)
     {

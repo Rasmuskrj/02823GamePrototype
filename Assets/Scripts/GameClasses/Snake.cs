@@ -6,6 +6,8 @@ public class Snake : MonoBehaviour, IGameTypeInterface
     public Vector2 dir = Vector2.right;
     public SnakeHead snakeHead;
     public Camera cam;
+    public uint gameID;
+    public GameController gameController;
     // Use this for initialization
     void Start () {
 	
@@ -15,6 +17,14 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	
 	}
+    public void SetGameID(uint ID)
+    {
+        gameID = ID;
+    }
+    public void SetGameController(GameController gameCtrl)
+    {
+        gameController = gameCtrl;
+    }
     public void MoveX(float axisx)
     {
 
@@ -60,5 +70,9 @@ public class Snake : MonoBehaviour, IGameTypeInterface
     public void IncreaseDifficulty()
     {
         
+    }
+    public void IncreaseDifficultyOnOther()
+    {
+        gameController.IncreaseDifficulty(gameID);
     }
 }
