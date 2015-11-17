@@ -31,6 +31,6 @@ public class BreakoutBlockSpawner : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-	
+
 	}
 }
