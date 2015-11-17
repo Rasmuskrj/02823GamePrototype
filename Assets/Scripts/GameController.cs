@@ -8,12 +8,14 @@ public class GameController : MonoBehaviour {
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-50, 50), new Vector2(50, 50), new Vector2(-50, -50), new Vector2(50, -50) };
     private IGameTypeInterface[] game;
-    
+
 
     // Use this for initialization
-    void Start () {
-
-        Initializegames(new Transform[2] { Breakout, Tetris });
+    void Start() {
+        Transform[] gamesToSetup = new Transform[2];
+        gamesToSetup[0] = Breakout;
+        gamesToSetup[1] = Tetris; 
+        Initializegames(gamesToSetup);
 
         inputController.GameSetup(game);
         

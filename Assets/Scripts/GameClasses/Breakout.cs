@@ -29,9 +29,9 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     }
     public void MoveX(float axisx)
     {
-        
+        Debug.Log(paddle.transform.position.x);
         paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
-
+        Debug.Log(paddle.transform.position.x);
     }
     public void MoveY(float axisy)
     {
