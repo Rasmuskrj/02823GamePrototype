@@ -17,7 +17,6 @@ public class ScaleableInputController : MonoBehaviour {
     public void GameSetup(IGameTypeInterface[] games)
     {
         game = games;
-        game1 = games[0];
     }
 	
 	// Update is called once per frame

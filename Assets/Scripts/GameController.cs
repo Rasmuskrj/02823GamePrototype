@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
-            game[0] = MakeGame(games[i], gamePos[i], campos[i], 1);
+            game[i] = MakeGame(games[i], gamePos[i], campos[i], 1);
         }
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
@@ -68,6 +68,5 @@ public class GameController : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        game[0].MoveX(-10f);
     }
 }
