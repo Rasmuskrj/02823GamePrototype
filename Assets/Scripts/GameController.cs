@@ -19,9 +19,9 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         game1 = MakeGame(Breakout, gamePos1, new Rect(0.0f,0.5f,0.5f,0.5f));
-        game2 = MakeGame(Snake, gamePos2, new Rect(0.5f, 0.5f, 0.5f, 0.5f));
-        game3 = MakeGame(Tetris, gamePos3, new Rect(0.0f, 0.0f, 0.5f, 0.5f));
-        game4 = MakeGame(Tetris, gamePos4, new Rect(0.5f, 0.0f, 0.5f, 0.5f));
+        game2 = MakeGame(Breakout, gamePos2, new Rect(0.5f, 0.5f, 0.5f, 0.5f));
+        game3 = MakeGame(Breakout, gamePos3, new Rect(0.0f, 0.0f, 0.5f, 0.5f));
+        game4 = MakeGame(Breakout, gamePos4, new Rect(0.5f, 0.0f, 0.5f, 0.5f));
 
         inputController.GameSetup(new IGameTypeInterface[] {game1, game2, game3, game4});
 	}

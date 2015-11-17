@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Breakout : MonoBehaviour, IGameTypeInterface
 {
-    public Transform paddle;
+    public GameObject paddle;
     public int score = 0;
     public Camera cam;
 	// Use this for initialization
@@ -18,9 +18,8 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public void MoveX(float axisx)
     {
         
-        paddle.localPosition = new Vector3(Mathf.Clamp(paddle.localPosition.x + axisx, -300.5f, 300.5f), -10.0f, 0.0f);
-        Debug.Log(paddle.localPosition.x);
-        Debug.Log(paddle.position.x);
+        paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
+
     }
     public void MoveY(float axisy)
     {
@@ -29,5 +28,9 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public void SetCamera(Rect rect)
     {
         cam.rect = rect;
+    }
+    public void InceaseDifficulty()
+    {
+
     }
 }
