@@ -20,6 +20,8 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
     {
 
     }
+    public void MoveXRaw(float axisx){   }
+    public void MoveYRaw(float axisy) {    }
     public void SetCamera(Rect rect)
     {
         cam.rect = rect;
