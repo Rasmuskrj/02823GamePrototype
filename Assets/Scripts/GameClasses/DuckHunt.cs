@@ -3,6 +3,9 @@ using System.Collections;
 
 public class DuckHunt : MonoBehaviour, IGameTypeInterface {
     public Camera cam;
+    public uint gameID;
+    public GameController gameController;
+    
     // Use this for initialization
     void Start () {
 	
@@ -12,6 +15,14 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
 	void Update () {
 	
 	}
+    public void SetGameID(uint ID)
+    {
+        gameID = ID;
+    }
+    public void SetGameController(GameController gameCtrl)
+    {
+        gameController = gameCtrl;
+    }
     public void MoveX(float axisx)
     {
 
@@ -29,5 +40,9 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
     public void IncreaseDifficulty()
     {
 
+    }
+    public void IncreaseDifficultyOnOther()
+    {
+        gameController.IncreaseDifficulty(gameID);
     }
 }

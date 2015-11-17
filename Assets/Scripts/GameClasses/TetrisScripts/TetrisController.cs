@@ -25,19 +25,9 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public GameObject cube;
     public mapVal[,] tetris2DMap;
     public float updateTime = 0.5f;
-
-
-    public static TetrisController Instance
-    {
-        get;
-        private set;
-    }
-
-    void Awake()
-    {
-        Instance = this;
-        
-    }
+    public uint gameID;
+    public GameController gameController;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -58,7 +48,11 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         
 
 	}
-
+    
+    public void SetGameID(uint ID)
+    {
+        gameID = ID;
+    }
     private void CreateWalls()
     {
         GameObject leftWall = Instantiate(cube) as GameObject;
@@ -78,7 +72,10 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 	// Update is called once per frame
 	void Update () {
 	}
-
+    public void SetGameController(GameController gameCtrl)
+    {
+        gameController = gameCtrl;
+    }
     void drawBlock()
     {
         if (activeBlock != null)
@@ -315,5 +312,9 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         CancelInvoke("UpdateGame");
         updateTime += 0.1f;
         InvokeRepeating("UpdateGame", 0, updateTime);
+    }
+    public void IncreaseDifficultyOnOther()
+    {
+        gameController.IncreaseDifficulty(gameID);
     }
 }
