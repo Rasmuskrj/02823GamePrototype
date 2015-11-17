@@ -5,7 +5,7 @@ public class BallSpawner : MonoBehaviour {
     public Transform ballprefab;
     public float initialspeed = 1.0f;
     public Transform player2;
-
+    public Breakout breakout;
     // Use this for initialization
     void Start()
     {
@@ -25,6 +25,7 @@ public class BallSpawner : MonoBehaviour {
         Vector2 offset2D = new Vector2(offset.x, offset.y);
         new WaitForSeconds(2);
         newball.GetComponent<Rigidbody2D>().AddForce(offset2D * initialspeed);
+        breakout.ball = newball.GetComponent<Ball>();
     }
     // Update is called once per frame
     void Update () {

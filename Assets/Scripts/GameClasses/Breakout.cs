@@ -6,6 +6,7 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public GameObject paddle;
     public int score = 0;
     public Camera cam;
+    public Ball ball;
 	// Use this for initialization
 	void Start () {
 
@@ -31,6 +32,6 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     }
     public void InceaseDifficulty()
     {
-
+        ball.InceaseMag();
     }
 }
