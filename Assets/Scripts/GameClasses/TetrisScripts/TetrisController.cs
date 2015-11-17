@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class TetrisController : MonoBehaviour, IGameTypeInterface {
-
+    
+    [System.Serializable]
     public struct mapVal
     {
         public bool cubeInPos;
@@ -21,7 +23,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public int mapWidth = 10;
     public int mapHeight = 60;
     public GameObject cube;
-    private mapVal[,] tetris2DMap;
+    public mapVal[,] tetris2DMap;
 
 
     public static TetrisController Instance
@@ -59,7 +61,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     private void CreateWalls()
     {
         GameObject leftWall = Instantiate(cube) as GameObject;
-        leftWall.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + mapHeight/2, 0);
+        leftWall.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y + mapHeight/2, 0);
         leftWall.transform.localScale += new Vector3(0, mapHeight + 2, 0);
         GameObject rightWall = Instantiate(cube) as GameObject;
         rightWall.transform.position = new Vector3(gameObject.transform.position.x + mapWidth, gameObject.transform.position.y + mapHeight/2, 0);
@@ -119,39 +121,38 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
     void moveBlock()
     {
-        bool willCollide = false;
-        List<TetrisBlock.CoOrd> lowestCoOrds = activeBlock.GetLowestYCoOrds();
-        TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
-
-        for (int i = 0; i < coords.Length; i++)
+        if (activeBlock != null)
         {
-            if (coords[i].yCord <= 0 || (tetris2DMap[coords[i].xCord, coords[i].yCord - 1].cubeInPos && !activeBlock.CheckIfCoOrdInBlock(new TetrisBlock.CoOrd(coords[i].xCord, coords[i].yCord - 1))))
-            {
-                willCollide = true;
-            }
-        }
+            bool willCollide = false;
+            List<TetrisBlock.CoOrd> lowestCoOrds = activeBlock.GetLowestYCoOrds();
+            TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
 
-        /*for (int i = 0; i < lowestCoOrds.Count; i++)
-        {
-            if (lowestCoOrds[i].yCord <= 0 || tetris2DMap[lowestCoOrds[i].xCord, lowestCoOrds[i].yCord - 1].cubeInPos)
-            {
-                willCollide = true;
-            }
-        }*/
-        if (!willCollide) {
             for (int i = 0; i < coords.Length; i++)
             {
-                Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
-                tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
-                tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
-                tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
+                if (coords[i].yCord <= 0 || (tetris2DMap[coords[i].xCord, coords[i].yCord - 1].cubeInPos && !activeBlock.CheckIfCoOrdInBlock(new TetrisBlock.CoOrd(coords[i].xCord, coords[i].yCord - 1))))
+                {
+                    willCollide = true;
+                }
             }
-            activeBlock.pos.yCord--;
-            activeBlock.CalculateAdditionalPos();
-        }
-        else
-        {
-            activeBlock = null;
+
+            if (!willCollide)
+            {
+                for (int i = 0; i < coords.Length; i++)
+                {
+                    Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
+                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
+                }
+                activeBlock.pos.yCord--;
+                activeBlock.CalculateAdditionalPos();
+            }
+            else
+            {
+                Debug.Log("active block set to null");
+                while (checkCompletedLines()) ;
+                activeBlock = null;
+            }
         }
     }
 
@@ -170,22 +171,15 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             bool limitCheck = false;
             if (offset == -1)
             {
-                limitCheck = activeBlock.CheckOutOfBounds(0, true);
+                limitCheck = activeBlock.CheckOutOfBounds(0, true, tetris2DMap);
             }
             else
             {
-                limitCheck = activeBlock.CheckOutOfBounds(mapWidth, false);
+                limitCheck = activeBlock.CheckOutOfBounds(mapWidth, false, tetris2DMap);
             }
             if (limitCheck)
             {
-                TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
-                for (int i = 0; i < coords.Length; i++)
-                {
-                    Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
-                }
+                DestroyActiveBlock();
                 activeBlock.pos = new TetrisBlock.CoOrd(activeBlock.pos.xCord + offset, activeBlock.pos.yCord);
                 activeBlock.CalculateAdditionalPos();
                 drawBlock();
@@ -194,9 +188,110 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         }
     }
 
+    public bool checkCompletedLines()
+    {
+        for (int i = 0; i < tetris2DMap.GetLength(1); i++)
+        {
+            for (int j = 0; j < tetris2DMap.GetLength(0); j++)
+            {
+                if (!tetris2DMap[j, i].cubeInPos)
+                {
+                    //Debug.Log("Broke at " + j + "," + i);
+                    break;
+                }
+                else if (j == tetris2DMap.GetLength(0) - 1)
+                {
+                    Debug.Log("FULL LINE");
+                    for (int k = 0; k <= i; k++)
+                    {
+                        for (int u = 0; u < tetris2DMap.GetLength(0); u++)
+                        {
+                            if (k == i)
+                            {
+                                Destroy(tetris2DMap[u, k].cube);
+                                tetris2DMap[u, k].cube = null;
+                                tetris2DMap[u, k].cubeInPos = false;
+                                tetris2DMap[u, k].cubeDrawn = false;
+                            }
+                        }
+                    }
+                    for (int k = 0; k < tetris2DMap.GetLength(1); k++)
+                    {
+                        for (int u = 0; u < tetris2DMap.GetLength(0); u++)
+                        {
+                            if (k >= i)
+                            {
+                                if (k == tetris2DMap.GetLength(1) - 1 || tetris2DMap[u, k].cubeInPos && !tetris2DMap[u, k + 1].cubeInPos)
+                                {
+                                    Destroy(tetris2DMap[u, k].cube);
+                                    tetris2DMap[u, k].cube = null;
+                                    tetris2DMap[u, k].cubeInPos = false;
+                                    tetris2DMap[u, k].cubeDrawn = false;
+                                }
+                                else if (!tetris2DMap[u, k].cubeInPos && tetris2DMap[u, k + 1].cubeInPos)
+                                {
+                                    tetris2DMap[u, k].cubeInPos = true;
+                                    float posX = gameObject.transform.position.x + u;
+                                    float posY = gameObject.transform.position.y + k;
+                                    Debug.Log("Drawing in: " + posX + ", " + posY);
+                                    GameObject thisCube = Instantiate(cube, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
+                                    tetris2DMap[u, k].cubeDrawn = true;
+                                    tetris2DMap[u, k].cube = thisCube;
+                                }
+                            }
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+        string debugString = "";
+        for (int i = 0; i < tetris2DMap.GetLength(1); i++)
+        {
+            for (int j = 0; j < tetris2DMap.GetLength(0); j++)
+            {
+                if (tetris2DMap[j, i].cubeInPos)
+                {
+                    debugString += "1 ";
+                } else {
+                    debugString += "0 ";
+                }
+            }
+            debugString += "\n";
+        }
+        Debug.Log(debugString);
+        return false;
+    }
+
+    private void DestroyActiveBlock()
+    {
+        TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
+        for (int i = 0; i < coords.Length; i++)
+        {
+            Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
+            tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
+            tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
+            tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
+        }
+    }
+
     public void MoveY(float axisy)
     {
-        
+        int offset = axisy < 0 ? -1 : 1;
+        if (offset == 1)
+        {
+            activeBlock.RotateBlock(mapWidth, tetris2DMap);
+            DestroyActiveBlock();
+            activeBlock.CalculateAdditionalPos();
+            drawBlock();
+            drawMap();
+        }
+        else
+        {
+            moveBlock();
+            drawBlock();
+            drawMap();
+        }
     }
     public void SetCamera(Rect rect)
     {
