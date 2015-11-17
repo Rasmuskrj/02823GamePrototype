@@ -41,6 +41,10 @@ public class Ball : MonoBehaviour {
         }
         rb.velocity = rb.velocity.normalized * mag;
     }
+    public void InceaseMag()
+    {
+        mag++;
+    }
     /*public void DoOnTrigger (GameObject other)
     {
         //Debug.Log("WHAT IS WRONG WITH YOU");
