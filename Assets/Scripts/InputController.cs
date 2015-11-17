@@ -8,6 +8,15 @@ public class InputController : MonoBehaviour {
     private IGameTypeInterface p3Game;
     private IGameTypeInterface p4Game;
 
+    private bool p1x_isAxisInUse = false;
+    private bool p1y_isAxisInUse = false;
+    private bool p2x_isAxisInUse = false;
+    private bool p2y_isAxisInUse = false;
+    private bool p3x_isAxisInUse = false;
+    private bool p3y_isAxisInUse = false;
+    private bool p4x_isAxisInUse = false;
+    private bool p4y_isAxisInUse = false;
+
 
     // Use this for initialization
     void Start () {
@@ -33,46 +42,21 @@ public class InputController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Mathf.Abs(Input.GetAxis ("P1Horizontal")) > 0.1f)
-        {
-            p1Game.MoveX(Input.GetAxis("P1Horizontal"));
-            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
-            
-        }
-        if (Mathf.Abs(Input.GetAxis("P1Vertical")) > 0.1f)
-        {
-            p1Game.MoveY(Input.GetAxis("P1Vertical"));
-            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P2Horizontal")) > 0.1f)
-        {
-            p2Game.MoveX(Input.GetAxis("P2Horizontal"));
-            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P2Vertical")) > 0.1f)
-        {
-            p2Game.MoveY(Input.GetAxis("P2Vertical"));
-            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P3Horizontal")) > 0.1f)
-        {
-            p3Game.MoveX(Input.GetAxis("P3Horizontal"));
-            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P3Vertical")) > 0.1f)
-        {
-            p3Game.MoveY(Input.GetAxis("P3Vertical"));
-            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P4Horizontal")) > 0.1f)
-        {
-            p4Game.MoveX(Input.GetAxis("P4Horizontal"));
-            //p1Games[currentP1Game].MoveX(Input.GetAxis("Horrizontal")); //for later use
-        }
-        if (Mathf.Abs(Input.GetAxis("P4Vertical")) > 0.1f)
-        {
-            p4Game.MoveY(Input.GetAxis("P4Vertical"));
-            //p1Games[currentP1Game].MoveY(Input.GetAxis("Vertical")); // for later use
-        }
+        if (Input.GetAxisRaw("P1Horizontal") != 0) { p1Game.MoveX(Input.GetAxis("P1Horizontal")); if (p1x_isAxisInUse == false) { p1x_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p1x_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P1Vertical") != 0) { p1Game.MoveY(Input.GetAxis("P1Vertical")); if (p1x_isAxisInUse == false) { p1y_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p1y_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P2Horizontal") != 0) { p2Game.MoveX(Input.GetAxis("P2Horizontal")); if (p1x_isAxisInUse == false) { p2x_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p2x_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P2Vertical") != 0) { p2Game.MoveY(Input.GetAxis("P2Vertical")); if (p1x_isAxisInUse == false) { p2y_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p2y_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P3Horizontal") != 0) { p3Game.MoveX(Input.GetAxis("P3Horizontal")); if (p1x_isAxisInUse == false) { p3x_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p3x_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P3Vertical") != 0) { p3Game.MoveY(Input.GetAxis("P3Vertical")); if (p1x_isAxisInUse == false) { p3y_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p3y_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P4Horizontal") != 0) { p4Game.MoveX(Input.GetAxis("P4Horizontal")); if (p1x_isAxisInUse == false) { p4x_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p4x_isAxisInUse = false; }
+        if (Input.GetAxisRaw("P4Vertical") != 0) { p4Game.MoveY(Input.GetAxis("P4Vertical")); if (p1x_isAxisInUse == false) { p4y_isAxisInUse = true; p1Game.MoveXRaw(Input.GetAxisRaw("P1Horizontal")); } }
+        else { p4y_isAxisInUse = false; }
     }
 }
