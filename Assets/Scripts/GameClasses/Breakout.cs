@@ -8,6 +8,8 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public Camera cam;
     public Ball ball;
     public bool isAI;
+    public uint gameID;
+    public GameController gameController;
 	// Use this for initialization
 	void Start () {
 
@@ -17,6 +19,14 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
 	}
+    public void SetGameID(uint ID)
+    {
+        gameID = ID;
+    }
+    public void SetGameController(GameController gameCtrl)
+    {
+        gameController = gameCtrl;
+    }
     public void MoveX(float axisx)
     {
         
@@ -36,5 +46,9 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public void IncreaseDifficulty()
     {
         ball.IncreaseMag();
+    }
+    public void IncreaseDifficultyOnOther()
+    {
+        gameController.IncreaseDifficulty(gameID);
     }
 }

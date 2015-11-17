@@ -9,5 +9,6 @@ public interface IGameTypeInterface
     void MoveXRaw(float axisy);
     void MoveYRaw(float axisy);
     void IncreaseDifficulty();
-
+    void SetGameID(uint ID);
+    void SetGameController(GameController gameCtrl);
 }
