@@ -24,6 +24,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public int mapHeight = 60;
     public GameObject cube;
     public mapVal[,] tetris2DMap;
+    public float updateTime = 0.5f;
 
 
     public static TetrisController Instance
@@ -53,7 +54,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
 
 
-        InvokeRepeating("UpdateGame",0, 0.5f);
+        InvokeRepeating("UpdateGame", 0, updateTime);
         
 
 	}
@@ -163,7 +164,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         activeBlock.CalculateAdditionalPos();
     }
 
-    public void MoveX(float axisx)
+    public void MoveXRaw(float axisx)
     {
         if (activeBlock != null)
         {
@@ -186,6 +187,11 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                 drawMap();
             }
         }
+    }
+
+    public void MoveX(float axisx)
+    {
+
     }
 
     public bool checkCompletedLines()
@@ -275,7 +281,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         }
     }
 
-    public void MoveY(float axisy)
+    public void MoveYRaw(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
         if (offset == 1)
@@ -293,8 +299,21 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             drawMap();
         }
     }
+
+    public void MoveY(float axisy)
+    {
+
+    }
+
     public void SetCamera(Rect rect)
     {
         cam.rect = rect;
+    }
+
+    public void IncreaseDifficulty()
+    {
+        CancelInvoke("UpdateGame");
+        updateTime += 0.1f;
+        InvokeRepeating("UpdateGame", 0, updateTime);
     }
 }
