@@ -20,6 +20,8 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     }
     public Camera cam;
     public TetrisBlock activeBlock;
+    public float score = 0;
+    public int increaseScoreEvery = 500;
     public int mapWidth = 10;
     public int mapHeight = 60;
     public GameObject cube;
@@ -86,6 +88,12 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                 tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = true;
             }
         }
+    }
+
+    public void GameOver()
+    {
+        CancelInvoke("UpdateGame");
+        gameObject.SetActive(false);
     }
 
     void UpdateGame()
@@ -156,9 +164,20 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
     public void CreateNewBlock()
     {
-        activeBlock = new TetrisBlock();
-        activeBlock.pos = new TetrisBlock.CoOrd(5, 20);
-        activeBlock.CalculateAdditionalPos();
+        Debug.Log("Spawning new tetris block");
+        TetrisBlock newBlock = new TetrisBlock();
+        newBlock.pos = new TetrisBlock.CoOrd(5, 20);
+        newBlock.CalculateAdditionalPos();
+        TetrisBlock.CoOrd[] coords = newBlock.GetInhabitedCoords();
+        for (int i = 0; i < coords.Length; i++)
+        {
+            if (tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos)
+            {
+                GameOver();
+                return;
+            }
+        }
+        activeBlock = newBlock;
     }
 
     public void MoveXRaw(float axisx)
@@ -191,6 +210,30 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
     }
 
+    public void MoveYRaw(float axisy)
+    {
+        int offset = axisy < 0 ? -1 : 1;
+        if (offset == 1)
+        {
+            activeBlock.RotateBlock(mapWidth, tetris2DMap);
+            DestroyActiveBlock();
+            activeBlock.CalculateAdditionalPos();
+            drawBlock();
+            drawMap();
+        }
+    }
+
+    public void MoveY(float axisy)
+    {
+        int offset = axisy < 0 ? -1 : 1;
+        if (offset == -1)
+        {
+            moveBlock();
+            drawBlock();
+            drawMap();
+        }
+    }
+
     public bool checkCompletedLines()
     {
         for (int i = 0; i < tetris2DMap.GetLength(1); i++)
@@ -204,7 +247,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                 }
                 else if (j == tetris2DMap.GetLength(0) - 1)
                 {
-                    Debug.Log("FULL LINE");
                     for (int k = 0; k <= i; k++)
                     {
                         for (int u = 0; u < tetris2DMap.GetLength(0); u++)
@@ -236,7 +278,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                                     tetris2DMap[u, k].cubeInPos = true;
                                     float posX = gameObject.transform.position.x + u;
                                     float posY = gameObject.transform.position.y + k;
-                                    Debug.Log("Drawing in: " + posX + ", " + posY);
                                     GameObject thisCube = Instantiate(cube, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
                                     tetris2DMap[u, k].cubeDrawn = true;
                                     tetris2DMap[u, k].cube = thisCube;
@@ -244,11 +285,17 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                             }
                         }
                     }
+                    score += 100;
+                    if (score % increaseScoreEvery == 0)
+                    {
+                        Debug.Log("Tetris is increasing difficulty for other");
+                        IncreaseDifficultyOnOther();
+                    } 
                     return true;
                 }
             }
         }
-        string debugString = "";
+        /*string debugString = "";
         for (int i = 0; i < tetris2DMap.GetLength(1); i++)
         {
             for (int j = 0; j < tetris2DMap.GetLength(0); j++)
@@ -262,7 +309,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             }
             debugString += "\n";
         }
-        Debug.Log(debugString);
+        Debug.Log(debugString);*/
         return false;
     }
 
@@ -276,30 +323,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
         }
-    }
-
-    public void MoveYRaw(float axisy)
-    {
-        int offset = axisy < 0 ? -1 : 1;
-        if (offset == 1)
-        {
-            activeBlock.RotateBlock(mapWidth, tetris2DMap);
-            DestroyActiveBlock();
-            activeBlock.CalculateAdditionalPos();
-            drawBlock();
-            drawMap();
-        }
-        else
-        {
-            moveBlock();
-            drawBlock();
-            drawMap();
-        }
-    }
-
-    public void MoveY(float axisy)
-    {
-
     }
 
     public void SetCamera(Rect rect)
