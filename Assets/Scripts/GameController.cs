@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
     void Start() {
         Transform[] gamesToSetup = new Transform[2];
         gamesToSetup[0] = Breakout;
-        gamesToSetup[1] = Tetris; 
+        gamesToSetup[1] = Breakout; 
         Initializegames(gamesToSetup);
 
         inputController.GameSetup(game);

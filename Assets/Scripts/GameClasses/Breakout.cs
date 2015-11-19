@@ -5,13 +5,15 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
 {
     public GameObject paddle;
     public int score = 0;
+    public int difficulty = 0;
     public Camera cam;
     public Ball ball;
     public bool isAI;
     public uint gameID;
     public GameController gameController;
-	// Use this for initialization
-	void Start () {
+    public BreakoutBlockSpawner breakoutBlockSpawner;
+    // Use this for initialization
+    void Start () {
 
 	}
 	
@@ -43,10 +45,32 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     }
     public void IncreaseDifficulty()
     {
+        difficulty++;
         ball.IncreaseMag();
     }
     public void IncreaseDifficultyOnOther()
     {
         gameController.IncreaseDifficulty(gameID);
+    }
+    public void RunOnDestroyedBlock ()
+    {
+        Debug.Log(breakoutBlockSpawner.transform.childCount);
+        if (breakoutBlockSpawner.transform.childCount == 1)
+        {
+            IncreaseDifficultyOnOther();
+            breakoutBlockSpawner.SpawnLine();
+            Debug.Log(Mathf.Min(((int)(difficulty / 5)) - ((int)(difficulty / 10) ), 10));
+            for (int i = 0; i< Mathf.Min(((int) (difficulty / 5)) - ((int) (difficulty / 5) - 10), 10); i++)
+            {
+                breakoutBlockSpawner.DecentLine();
+            }
+            breakoutBlockSpawner.SpawnLine();
+            for (int i = 0; i < Mathf.Min(difficulty / 5-10, 10); i++)
+            {
+                breakoutBlockSpawner.DecentLine();
+            }
+            ball.ResetBallPos();
+            
+        }
     }
 }

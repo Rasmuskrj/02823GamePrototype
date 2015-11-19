@@ -19,6 +19,7 @@ public class Block : MonoBehaviour {
         gamerefference.score++;
         if (health == 0)
         {
+            gamerefference.RunOnDestroyedBlock();
             Destroy(gameObject);
         }
             
