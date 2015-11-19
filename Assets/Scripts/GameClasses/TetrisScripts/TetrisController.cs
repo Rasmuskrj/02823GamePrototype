@@ -21,6 +21,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public Camera cam;
     public TetrisBlock activeBlock;
     public float score = 0;
+    public int increaseScoreEvery = 500;
     public int mapWidth = 10;
     public int mapHeight = 60;
     public GameObject cube;
@@ -285,7 +286,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                         }
                     }
                     score += 100;
-                    if (score % 500 == 0)
+                    if (score % increaseScoreEvery == 0)
                     {
                         Debug.Log("Tetris is increasing difficulty for other");
                         IncreaseDifficultyOnOther();
