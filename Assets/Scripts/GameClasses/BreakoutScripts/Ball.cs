@@ -45,6 +45,11 @@ public class Ball : MonoBehaviour {
     {
         mag*=1.1f;
     }
+    public void ResetBallPos()
+    {
+        transform.localPosition = new Vector3(0, -9, 0); // reset position
+        rb.velocity = Vector2.Max(-rb.velocity, rb.velocity);// just so we don't shoot the ball directly down after spawn
+    }
     /*public void DoOnTrigger (GameObject other)
     {
         //Debug.Log("WHAT IS WRONG WITH YOU");

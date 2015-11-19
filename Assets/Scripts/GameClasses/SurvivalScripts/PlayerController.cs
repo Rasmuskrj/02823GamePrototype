@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     public Transform shotSpawn;
 
     public float fireRate;
+    private float nextFire;
     private bool p1x_isAxisInUse = false;
     private bool p1y_isAxisInUse = false;
-    private float nextFire;
+    
 
     void Update()
     {

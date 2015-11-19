@@ -9,7 +9,7 @@ public class BreakoutBlockSpawner : MonoBehaviour {
     {
         SpawnLine();
     }
-    void SpawnLine ()
+    public void SpawnLine ()
     {
         DecentLine();
         for (int i = 0; i<10; i++)
@@ -22,7 +22,7 @@ public class BreakoutBlockSpawner : MonoBehaviour {
             
         }
     }
-    void DecentLine()
+    public void DecentLine()
     {
         foreach (Transform child in transform)
         {
@@ -31,6 +31,6 @@ public class BreakoutBlockSpawner : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-	
+
 	}
 }
