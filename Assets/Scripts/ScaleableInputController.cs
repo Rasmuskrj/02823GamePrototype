@@ -7,6 +7,7 @@ public class ScaleableInputController : MonoBehaviour {
     private IGameTypeInterface game1;
 
     public float joystickRate = 0.5f;
+    public float joystickMovementThreshhold = 0.6f;
 
     private bool[] x_isAxisInUse = { false, false, false, false };
     private bool[] y_isAxisInUse = { false, false, false, false };
@@ -27,10 +28,10 @@ public class ScaleableInputController : MonoBehaviour {
 	void Update () {
         for (int i = 0; i< game.Length; i++)
         {
-            if (Input.GetAxisRaw(xControlNames[i]) != 0) { game[i].MoveX(joystickRate * Input.GetAxis(xControlNames[i])); if (x_isAxisInUse[i] == false) { x_isAxisInUse[i] = true; game[i].MoveXRaw(Input.GetAxisRaw(xControlNames[i])); } }
+            if (Mathf.Abs(Input.GetAxisRaw(xControlNames[i])) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(xControlNames[i])); if (x_isAxisInUse[i] == false) { x_isAxisInUse[i] = true; game[i].MoveXRaw(Input.GetAxisRaw(xControlNames[i])); } }
             else if (Input.GetAxisRaw(xKeyControlNames[i]) != 0) { game[i].MoveX(Input.GetAxis(xKeyControlNames[i])); if (x_isAxisInUse[i] == false) { x_isAxisInUse[i] = true; game[i].MoveXRaw(Input.GetAxisRaw(xKeyControlNames[i])); } }
             else { x_isAxisInUse[i] = false; }
-            if (Input.GetAxisRaw(yControlNames[i]) != 0) { game[i].MoveY(joystickRate * Input.GetAxis(yControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yControlNames[i])); } }
+            if (Mathf.Abs(Input.GetAxisRaw(yControlNames[i])) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(yControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yControlNames[i])); } }
             else if (Input.GetAxisRaw(yKeyControlNames[i]) != 0) { game[i].MoveY(Input.GetAxis(yKeyControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yKeyControlNames[i])); } }
             else { y_isAxisInUse[i] = false; }
         }
