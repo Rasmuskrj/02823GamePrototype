@@ -13,6 +13,8 @@ public class BallSpawner : MonoBehaviour {
     }
     public void LaunchBall()
     {
+        if (breakout.lives < 1) { return; }
+        else { breakout.lives--; }
         Vector3 offset;
         Transform newball;
         

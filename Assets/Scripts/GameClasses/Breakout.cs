@@ -12,6 +12,7 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
     public uint gameID;
     public GameController gameController;
     public BreakoutBlockSpawner breakoutBlockSpawner;
+    public int lives = 3;
     // Use this for initialization
     void Start () {
 
