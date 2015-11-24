@@ -214,7 +214,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public void MoveYRaw(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
-        if (offset == 1)
+        if (offset == 1 && activeBlock != null)
         {
             activeBlock.RotateBlock(mapWidth, tetris2DMap);
             DestroyActiveBlock();
