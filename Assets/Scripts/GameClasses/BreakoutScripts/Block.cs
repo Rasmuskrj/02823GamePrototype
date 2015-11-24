@@ -6,7 +6,7 @@ public class Block : MonoBehaviour {
     private Breakout gamerefference;
 	// Use this for initialization
 	void Start () {
-        health = 3;
+        health = 1;
         gamerefference = gameObject.transform.parent.parent.GetComponent<Breakout>();
     }
 	

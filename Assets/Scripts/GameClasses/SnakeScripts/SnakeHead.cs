@@ -16,7 +16,8 @@ public class SnakeHead : MonoBehaviour {
     public Camera cam;
     public bool lose=false;
     Vector2 headPos;
-
+    private int score=0;
+    Snake sn;
 
 
     // Use this for initialization
@@ -113,6 +114,13 @@ public class SnakeHead : MonoBehaviour {
             {
                 tailInc();
                 ate = false;
+                score++;
+                if(score == 5)
+                {
+                    sn.IncreaseDifficultyOnOther();
+                    score = 0;
+                }
+               
             }
 
             //check if we have tail and move it behind the head

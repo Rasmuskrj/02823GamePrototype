@@ -8,7 +8,7 @@ public class Snake : MonoBehaviour, IGameTypeInterface
     public Camera cam;
     public uint gameID;
     public GameController gameController;
-    public int level;
+    public int level = 0;
     // Use this for initialization
     void Start () {
 	

@@ -93,7 +93,8 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
     public void GameOver()
     {
         CancelInvoke("UpdateGame");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(true);
+       
     }
 
     void UpdateGame()
