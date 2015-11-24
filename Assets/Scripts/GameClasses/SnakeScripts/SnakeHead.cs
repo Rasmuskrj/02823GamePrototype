@@ -18,6 +18,7 @@ public class SnakeHead : MonoBehaviour {
     Vector2 headPos;
     private int score=0;
     Snake sn;
+    
 
 
     // Use this for initialization
@@ -39,6 +40,7 @@ public class SnakeHead : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        SetDir(dir);
 
     }
     
