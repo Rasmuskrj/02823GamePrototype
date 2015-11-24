@@ -9,6 +9,10 @@ public interface IGameTypeInterface
     void MoveXRaw(float axisy);
     void MoveYRaw(float axisy);
     void IncreaseDifficulty();
-    void SetGameID(uint ID);
+    void ReduceDifficulty();
+    void SetGameID(int ID);
     void SetGameController(GameController gameCtrl);
+
+    bool HasToken();
+    void ReduceTokens();
 }

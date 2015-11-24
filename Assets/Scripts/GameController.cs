@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
-            game[i] = MakeGame(games[i], gamePos[i], campos[i], 1);
+            game[i] = MakeGame(games[i], gamePos[i], campos[i], i);
         }
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
         }
             
     }
-    IGameTypeInterface MakeGame(Transform game, Vector2 pos, Rect rect, uint gameID)
+    IGameTypeInterface MakeGame(Transform game, Vector2 pos, Rect rect, int gameID)
     {
         Transform newGame;
         IGameTypeInterface gameInterface;
@@ -64,7 +64,18 @@ public class GameController : MonoBehaviour {
     {
         for (int i = 0; i < game.Length; i++)
         {
-            if (playerID != i+1) { game[i].IncreaseDifficulty(); }
+            if (playerID != i) { game[i].IncreaseDifficulty(); }
+        }
+    }
+    public void IncreaseDifficultyOnPlayer(int sendingPlayer, int targetPlayer)
+    {
+        if (sendingPlayer == targetPlayer)
+        {
+            game[targetPlayer].ReduceDifficulty();
+        }
+        else
+        {
+            game[targetPlayer].IncreaseDifficulty();
         }
     }
 	// Update is called once per frame

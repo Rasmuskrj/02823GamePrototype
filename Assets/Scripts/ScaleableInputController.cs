@@ -6,6 +6,8 @@ public class ScaleableInputController : MonoBehaviour {
     private IGameTypeInterface[] game;
     private IGameTypeInterface game1;
 
+    public GameController gameController;
+
     public float joystickRate = 0.5f;
     public float joystickMovementThreshhold = 0.6f;
 
@@ -17,6 +19,14 @@ public class ScaleableInputController : MonoBehaviour {
     private string[] yDpadControlNames = { "P1VerticalDpad", "P2VerticalDpad", "P3VerticalDpad", "P4VerticalDpad" };
     private string[] xKeyControlNames = { "P1HorizontalKey", "P2HorizontalKey", "P3HorizontalKey", "P4HorizontalKey" };
     private string[] yKeyControlNames = { "P1VerticalKey", "P2VerticalKey", "P3VerticalKey", "P4VerticalKey" };
+
+    private string[] aKeyControlNames = { "P1VerticalKey", "P2VerticalKey", "P3VerticalKey", "P4VerticalKey" };
+    private string[] bKeyControlNames = { "P1VerticalKey", "P2VerticalKey", "P3VerticalKey", "P4VerticalKey" };
+
+    private string[] LBKeyControlNames = { "P1LBKey", "P2LBKey", "P3LBKey", "P4LBKey" };
+    private string[] RBKeyControlNames = { "P1RBKey", "P2RBKey", "P3RBKey", "P4RBKey" };
+    private string[] LTrigKeyControlNames = { "P1LTrigKey", "P2LTrigKey", "P3LTrigKey", "P4LTrigKey" };
+    private string[] RTrigKeyControlNames = { "P1RTrigKey", "P2RTrigKey", "P3RTrigKey", "P4RTrigKey" };
 
     // Use this for initialization
     void Start () {
@@ -38,6 +48,15 @@ public class ScaleableInputController : MonoBehaviour {
             else if (Input.GetAxisRaw(yDpadControlNames[i]) != 0) { game[i].MoveY(Input.GetAxis(yDpadControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yDpadControlNames[i])); } }
             else if (Input.GetAxisRaw(yKeyControlNames[i]) != 0) { game[i].MoveY(Input.GetAxis(yKeyControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yKeyControlNames[i])); } }
             else { y_isAxisInUse[i] = false; }
+            
+            if (game[i].HasToken())
+            {
+                if (Input.GetButton(LBKeyControlNames[i])) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
+                else if (Input.GetButton(RBKeyControlNames[i])) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
+                else if (Input.GetButton(LTrigKeyControlNames[i])) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
+                else if (Input.GetButton(RTrigKeyControlNames[i])) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+
+            }
         }
     }
 }
