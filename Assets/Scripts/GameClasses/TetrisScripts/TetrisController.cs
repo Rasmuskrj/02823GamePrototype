@@ -169,7 +169,7 @@ public class TetrisController : GameClass {
         activeBlock = newBlock;
     }
 
-    override public void MoveXRaw(float axisx)
+    new public void MoveXRaw(float axisx)
     {
         if (activeBlock != null)
         {
@@ -194,12 +194,8 @@ public class TetrisController : GameClass {
         }
     }
 
-    override public void MoveX(float axisx)
-    {
 
-    }
-
-    override public void MoveYRaw(float axisy)
+    new public void MoveYRaw(float axisy)
     {
         
         int offset = axisy < 0 ? -1 : 1;
@@ -213,7 +209,7 @@ public class TetrisController : GameClass {
         }
     }
 
-    override public void MoveY(float axisy)
+    new public void MoveY(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
         if (offset == -1)

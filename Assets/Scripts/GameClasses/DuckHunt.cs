@@ -15,10 +15,7 @@ public class DuckHunt : GameClass
 	void Update () {
 	
 	}
-    override public void MoveX(float axisx){  }
-    override public void MoveY(float axisy) {  }
-    override public void MoveXRaw(float axisx){   }
-    override public void MoveYRaw(float axisy) {    }
+    
     override public void IncreaseDifficulty()
     {
         difficulty++;
