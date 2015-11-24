@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour, IGameTypeInterface
     public Camera cam;
     public uint gameID;
     public GameController gameController;
+    public int level;
     // Use this for initialization
     void Start () {
 	
@@ -70,7 +71,8 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 
     public void IncreaseDifficulty()
     {
-        
+        level++;
+        snakeHead.tailInc();
     }
     public void IncreaseDifficultyOnOther()
     {
