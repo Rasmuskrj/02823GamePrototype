@@ -213,7 +213,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
     public void MoveYRaw(float axisy)
     {
-        IncreaseDifficulty();
+        
         int offset = axisy < 0 ? -1 : 1;
         if (offset == 1 && activeBlock != null)
         {

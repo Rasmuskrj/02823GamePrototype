@@ -25,7 +25,7 @@ public class SnakeHead : MonoBehaviour {
 
         if (action)
         {
-            InvokeRepeating("move", 0.5f, 0.2f);
+            InvokeRepeating("move", 0.5f, 0.1f);
         }
         else
         {
@@ -115,11 +115,7 @@ public class SnakeHead : MonoBehaviour {
                 tailInc();
                 ate = false;
                 score++;
-                if(score == 5)
-                {
-                    sn.IncreaseDifficultyOnOther();
-                    score = 0;
-                }
+               
                
             }
 
