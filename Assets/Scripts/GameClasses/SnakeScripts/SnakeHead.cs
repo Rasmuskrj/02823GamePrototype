@@ -14,16 +14,24 @@ public class SnakeHead : MonoBehaviour {
     protected bool paused;
     public GameObject foodPrefab;
     public Camera cam;
-
-
+    public bool lose=false;
+    Vector2 headPos;
 
 
 
     // Use this for initialization
     void Start () {
-       
-        InvokeRepeating("move", 0.5f, 0.2f);
-         
+
+        if (action)
+        {
+            InvokeRepeating("move", 0.5f, 0.2f);
+        }
+        else
+        {
+            //You lose screen appears
+        }
+
+        
 
 
     }
@@ -32,32 +40,14 @@ public class SnakeHead : MonoBehaviour {
 	void Update () {
 
     }
-   
-   
     
-
-
-
-
-   //private Vector2 controling()
-   // {
-        
   
-   //        if (Input.GetKey(KeyCode.RightArrow) && dir!=Vector2.left)
-   //             dir = Vector2.right;
-   //        else if (Input.GetKey(KeyCode.LeftArrow) && dir != Vector2.right)
-   //          dir = -Vector2.right; // '-right' means 'left'
-   //         else if (Input.GetKey(KeyCode.UpArrow) && dir != -Vector2.up)
-   //             dir = Vector2.up;
-   //         else if (Input.GetKey(KeyCode.DownArrow) && dir != Vector2.up)
-   //             dir = -Vector2.up;    // '-up' means 'down'
-      
-   //     return dir;
-   // }
+   
 
     public void SetDir(Vector2 newDir)
     {
         dir = newDir;
+        
     }
 
     void OnPauseGame()
@@ -101,37 +91,43 @@ public class SnakeHead : MonoBehaviour {
         }
     }
 
-     void move() {
-        Vector2 v = transform.position;
+    //Increases tail by 1 block
+    public void tailInc()
+    {
+        // Load Prefab into the world
+        GameObject g = (GameObject)Instantiate(tailPrefab, headPos, Quaternion.identity);
+
+        // Keep track of it in our tail list
+        tail.Insert(0, g.transform);
+
        
+    }
+     void move() {
+        headPos = transform.position;
+        
         if (action)
         {
-           transform.Translate(dir);
+            transform.Translate(dir);
 
             if (ate)
             {
-                
-                // Load Prefab into the world
-                GameObject g = (GameObject)Instantiate(tailPrefab, v, Quaternion.identity);
-
-                // Keep track of it in our tail list
-                tail.Insert(0, g.transform);
+                tailInc();
                 ate = false;
             }
 
+            //check if we have tail and move it behind the head
             if (tail.Count > 0)
             {
-                tail.Last().position = v;
+                tail.Last().position = headPos;
 
                 // Add to front of list, remove from the back
                 tail.Insert(0, tail.Last());
                 tail.RemoveAt(tail.Count - 1);
             }
 
+
         }
-        else
-            OnPauseGame();
-           
+       
        
 
     }
