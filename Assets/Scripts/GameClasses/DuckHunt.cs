@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class DuckHunt : MonoBehaviour, IGameTypeInterface {
-    public Camera cam;
-    public uint gameID;
-    public GameController gameController;
+public class DuckHunt : GameClass
+{
+    
     
     // Use this for initialization
     void Start () {
@@ -15,34 +15,16 @@ public class DuckHunt : MonoBehaviour, IGameTypeInterface {
 	void Update () {
 	
 	}
-    public void SetGameID(uint ID)
+    override public void MoveX(float axisx){  }
+    override public void MoveY(float axisy) {  }
+    override public void MoveXRaw(float axisx){   }
+    override public void MoveYRaw(float axisy) {    }
+    override public void IncreaseDifficulty()
     {
-        gameID = ID;
+        difficulty++;
     }
-    public void SetGameController(GameController gameCtrl)
+    public override void ReduceDifficulty()
     {
-        gameController = gameCtrl;
-    }
-    public void MoveX(float axisx)
-    {
-
-    }
-    public void MoveY(float axisy)
-    {
-
-    }
-    public void MoveXRaw(float axisx){   }
-    public void MoveYRaw(float axisy) {    }
-    public void SetCamera(Rect rect)
-    {
-        cam.rect = rect;
-    }
-    public void IncreaseDifficulty()
-    {
-
-    }
-    public void IncreaseDifficultyOnOther()
-    {
-        gameController.IncreaseDifficulty(gameID);
+        difficulty--;
     }
 }

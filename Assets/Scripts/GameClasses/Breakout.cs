@@ -1,16 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Breakout : MonoBehaviour, IGameTypeInterface
+public class Breakout : GameClass
 {
     public GameObject paddle;
-    public int score = 0;
-    public int difficulty = 0;
-    public Camera cam;
     public Ball ball;
-    public bool isAI;
-    public int gameID;
-    public GameController gameController;
     public BreakoutBlockSpawner breakoutBlockSpawner;
     public int lives = 3;
     // Use this for initialization
@@ -22,40 +16,29 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
 	}
-    public void SetGameID(int ID)
-    {
-        gameID = ID;
-    }
-    public void SetGameController(GameController gameCtrl)
-    {
-        gameController = gameCtrl;
-    }
-    public void MoveX(float axisx)
+    override public void MoveX(float axisx)
     {
         paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
     }
-    public void MoveY(float axisy)
+    override public void MoveY(float axisy)
     {
 
     }
-    public void MoveXRaw(float axisx) { }
-    public void MoveYRaw(float axisy) { }
-    public void SetCamera(Rect rect)
-    {
-        cam.rect = rect;
-    }
-    public void IncreaseDifficulty()
+    override public void MoveXRaw(float axisx) { }
+    override public void MoveYRaw(float axisy) { }
+    override public void IncreaseDifficulty()
     {
         difficulty++;
         ball.IncreaseMag();
     }
-    public void IncreaseDifficultyOnOther()
+    override public void ReduceDifficulty()
     {
-        gameController.IncreaseDifficulty(gameID);
+        difficulty--;
+        ball.ReduceMag();
     }
+
     public void RunOnDestroyedBlock ()
     {
-        Debug.Log(breakoutBlockSpawner.transform.childCount);
         if (breakoutBlockSpawner.transform.childCount == 1)
         {
             IncreaseDifficultyOnOther();

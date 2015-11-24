@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ScaleableInputController : MonoBehaviour {
 
-    private IGameTypeInterface[] game;
-    private IGameTypeInterface game1;
+    private GameClass[] game;
+    //private IGameTypeInterface game1;
 
     public GameController gameController;
 
@@ -31,7 +31,7 @@ public class ScaleableInputController : MonoBehaviour {
     // Use this for initialization
     void Start () {
     }
-    public void GameSetup(IGameTypeInterface[] games)
+    public void GameSetup(GameClass[] games)
     {
         game = games;
     }

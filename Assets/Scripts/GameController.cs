@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
     public Transform Tetris;
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-50, 50), new Vector2(50, 50), new Vector2(-50, -50), new Vector2(50, -50) };
-    private IGameTypeInterface[] game;
+    private GameClass[] game;
     Transform[] gamesToSetup;
 
     // Use this for initialization
@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour {
 	}
     void Initializegames(Transform[] games)
     {
-        game = new IGameTypeInterface[games.Length];
+        game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
@@ -47,20 +47,20 @@ public class GameController : MonoBehaviour {
         }
             
     }
-    IGameTypeInterface MakeGame(Transform game, Vector2 pos, Rect rect, int gameID)
+    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID)
     {
         Transform newGame;
-        IGameTypeInterface gameInterface;
+        GameClass gameInterface;
         newGame = Instantiate(game);
         newGame.position = pos;
         newGame.rotation = Quaternion.identity;
-        gameInterface = newGame.GetComponent<IGameTypeInterface>();
+        gameInterface = newGame.GetComponent<GameClass>();
         gameInterface.SetGameID(gameID);
         gameInterface.SetCamera(rect);
         gameInterface.SetGameController(this);
         return gameInterface;
     }
-    public void IncreaseDifficulty(uint playerID)
+    public void IncreaseDifficulty(int playerID)
     {
         for (int i = 0; i < game.Length; i++)
         {
