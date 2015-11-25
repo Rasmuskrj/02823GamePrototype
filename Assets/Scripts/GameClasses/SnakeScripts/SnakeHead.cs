@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class SnakeHead : MonoBehaviour {
     //start movement - to the right
@@ -94,6 +95,8 @@ public class SnakeHead : MonoBehaviour {
         }
     }
 
+   
+
     //Increases tail by 1 block
     public void tailInc()
     {
@@ -105,8 +108,19 @@ public class SnakeHead : MonoBehaviour {
 
        
     }
+
+    public void tailReduce()
+    {
+        if(tail.Count > 0)
+        {
+            tail.RemoveAt(tail.Count - 1);
+        }
+       
+        
+    }
      void move() {
         headPos = transform.position;
+       
         
         if (action)
         {
@@ -130,7 +144,7 @@ public class SnakeHead : MonoBehaviour {
                 tail.Insert(0, tail.Last());
                 tail.RemoveAt(tail.Count - 1);
             }
-
+          
 
         }
        

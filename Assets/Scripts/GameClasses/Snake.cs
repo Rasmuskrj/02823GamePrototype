@@ -49,4 +49,12 @@ public class Snake : GameClass
         level++;
         snakeHead.tailInc();
     }
+
+    override public void ReduceDifficulty()
+    {
+        level--;
+        snakeHead.tailReduce();
+    }
+
+
 }

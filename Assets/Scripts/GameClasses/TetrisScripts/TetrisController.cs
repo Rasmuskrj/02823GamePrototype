@@ -114,6 +114,16 @@ public class TetrisController : GameClass {
         }
     }
 
+    override public void IncreaseDifficulty()
+    {
+        
+    }
+
+    override public void ReduceDifficulty()
+    {
+       
+    }
+
     void moveBlock()
     {
         if (activeBlock != null)
