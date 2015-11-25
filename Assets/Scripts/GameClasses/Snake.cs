@@ -16,9 +16,7 @@ public class Snake : GameClass
 	void Update () {
 	
 	}
-    public override void MoveX(float axisx) { }
-    public override void MoveY(float axisy) { }
-    override public void MoveXRaw(float axisx) {
+    new public void MoveXRaw(float axisx) {
         Debug.Log(axisx);
         if (axisx == 1f && dir != Vector2.left)
         {
@@ -32,7 +30,7 @@ public class Snake : GameClass
         }
 
     }
-    override public void MoveYRaw(float axisy) {
+    new public void MoveYRaw(float axisy) {
         Debug.Log(axisy);
         if (axisy == 1f && dir != -Vector2.up)
         {

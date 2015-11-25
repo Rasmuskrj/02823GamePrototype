@@ -17,10 +17,14 @@ public abstract class GameClass : MonoBehaviour {
     public void ReduceTokens() { Tokens--; }
     public void IncreaseDifficultyOnOther() {gameController.IncreaseDifficulty(gameID);}
 
-    abstract public void MoveX(float axisx);// needs an overwrite
-    abstract public void MoveY(float axisy);// needs an overwrite
-    abstract public void MoveXRaw(float axisy);// needs an overwrite
-    abstract public void MoveYRaw(float axisy);// needs an overwrite
+    public void MoveX(float axisx) { }// needs an overwrite to be of use
+    public void MoveY(float axisy) { }// needs an overwrite to be of use
+    public void MoveXRaw(float axisy) { }// needs an overwrite to be of use
+    public void MoveYRaw(float axisy) { }// needs an overwrite to be of use
+
+    public void DoOnA() { }
+    public void DoOnB() { }
+
     abstract public void IncreaseDifficulty();// { difficulty++; }// needs an subfunction
     abstract public void ReduceDifficulty();// { difficulty--; }// needs an subfunction, we should consider making check so we can't make the game easier that what it is at the start
     
