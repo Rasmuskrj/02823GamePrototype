@@ -5,14 +5,22 @@ public abstract class GameClass : MonoBehaviour {
     public int score = 0;
     public int difficulty = 0;
     public Camera cam;
+    public Camera[] otherCams;
     public bool isAI;
     public int gameID;
     public GameController gameController;
     private uint Tokens = 0;
 
-    public void SetCamera(Rect rect) {cam.rect = rect;}
+    /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
+    {
+        gameID = ID;
+        cam.rect = camRect;
+        gameController = gameCtrl;
+    }*/
     public void SetGameID(int ID) { gameID = ID; }
+    public void SetCamera(Rect rect) { cam.rect = rect; }
     public void SetGameController(GameController gameCtrl) { gameController = gameCtrl; }
+    public void SetOtherCams(Camera[] cams) { otherCams = cams; }
     public bool HasToken() { return (Tokens > 0); }
     public void ReduceTokens() { Tokens--; }
     public void IncreaseDifficultyOnOther() {gameController.IncreaseDifficulty(gameID);}

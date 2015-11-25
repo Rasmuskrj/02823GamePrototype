@@ -29,6 +29,23 @@ public class GameController : MonoBehaviour {
         {
             game[i] = MakeGame(games[i], gamePos[i], campos[i], i);
         }
+        Camera[] camCol = new Camera[game.Length];
+        for (int i = 0; i < games.Length; i++)
+        {
+            camCol[i] = game[i].cam;
+        }
+        for (int i = 0; i < games.Length; i++)
+        {
+            Camera[] otherCams = new Camera[game.Length-1];
+            int j = 0;
+            for (int k = 0; k < games.Length-1; k++)
+            {
+                if (i == j) { j++; }
+                otherCams[k] = game[j].cam;
+                j++;
+            }
+            game[i].SetOtherCams(otherCams);
+        }
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
     {
