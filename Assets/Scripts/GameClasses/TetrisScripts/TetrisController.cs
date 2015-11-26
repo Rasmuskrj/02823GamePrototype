@@ -11,11 +11,13 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         public bool cubeInPos;
         public bool cubeDrawn;
         public GameObject cube;
+        public Color color;
 
         public mapVal(bool pos, bool drawn){
             cubeInPos = pos;
             cubeDrawn = drawn;
             cube = null;
+            color = Color.clear;
         }
     }
     public Camera cam;
@@ -119,6 +121,8 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                     float posX = gameObject.transform.position.x + i;
                     float posY = gameObject.transform.position.y + j;
                     GameObject thisCube = Instantiate(cube, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
+                    thisCube.GetComponent<Renderer>().material.color = activeBlock.blockColor;
+                    tetris2DMap[i, j].color = activeBlock.blockColor;
                     tetris2DMap[i, j].cubeDrawn = true;
                     tetris2DMap[i, j].cube = thisCube;
                 }
@@ -146,10 +150,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             {
                 for (int i = 0; i < coords.Length; i++)
                 {
-                    Destroy(tetris2DMap[coords[i].xCord, coords[i].yCord].cube);
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cube = null;
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
-                    tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
+                    ClearCell(coords[i].xCord, coords[i].yCord);
                 }
                 activeBlock.pos.yCord--;
                 activeBlock.CalculateAdditionalPos();
@@ -161,6 +162,15 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                 activeBlock = null;
             }
         }
+    }
+
+    private void ClearCell(int x, int y)
+    {
+        Destroy(tetris2DMap[x, y].cube);
+        tetris2DMap[x, y].cube = null;
+        tetris2DMap[x, y].cubeDrawn = false;
+        tetris2DMap[x, y].cubeInPos = false;
+        tetris2DMap[x, y].color = Color.clear;
     }
 
     public void CreateNewBlock()
@@ -255,10 +265,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                         {
                             if (k == i)
                             {
-                                Destroy(tetris2DMap[u, k].cube);
-                                tetris2DMap[u, k].cube = null;
-                                tetris2DMap[u, k].cubeInPos = false;
-                                tetris2DMap[u, k].cubeDrawn = false;
+                                ClearCell(u, k);
                             }
                         }
                     }
@@ -270,10 +277,8 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                             {
                                 if (k == tetris2DMap.GetLength(1) - 1 || tetris2DMap[u, k].cubeInPos && !tetris2DMap[u, k + 1].cubeInPos)
                                 {
-                                    Destroy(tetris2DMap[u, k].cube);
-                                    tetris2DMap[u, k].cube = null;
-                                    tetris2DMap[u, k].cubeInPos = false;
-                                    tetris2DMap[u, k].cubeDrawn = false;
+                                    ClearCell(u, k);
+
                                 }
                                 else if (!tetris2DMap[u, k].cubeInPos && tetris2DMap[u, k + 1].cubeInPos)
                                 {
@@ -281,8 +286,15 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                                     float posX = gameObject.transform.position.x + u;
                                     float posY = gameObject.transform.position.y + k;
                                     GameObject thisCube = Instantiate(cube, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
+                                    thisCube.GetComponent<Renderer>().material.color = tetris2DMap[u, k + 1].color;
                                     tetris2DMap[u, k].cubeDrawn = true;
                                     tetris2DMap[u, k].cube = thisCube;
+                                    tetris2DMap[u, k].color = tetris2DMap[u, k + 1].color;
+                                }
+                                else if (tetris2DMap[u, k].cubeInPos && tetris2DMap[u, k + 1].cubeInPos)
+                                {
+                                    tetris2DMap[u, k].cube.GetComponent<Renderer>().material.color = tetris2DMap[u, k + 1].color;
+                                    tetris2DMap[u, k].color = tetris2DMap[u, k + 1].color;
                                 }
                             }
                         }

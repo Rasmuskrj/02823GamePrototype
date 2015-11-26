@@ -23,10 +23,12 @@ public class TetrisBlock {
     public enum Shapes { LShape, IShape, CubeShape, TShape, JShape}
     public Shapes shape;
     public int rotation = 0;
+    public Color blockColor;
 
 	// Use this for initialization
 	public TetrisBlock () {
         GetOffsets();
+        SetColor();
 	}
 
     public void CalculateAdditionalPos()
@@ -296,4 +298,24 @@ public class TetrisBlock {
         }
     }
 
+    public void SetColor(){
+        int rand = Random.Range(0,6);
+        switch(rand){
+            case 0:
+                blockColor = Color.blue;
+                break;
+            case 1:
+                blockColor = Color.yellow;
+                break;
+            case 2:
+                blockColor = Color.red;
+                break;
+            case 3:
+                blockColor = Color.green;
+                break;
+            case 4:
+                blockColor = Color.white;
+                break;
+        }
+    }
 }
