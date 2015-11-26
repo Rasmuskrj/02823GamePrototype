@@ -120,12 +120,18 @@ public class TetrisController : GameClass {
 
     override public void IncreaseDifficulty()
     {
-        
+        if(updateTime - 0.05f > 0.00001f) {//Minimum value for invokeRepeating
+            CancelInvoke("UpdateGame");
+            updateTime -= 0.05f;
+            InvokeRepeating("UpdateGame", 0, updateTime);
+        }
     }
 
     override public void ReduceDifficulty()
     {
-       
+        CancelInvoke("UpdateGame");
+        updateTime += 0.05f;
+        InvokeRepeating("UpdateGame", 0, updateTime);
     }
 
     void moveBlock()
