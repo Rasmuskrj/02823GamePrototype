@@ -28,7 +28,6 @@ public class TetrisBlock {
 	// Use this for initialization
 	public TetrisBlock () {
         GetOffsets();
-        SetColor();
 	}
 
     public void CalculateAdditionalPos()
@@ -189,6 +188,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(0, -1);
             offsets[2] = new CoOrd(1, -1);
+            blockColor = Color.blue;
             shape = Shapes.LShape;
         }
         else if (selector == 1)
@@ -198,6 +198,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, -1);
             offsets[1] = new CoOrd(0, 1);
             offsets[2] = new CoOrd(0, 2);
+            blockColor = Color.yellow;
             shape = Shapes.IShape;
         }
         else if (selector == 2)
@@ -207,6 +208,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(1, 0);
             offsets[2] = new CoOrd(1, 1);
+            blockColor = Color.red;
             shape = Shapes.CubeShape;
         }
         else if (selector == 3)
@@ -216,6 +218,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, -1);
             offsets[1] = new CoOrd(1, 0);
             offsets[2] = new CoOrd(-1, 0);
+            blockColor = Color.green;
             shape = Shapes.TShape;
         }
         else if (selector == 4)
@@ -225,6 +228,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(0, -1);
             offsets[2] = new CoOrd(-1, -1);
+            blockColor = Color.white;
             shape = Shapes.JShape;
         }
     }
@@ -295,27 +299,6 @@ public class TetrisBlock {
                 offsets[i] = verticalOffsets[i];
             }
             rotation = 0;
-        }
-    }
-
-    public void SetColor(){
-        int rand = Random.Range(0,6);
-        switch(rand){
-            case 0:
-                blockColor = Color.blue;
-                break;
-            case 1:
-                blockColor = Color.yellow;
-                break;
-            case 2:
-                blockColor = Color.red;
-                break;
-            case 3:
-                blockColor = Color.green;
-                break;
-            case 4:
-                blockColor = Color.white;
-                break;
         }
     }
 }
