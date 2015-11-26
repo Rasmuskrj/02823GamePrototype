@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TetrisController : MonoBehaviour, IGameTypeInterface {
+public class TetrisController : GameClass {
     
     [System.Serializable]
     public struct mapVal
@@ -20,17 +20,13 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             color = Color.clear;
         }
     }
-    public Camera cam;
     public TetrisBlock activeBlock;
-    public float score = 0;
     public int increaseScoreEvery = 500;
     public int mapWidth = 10;
     public int mapHeight = 60;
     public GameObject cube;
     public mapVal[,] tetris2DMap;
     public float updateTime = 0.5f;
-    public uint gameID;
-    public GameController gameController;
     
 
 	// Use this for initialization
@@ -53,10 +49,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 
 	}
     
-    public void SetGameID(uint ID)
-    {
-        gameID = ID;
-    }
     private void CreateWalls()
     {
         GameObject leftWall = Instantiate(cube) as GameObject;
@@ -76,10 +68,6 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
 	// Update is called once per frame
 	void Update () {
 	}
-    public void SetGameController(GameController gameCtrl)
-    {
-        gameController = gameCtrl;
-    }
     void drawBlock()
     {
         if (activeBlock != null)
@@ -128,6 +116,16 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
                 }
             }
         }
+    }
+
+    override public void IncreaseDifficulty()
+    {
+        
+    }
+
+    override public void ReduceDifficulty()
+    {
+       
     }
 
     void moveBlock()
@@ -191,7 +189,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         activeBlock = newBlock;
     }
 
-    public void MoveXRaw(float axisx)
+    new public void MoveXRaw(float axisx)
     {
         if (activeBlock != null)
         {
@@ -216,12 +214,8 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         }
     }
 
-    public void MoveX(float axisx)
-    {
 
-    }
-
-    public void MoveYRaw(float axisy)
+    new public void MoveYRaw(float axisy)
     {
         
         int offset = axisy < 0 ? -1 : 1;
@@ -235,7 +229,7 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
         }
     }
 
-    public void MoveY(float axisy)
+    new public void MoveY(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
         if (offset == -1)
@@ -337,24 +331,5 @@ public class TetrisController : MonoBehaviour, IGameTypeInterface {
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
         }
-    }
-
-    public void SetCamera(Rect rect)
-    {
-        cam.rect = rect;
-    }
-
-    public void IncreaseDifficulty()
-    {
-        if (updateTime - 0.05f > 0.00001f) //Minimum value for invokeRepeating
-        {
-            CancelInvoke("UpdateGame");
-            updateTime -= 0.05f;
-            InvokeRepeating("UpdateGame", 0, updateTime);
-        }
-    }
-    public void IncreaseDifficultyOnOther()
-    {
-        gameController.IncreaseDifficulty(gameID);
     }
 }

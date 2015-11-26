@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Snake : MonoBehaviour, IGameTypeInterface
+public class Snake : GameClass
 {
     public Vector2 dir = Vector2.right;
     public SnakeHead snakeHead;
-    public Camera cam;
-    public uint gameID;
-    public GameController gameController;
     public int level = 0;
     // Use this for initialization
     void Start () {
@@ -18,26 +16,7 @@ public class Snake : MonoBehaviour, IGameTypeInterface
 	void Update () {
 	
 	}
-    public void SetGameID(uint ID)
-    {
-        gameID = ID;
-    }
-    public void SetGameController(GameController gameCtrl)
-    {
-        gameController = gameCtrl;
-    }
-    public void MoveX(float axisx)
-    {
-        
-
-
-    }
-    public void MoveY(float axisy)
-    {
-        
-
-    }
-    public void MoveXRaw(float axisx) {
+    new public void MoveXRaw(float axisx) {
         Debug.Log(axisx);
         if (axisx == 1f && dir != Vector2.left)
         {
@@ -51,7 +30,7 @@ public class Snake : MonoBehaviour, IGameTypeInterface
         }
 
     }
-    public void MoveYRaw(float axisy) {
+    new public void MoveYRaw(float axisy) {
         Debug.Log(axisy);
         if (axisy == 1f && dir != -Vector2.up)
         {
@@ -64,18 +43,18 @@ public class Snake : MonoBehaviour, IGameTypeInterface
             snakeHead.SetDir(dir);
         }
     }
-    public void SetCamera(Rect rect)
-    {
-        cam.rect = rect;
-    }
 
-    public void IncreaseDifficulty()
+    override public void IncreaseDifficulty()
     {
         level++;
         snakeHead.tailInc();
     }
-    public void IncreaseDifficultyOnOther()
+
+    override public void ReduceDifficulty()
     {
-        gameController.IncreaseDifficulty(gameID);
+        level--;
+        snakeHead.tailReduce();
     }
+
+
 }
