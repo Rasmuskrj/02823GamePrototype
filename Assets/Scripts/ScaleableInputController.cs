@@ -36,8 +36,9 @@ public class ScaleableInputController : MonoBehaviour {
             else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
             else { gamepads[i].y_isAxisInUse = false; }
             
-            if (Input.GetButton(gamepads[i].aKey)) { game[i].DoOnA(); }
-            if (Input.GetButton(gamepads[i].bKey)) { game[i].DoOnB(); }
+            if (Input.GetButton(gamepads[i].aKey) || Input.GetAxisRaw(gamepads[i].yKey) <-0.5f) { game[i].DoOnA(); }
+            if (Input.GetButton(gamepads[i].bKey) || Input.GetAxisRaw(gamepads[i].yKey) > 0.5f) { game[i].DoOnB(); }
+
 
             if (game[i].HasToken())
             {

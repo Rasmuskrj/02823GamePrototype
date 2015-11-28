@@ -15,31 +15,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetAxisRaw("P1Horizontal") != 0)
-        {
-            if (p1x_isAxisInUse == false)
-            {
-                p1x_isAxisInUse = true;
-                MoveXRaw(Input.GetAxisRaw("P1Horizontal"));
-            }
-        }
-        else
-        {
-            p1x_isAxisInUse = false;
-        }
-
-        if (Input.GetAxisRaw("P1Vertical") != 0)
-        {
-            if (p1y_isAxisInUse == false)
-            {
-                p1y_isAxisInUse = true;
-                MoveYRaw(Input.GetAxisRaw("P1Vertical"));
-            }
-        }
-        else
-        {
-            p1y_isAxisInUse = false;
-        }
     }
 
     public void MoveXRaw(float axisx)

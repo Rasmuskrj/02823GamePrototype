@@ -9,15 +9,21 @@ public class EnemyController : MonoBehaviour {
     public float spawnTime = 3f;
     public float speed = 0.5f;
     private int ran;
-   
+    private float countdown = 0f;
+    public float resettime = 90f;
     void Start()
     {
-        InvokeRepeating("Spawn", 0, spawnTime);
+        //InvokeRepeating("Spawn", 0, spawnTime);
     }
 
     void Update()
     {
-
+        if (countdown == 0f)
+        {
+            Spawn();
+            countdown = resettime;
+        }
+        countdown--;
     }
 
     void Spawn()

@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour {
     public Transform Breakout;
     public Transform Snake;
     public Transform Tetris;
+    public Transform SurvivalShooter;
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-50, 50), new Vector2(50, 50), new Vector2(-50, -50), new Vector2(50, -50) };
     private GameClass[] game;
