@@ -104,7 +104,6 @@ public class Gamepad {
                 break;
             default:
                 throw new MissingComponentException();
-                break;
         }
     }
 }

@@ -26,6 +26,7 @@ public class ScaleableInputController : MonoBehaviour {
 	void Update () {
         for (int i = 0; i< game.Length; i++)
         {
+            Debug.Log(gamepads[i].xAxis);
             if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(gamepads[i].xAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xDpadAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
