@@ -24,7 +24,8 @@ public class SnakeHead : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        tailInc();
+        tailInc();
         if (action)
         {
             InvokeRepeating("move", 0.5f, 0.1f);
