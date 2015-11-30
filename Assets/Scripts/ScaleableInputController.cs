@@ -26,10 +26,25 @@ public class ScaleableInputController : MonoBehaviour {
 	void Update () {
         for (int i = 0; i< game.Length; i++)
         {
+            if (game[i].HasToken())
+            {
+                if (Input.GetButton(gamepads[i].LBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
+                else if (Input.GetButton(gamepads[i].RBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
+                else if (Input.GetAxisRaw(gamepads[i].LTrigger) > 0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
+                else if (Input.GetAxisRaw(gamepads[i].LTrigger) > 0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+                if (Input.GetButton(gamepads[i].TargetKey))
+                {
+                    if(Input.GetAxisRaw(gamepads[i].xKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
+                    else if (Input.GetAxisRaw(gamepads[i].xKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
+                    else if (Input.GetAxisRaw(gamepads[i].yKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
+                    else if (Input.GetAxisRaw(gamepads[i].yKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 4); }
+                    continue;
+                }
+            }
             Debug.Log(gamepads[i].xAxis);
             if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(gamepads[i].xAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xDpadAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
+            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse == false ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
             else { gamepads[i].x_isAxisInUse = false; }
             if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(gamepads[i].yAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yDpadAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
@@ -40,14 +55,7 @@ public class ScaleableInputController : MonoBehaviour {
             if (Input.GetButton(gamepads[i].bKey) || Input.GetAxisRaw(gamepads[i].yKey) > 0.5f) { game[i].DoOnB(); }
 
 
-            if (game[i].HasToken())
-            {
-                if (Input.GetButton(gamepads[i].LBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
-                else if (Input.GetButton(gamepads[i].RBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
-                else if (Input.GetAxisRaw(gamepads[i].LTrigger)>0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
-                else if (Input.GetAxisRaw(gamepads[i].LTrigger)>0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
-
-            }
+            
         }
     }
 }

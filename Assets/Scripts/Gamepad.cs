@@ -22,6 +22,7 @@ public class Gamepad {
     public string LTrigger;
     public string RTrigger;
 
+    public string TargetKey;
     public Gamepad()
     {
 
@@ -47,6 +48,8 @@ public class Gamepad {
                 RBKey = "P1RBKey";
                 LTrigger = "P1LTrigKey";
                 RTrigger = "P1RTrigKey";
+
+                TargetKey = "P1TargetKey";
                 break;
             case 1:
                 xAxis = "P2Horizontal";
@@ -65,6 +68,8 @@ public class Gamepad {
                 RBKey = "P2RBKey";
                 LTrigger = "P2LTrigKey";
                 RTrigger = "P2RTrigKey";
+
+                TargetKey = "P2TargetKey";
                 break;
             case 2:
                 xAxis = "P3Horizontal";
@@ -83,6 +88,8 @@ public class Gamepad {
                 RBKey = "P3RBKey";
                 LTrigger = "P3LTrigKey";
                 RTrigger = "P3RTrigKey";
+
+                TargetKey = "P3TargetKey";
                 break;
             case 3:
                 xAxis = "P4Horizontal";
@@ -101,6 +108,8 @@ public class Gamepad {
                 RBKey = "P4RBKey";
                 LTrigger = "P4LTrigKey";
                 RTrigger = "P4RTrigKey";
+
+                TargetKey = "P4TargetKey";
                 break;
             default:
                 throw new MissingComponentException();
