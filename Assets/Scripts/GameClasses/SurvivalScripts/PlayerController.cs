@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
 
     public float fireRate;
     private float nextFire;
-    private bool p1x_isAxisInUse = false;
-    private bool p1y_isAxisInUse = false;
     
 
     void Update()
@@ -35,6 +33,7 @@ public class PlayerController : MonoBehaviour
         newShot = Instantiate(shot);
         rb = newShot.GetComponent<Rigidbody>();
         newShot.transform.parent = gameObject.transform;
+        newShot.transform.localPosition = new Vector3(0f, 0f, 0f);
         rb.velocity = new Vector3(0, axisy, 0);
     }
 

@@ -15,7 +15,7 @@ public class Mover : MonoBehaviour
 
     void Update()
     {
-        /*if (Mathf.Abs(transform.localPosition.x) > 30f)
+        if (Mathf.Abs(transform.localPosition.x) > 30f)
         {
             Destroy(gameObject);
         }
@@ -23,7 +23,7 @@ public class Mover : MonoBehaviour
         if (Mathf.Abs(transform.localPosition.y) > 30f)
         {
             Destroy(gameObject);
-        }*/
+        }
     }
 
     void OnCollisionEnter(Collision col)
