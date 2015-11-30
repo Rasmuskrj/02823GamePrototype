@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TetrisController : GameClass {
+public class Tetris : GameClass {
     
     [System.Serializable]
     public struct mapVal
@@ -195,7 +195,7 @@ public class TetrisController : GameClass {
         activeBlock = newBlock;
     }
 
-    new public void MoveXRaw(float axisx)
+    override public void MoveXRaw(float axisx)
     {
         if (activeBlock != null)
         {
@@ -221,7 +221,7 @@ public class TetrisController : GameClass {
     }
 
 
-    new public void MoveYRaw(float axisy)
+    override public void MoveYRaw(float axisy)
     {
         
         int offset = axisy < 0 ? -1 : 1;
@@ -235,7 +235,7 @@ public class TetrisController : GameClass {
         }
     }
 
-    new public void MoveY(float axisy)
+    override public void MoveY(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
         if (offset == -1)
