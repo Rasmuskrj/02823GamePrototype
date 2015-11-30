@@ -20,10 +20,6 @@ public class Breakout : GameClass
     {
         paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
     }
-    public override void MoveY(float axisy)
-    {
-
-    }
     override public void IncreaseDifficulty()
     {
         difficulty++;
