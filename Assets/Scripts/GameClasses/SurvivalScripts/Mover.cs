@@ -19,8 +19,7 @@ public class Mover : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (Mathf.Abs(transform.localPosition.y) > 30f)
+        else if (Mathf.Abs(transform.localPosition.y) > 30f)
         {
             Destroy(gameObject);
         }
