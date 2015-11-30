@@ -41,14 +41,16 @@ public class ScaleableInputController : MonoBehaviour {
                     continue;
                 }
             }
-            Debug.Log(gamepads[i].xAxis);
-            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(gamepads[i].xAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
+            //Debug.Log(gamepads[i].xAxis);
+            /*if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(gamepads[i].xAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xDpadAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse == false ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
+            else*/
+            if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse == false ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
             else { gamepads[i].x_isAxisInUse = false; }
-            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(gamepads[i].yAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
+            /*if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(gamepads[i].yAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yDpadAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
+            else*/
+            if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
             else { gamepads[i].y_isAxisInUse = false; }
             
             if (Input.GetButton(gamepads[i].aKey) || Input.GetAxisRaw(gamepads[i].yKey) <-0.5f) { game[i].DoOnA(); }

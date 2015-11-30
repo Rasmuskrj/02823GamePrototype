@@ -16,11 +16,11 @@ public class Breakout : GameClass
 	void Update () {
 	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
 	}
-    new public void MoveX(float axisx)
+    public override void MoveX(float axisx)
     {
         paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
     }
-    new public void MoveY(float axisy)
+    public override void MoveY(float axisy)
     {
 
     }

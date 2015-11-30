@@ -25,10 +25,10 @@ public abstract class GameClass : MonoBehaviour {
     public void ReduceTokens() { Tokens--; }
     public void IncreaseDifficultyOnOther() {gameController.IncreaseDifficulty(gameID);}
 
-    public void MoveX(float axisx) { }// needs an overwrite to be of use
-    public void MoveY(float axisy) { }// needs an overwrite to be of use
-    public void MoveXRaw(float axisy) { }// needs an overwrite to be of use
-    public void MoveYRaw(float axisy) { }// needs an overwrite to be of use
+    public virtual void MoveX(float axisx) { }// needs an overwrite to be of use
+    public virtual void MoveY(float axisy) { }// needs an overwrite to be of use
+    public virtual void MoveXRaw(float axisy) { }// needs an overwrite to be of use
+    public virtual void MoveYRaw(float axisy) { }// needs an overwrite to be of use
 
     public void DoOnA() { }
     public void DoOnB() { }
