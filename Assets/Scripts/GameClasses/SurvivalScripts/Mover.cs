@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Mover : MonoBehaviour
 {
-
+    public SurvivalShooter shooter;
     public float speed;
     private Rigidbody rb;
-
+    public int worth = 20;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,6 +28,7 @@ public class Mover : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         Debug.Log(col.transform.name);
+        shooter.score += worth;
         Destroy(col.gameObject);
         Destroy(gameObject);
     }

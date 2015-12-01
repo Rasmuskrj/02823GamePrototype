@@ -6,8 +6,8 @@ public class EnemyController : MonoBehaviour {
     public GameObject enemy;
     public Transform[] enemySpawn;
     public PlayerHealth playerHealth;
-    public float spawnTime = 3f;
-    public float speed = 0.5f;
+    public float spawnTime = 1f;
+    private float speed = 0.8f;
     private int ran;
     private float countdown = 0f;
     public float resettime = 90f;
