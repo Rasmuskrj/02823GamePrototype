@@ -33,13 +33,17 @@ public class PlayerController : MonoBehaviour
 
     public void MoveYRaw(float axisy)
     {
-        GameObject newShot;
-        Rigidbody rb;
-        newShot = Instantiate(shot);
-        rb = newShot.GetComponent<Rigidbody>();
-        newShot.transform.parent = gameObject.transform;
-        newShot.transform.localPosition = new Vector3(0f, 0f, 0f);
-        rb.velocity = new Vector3(0, axisy, 0);
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            GameObject newShot;
+            Rigidbody rb;
+            newShot = Instantiate(shot);
+            rb = newShot.GetComponent<Rigidbody>();
+            newShot.transform.parent = gameObject.transform;
+            newShot.transform.localPosition = new Vector3(0f, 0f, 0f);
+            rb.velocity = new Vector3(0, axisy, 0);
+        }
     }
 
 
