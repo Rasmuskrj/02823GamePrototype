@@ -29,6 +29,7 @@ public class Breakout : GameClass
     }
     override public void ReduceDifficulty()
     {
+        if (difficulty == 0) { Tokens++; return; }
         difficulty--;
         ball.ReduceMag();
     }
