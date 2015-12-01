@@ -7,6 +7,7 @@ public class Breakout : GameClass
     public Ball ball;
     public BreakoutBlockSpawner breakoutBlockSpawner;
     public int lives = 3;
+    private int progressOnToken = 0;
     // Use this for initialization
     void Start () {
 
@@ -33,9 +34,11 @@ public class Breakout : GameClass
 
     public void RunOnDestroyedBlock ()
     {
+        progressOnToken += 20;
+        if (progressOnToken >= 100) { Tokens++; progressOnToken -= 100; }
         if (breakoutBlockSpawner.transform.childCount == 1)
         {
-            IncreaseDifficultyOnOther();
+            /*IncreaseDifficultyOnOther();
             breakoutBlockSpawner.SpawnLine();
             Debug.Log(Mathf.Min(((int)(difficulty / 5)) - ((int)(difficulty / 10) ), 10));
             for (int i = 0; i< Mathf.Min(((int) (difficulty / 5)) - ((int) (difficulty / 5) - 10), 10); i++)
@@ -46,7 +49,10 @@ public class Breakout : GameClass
             for (int i = 0; i < Mathf.Min(difficulty / 5-10, 10); i++)
             {
                 breakoutBlockSpawner.DecentLine();
-            }
+            }*/
+            
+            breakoutBlockSpawner.SpawnLine();
+            breakoutBlockSpawner.SpawnLine();
             ball.ResetBallPos();
             
         }

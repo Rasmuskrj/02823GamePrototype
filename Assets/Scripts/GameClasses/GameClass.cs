@@ -9,7 +9,7 @@ public abstract class GameClass : MonoBehaviour {
     public bool isAI;
     public int gameID;
     public GameController gameController;
-    private uint Tokens = 0;
+    protected uint Tokens = 0;
 
     /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
     {
