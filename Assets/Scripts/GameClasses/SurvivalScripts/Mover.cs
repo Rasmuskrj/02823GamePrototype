@@ -29,6 +29,7 @@ public class Mover : MonoBehaviour
     {
         Debug.Log(col.transform.name);
         shooter.score += worth;
+        shooter.DoOnDestroyedBlock();
         Destroy(col.gameObject);
         Destroy(gameObject);
     }

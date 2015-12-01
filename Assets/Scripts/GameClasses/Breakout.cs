@@ -36,7 +36,7 @@ public class Breakout : GameClass
 
     public void RunOnDestroyedBlock ()
     {
-        progressOnToken += 20;
+        progressOnToken += 7;
         if (progressOnToken >= 100) { Tokens++; progressOnToken -= 100; }
         if (breakoutBlockSpawner.transform.childCount == 1)
         {
