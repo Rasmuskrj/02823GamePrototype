@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
-public class TetrisController : GameClass {
+public class Tetris : GameClass {
     
     [System.Serializable]
     public struct mapVal
@@ -67,6 +68,7 @@ public class TetrisController : GameClass {
 	
 	// Update is called once per frame
 	void Update () {
+        base.Update();
 	}
     void drawBlock()
     {
@@ -195,7 +197,7 @@ public class TetrisController : GameClass {
         activeBlock = newBlock;
     }
 
-    new public void MoveXRaw(float axisx)
+    override public void MoveXRaw(float axisx)
     {
         if (activeBlock != null)
         {
@@ -221,7 +223,7 @@ public class TetrisController : GameClass {
     }
 
 
-    new public void MoveYRaw(float axisy)
+    override public void MoveYRaw(float axisy)
     {
         
         int offset = axisy < 0 ? -1 : 1;
@@ -235,7 +237,7 @@ public class TetrisController : GameClass {
         }
     }
 
-    new public void MoveY(float axisy)
+    override public void MoveY(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
         if (offset == -1)
@@ -302,8 +304,7 @@ public class TetrisController : GameClass {
                     score += 100;
                     if (score % increaseScoreEvery == 0)
                     {
-                        Debug.Log("Tetris is increasing difficulty for other");
-                        IncreaseDifficultyOnOther();
+                        Tokens++;
                     } 
                     return true;
                 }

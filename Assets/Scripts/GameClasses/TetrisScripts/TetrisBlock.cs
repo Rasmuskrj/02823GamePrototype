@@ -72,7 +72,7 @@ public class TetrisBlock {
         return returnArr;
     }
 
-    public bool CheckOutOfBounds(int limit, bool left, TetrisController.mapVal[,] map)
+    public bool CheckOutOfBounds(int limit, bool left, Tetris.mapVal[,] map)
     {
         CoOrd[] coords = GetInhabitedCoords();
         for (int i = 0; i < coords.Length; i++)
@@ -112,7 +112,7 @@ public class TetrisBlock {
         return false;
     }
 
-    public void RotateBlock(int limit, TetrisController.mapVal[,] map)
+    public void RotateBlock(int limit, Tetris.mapVal[,] map)
     {
         switch (shape)
         {
@@ -233,7 +233,7 @@ public class TetrisBlock {
         }
     }
 
-    public bool CheckIfCoordsAreFree(CoOrd[] coords,int width,TetrisController.mapVal[,] map)
+    public bool CheckIfCoordsAreFree(CoOrd[] coords,int width,Tetris.mapVal[,] map)
     {
         for (int i = 0; i < coords.Length; i++)
         {
@@ -248,7 +248,7 @@ public class TetrisBlock {
         return true;
     }
 
-    private void SetRotationOffsets(CoOrd[] verticalOffsets, CoOrd[] horizontalOffsets, int limit, TetrisController.mapVal[,] map)
+    private void SetRotationOffsets(CoOrd[] verticalOffsets, CoOrd[] horizontalOffsets, int limit, Tetris.mapVal[,] map)
     {
         if (rotation == 0 && CheckIfCoordsAreFree(horizontalOffsets, limit, map))
         {

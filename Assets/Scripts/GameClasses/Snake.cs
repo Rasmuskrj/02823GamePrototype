@@ -14,9 +14,9 @@ public class Snake : GameClass
 	
 	// Update is called once per frame
 	void Update () {
-	
+        base.Update();
 	}
-    new public void MoveXRaw(float axisx) {
+    override public void MoveXRaw(float axisx) {
         Debug.Log(axisx);
         if (axisx == 1f && dir != Vector2.left)
         {
@@ -28,9 +28,9 @@ public class Snake : GameClass
             dir = -Vector2.right; // '-right' means 'left'
             snakeHead.SetDir(dir);
         }
-
+        
     }
-    new public void MoveYRaw(float axisy) {
+    override public void MoveYRaw(float axisy) {
         Debug.Log(axisy);
         if (axisy == 1f && dir != -Vector2.up)
         {

@@ -9,7 +9,7 @@ public class SnakeHead : MonoBehaviour {
     Vector2 dir = Vector2.right;
     bool action = true;
     // Keep Track of Tail
-    List<Transform> tail = new List<Transform>();
+    public List<Transform> tail = new List<Transform>();
     bool ate = false;
     public GameObject tailPrefab;
     protected bool paused;
