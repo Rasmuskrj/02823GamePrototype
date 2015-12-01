@@ -66,10 +66,6 @@ public class Tetris : GameClass {
         botWall.transform.localScale += new Vector3(mapWidth, 0, 0);
     }
 	
-	// Update is called once per frame
-	void Update () {
-        base.Update();
-	}
     void drawBlock()
     {
         if (activeBlock != null)

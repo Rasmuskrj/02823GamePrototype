@@ -7,7 +7,8 @@ public class GameController : MonoBehaviour {
     public Transform Tetris;
     public Transform SurvivalShooter;
     public ScaleableInputController inputController;
-    private Vector2[] gamePos = { new Vector2(-50, 50), new Vector2(50, 50), new Vector2(-50, -50), new Vector2(50, -50) };
+    private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };
+    private Vector2[] offsets = { new Vector2(1, 0), new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 1) };
     private GameClass[] game;
     public Transform[] gamesToSetup;
 
@@ -38,7 +39,7 @@ public class GameController : MonoBehaviour {
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
-            game[i] = MakeGame(games[i], gamePos[i], campos[i], i);
+            game[i] = MakeGame(games[i], gamePos[i], campos[i], i, offsets[i]);
         }
         Camera[] camCol = new Camera[game.Length];
         for (int i = 0; i < games.Length; i++)
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour {
         }
             
     }
-    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID)
+    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID, Vector2 offset)
     {
         Transform newGame;
         GameClass gameInterface;
@@ -86,6 +87,7 @@ public class GameController : MonoBehaviour {
         gameInterface.SetGameID(gameID);
         gameInterface.SetCamera(rect);
         gameInterface.SetGameController(this);
+        gameInterface.SetPanel(offset);
         return gameInterface;
     }
     public void IncreaseDifficulty(int playerID)

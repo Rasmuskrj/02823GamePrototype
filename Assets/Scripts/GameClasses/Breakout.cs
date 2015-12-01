@@ -10,12 +10,13 @@ public class Breakout : GameClass
     private int progressOnToken = 0;
     // Use this for initialization
     void Start () {
-
+        if (gameID % 2 == 0) { cam.transform.localPosition += new Vector3(5, 0, 0); }
+        else { cam.transform.localPosition += new Vector3(-5, 0, 0); }
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        base.Update();
 	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -13.5f, 13.5f), -10.0f, 0.0f); }
 	}
     public override void MoveX(float axisx)

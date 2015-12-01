@@ -8,14 +8,13 @@ public class Snake : GameClass
     public SnakeHead snakeHead;
     public int level = 0;
     // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        base.Update();
-	}
+    void Start()
+    {
+        if (gameID % 2 == 0) { cam.transform.localPosition += new Vector3(5, 0, 0); }
+        else { cam.transform.localPosition += new Vector3(-5, 0, 0); }
+    }
+
+    // Update is called once per frame
     override public void MoveXRaw(float axisx) {
         Debug.Log(axisx);
         if (axisx == 1f && dir != Vector2.left)

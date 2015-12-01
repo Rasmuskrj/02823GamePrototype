@@ -11,10 +11,7 @@ public class DuckHunt : GameClass
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
     
     override public void IncreaseDifficulty()
     {

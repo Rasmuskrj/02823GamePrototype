@@ -6,24 +6,24 @@ public class EnemyController : MonoBehaviour {
     public GameObject enemy;
     public Transform[] enemySpawn;
     public PlayerHealth playerHealth;
-    public float spawnTime = 1f;
     private float speed = 0.8f;
     private int ran;
     private float countdown = 0f;
-    public float resettime = 90f;
+    public float resettime = 0.5f;
+    public float nextspawn = 0f;
     void Start()
     {
         //InvokeRepeating("Spawn", 0, spawnTime);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (countdown == 0f)
+        if (Time.time > nextspawn)
         {
+
+            nextspawn = Time.time + resettime;
             Spawn();
-            countdown = resettime;
         }
-        countdown--;
     }
 
     void Spawn()

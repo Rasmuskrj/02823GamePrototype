@@ -11,13 +11,14 @@ public abstract class GameClass : MonoBehaviour {
     public int gameID;
     public GameController gameController;
     protected uint Tokens = 0;
+    public RectTransform panel;
 
     //Gui elements
     public Text playerTitle;
     public Text scoreDisplayed;
     public Text tokensDisplayed;
     public Text difficultyDisplayed;
-
+    
 
     /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
     {
@@ -30,10 +31,6 @@ public abstract class GameClass : MonoBehaviour {
         InvokeRepeating("UpdateUI", 0, 0.5f);
     }
 
-    public void Update()
-    {
-
-    }
 
     public void UpdateUI()
     {
@@ -63,5 +60,11 @@ public abstract class GameClass : MonoBehaviour {
     abstract public void IncreaseDifficulty();// { difficulty++; }// needs an subfunction
     abstract public void ReduceDifficulty();// { difficulty--; }// needs an subfunction, we should consider making check so we can't make the game easier that what it is at the start
     
+    public void SetPanel (Vector2 offset)
+    {
+        panel.anchorMin = new Vector2(offset.x, offset.y);
+        panel.anchorMax = new Vector2(offset.x, offset.y);
+        panel.anchoredPosition = new Vector2(-140*offset.x,-120 * offset.y);
+    }
 
 }

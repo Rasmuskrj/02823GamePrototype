@@ -6,7 +6,7 @@ public class Mover : MonoBehaviour
     public SurvivalShooter shooter;
     public float speed;
     private Rigidbody rb;
-    public int worth = 20;
+    public int worth = 1;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
