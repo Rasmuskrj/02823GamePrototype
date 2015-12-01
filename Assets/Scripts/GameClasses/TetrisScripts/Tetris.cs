@@ -135,10 +135,8 @@ public class Tetris : GameClass {
         CancelInvoke("UpdateGame");
         updateTime += 0.05f;
         InvokeRepeating("UpdateGame", 0, updateTime);
-        if (difficulty > 0)
-        {
-            difficulty--;
-        }
+        if (difficulty == 0) { Tokens++; return; }
+        difficulty--;
     }
 
     void moveBlock()
