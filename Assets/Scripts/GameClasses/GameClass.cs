@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public abstract class GameClass : MonoBehaviour {
     public int score = 0;
@@ -9,7 +10,12 @@ public abstract class GameClass : MonoBehaviour {
     public bool isAI;
     public int gameID;
     public GameController gameController;
-    private uint Tokens = 0;
+    protected uint Tokens = 0;
+
+    //Gui elements
+    public Text scoreDisplayed;
+    public Text tokensDisplayed;
+    public Text difficultyDisplayed;
 
     /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
     {
@@ -17,6 +23,14 @@ public abstract class GameClass : MonoBehaviour {
         cam.rect = camRect;
         gameController = gameCtrl;
     }*/
+    public void Update()
+    {
+        scoreDisplayed.text = score.ToString();
+        tokensDisplayed.text = Tokens.ToString();
+        difficultyDisplayed.text = difficulty.ToString();
+    }
+
+
     public void SetGameID(int ID) { gameID = ID; }
     public void SetCamera(Rect rect) { cam.rect = rect; }
     public void SetGameController(GameController gameCtrl) { gameController = gameCtrl; }

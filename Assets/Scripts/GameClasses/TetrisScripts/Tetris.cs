@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class Tetris : GameClass {
     
@@ -67,6 +68,7 @@ public class Tetris : GameClass {
 	
 	// Update is called once per frame
 	void Update () {
+        base.Update();
 	}
     void drawBlock()
     {
@@ -302,8 +304,7 @@ public class Tetris : GameClass {
                     score += 100;
                     if (score % increaseScoreEvery == 0)
                     {
-                        Debug.Log("Tetris is increasing difficulty for other");
-                        IncreaseDifficultyOnOther();
+                        Tokens++;
                     } 
                     return true;
                 }

@@ -6,6 +6,11 @@ public class SurvivalShooter : GameClass
     public PlayerController playercontroller;
     public EnemyController enmctrl;
 
+    void Update()
+    {
+        base.Update();
+    }
+
     public override void MoveXRaw(float axisx)
     {
         playercontroller.MoveXRaw(axisx);

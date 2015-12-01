@@ -14,7 +14,7 @@ public class Snake : GameClass
 	
 	// Update is called once per frame
 	void Update () {
-	
+        base.Update();
 	}
     override public void MoveXRaw(float axisx) {
         Debug.Log(axisx);
