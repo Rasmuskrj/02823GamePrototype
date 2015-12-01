@@ -20,10 +20,13 @@ public class SurvivalShooter : GameClass
     {
         difficulty++;
         enmctrl.resettime *= 0.9f;
+        playercontroller.fireRate *= 0.9f;
     }
     public override void ReduceDifficulty()
     {
+        if (difficulty == 0) { Tokens++; return; }
         difficulty--;
         enmctrl.resettime /= 0.9f;
+        playercontroller.fireRate /= 0.9f;
     }
 }
