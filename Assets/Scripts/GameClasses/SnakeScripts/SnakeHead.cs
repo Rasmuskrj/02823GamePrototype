@@ -17,8 +17,9 @@ public class SnakeHead : MonoBehaviour {
     public Camera cam;
     public bool lose=false;
     Vector2 headPos;
-    private int score=0;
+    public int apples=0;
     Snake sn;
+    
     
 
 
@@ -43,12 +44,13 @@ public class SnakeHead : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetDir(dir);
+     
 
     }
-    
-  
-   
 
+
+    
+    
     public void SetDir(Vector2 newDir)
     {
         dir = newDir;
@@ -69,10 +71,10 @@ public class SnakeHead : MonoBehaviour {
     {
         //controling();
         
-
+   
         
     }
-
+    
     void OnTriggerEnter2D(Collider2D coll){
        
         if (coll.name.StartsWith("foodPrefab"))
@@ -119,9 +121,12 @@ public class SnakeHead : MonoBehaviour {
        
         
     }
-     void move() {
+   
+     
+    public void move() {
+
         headPos = transform.position;
-       
+        
         
         if (action)
         {
@@ -129,12 +134,18 @@ public class SnakeHead : MonoBehaviour {
 
             if (ate)
             {
+               
                 tailInc();
                 ate = false;
-                score++;
-               
-               
+                apples++;
+                if (apples == 1)
+                {
+                    apples = 0;
+                    sn.addToken();
+                }
+                
             }
+            
 
             //check if we have tail and move it behind the head
             if (tail.Count > 0)
