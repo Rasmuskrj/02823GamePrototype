@@ -54,8 +54,8 @@ public abstract class GameClass : MonoBehaviour {
     public virtual void MoveXRaw(float axisy) { }// needs an overwrite to be of use
     public virtual void MoveYRaw(float axisy) { }// needs an overwrite to be of use
 
-    public void DoOnA() { }
-    public void DoOnB() { }
+    public virtual void DoOnA() { }
+    public virtual void DoOnB() { }
 
     abstract public void IncreaseDifficulty();// { difficulty++; }// needs an subfunction
     abstract public void ReduceDifficulty();// { difficulty--; }// needs an subfunction, we should consider making check so we can't make the game easier that what it is at the start

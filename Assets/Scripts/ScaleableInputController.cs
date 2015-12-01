@@ -48,11 +48,19 @@ public class ScaleableInputController : MonoBehaviour {
             else { gamepads[i].x_isAxisInUse = false; }
             if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(gamepads[i].yAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
             else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yDpadAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
+            else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { 
+                game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); 
+                if (gamepads[i].y_isAxisInUse == false) 
+                { 
+                    gamepads[i].y_isAxisInUse = true; 
+                    game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey));
+                    if (Input.GetAxisRaw(gamepads[i].yKey) > 0.5f) { game[i].DoOnA(); }
+                } 
+            }
             else { gamepads[i].y_isAxisInUse = false; }
             
-            if (Input.GetButton(gamepads[i].aKey) || Input.GetAxisRaw(gamepads[i].yKey) <-0.5f) { game[i].DoOnA(); }
-            if (Input.GetButton(gamepads[i].bKey) || Input.GetAxisRaw(gamepads[i].yKey) > 0.5f) { game[i].DoOnB(); }
+            if (Input.GetButton(gamepads[i].aKey) /*|| Input.GetAxisRaw(gamepads[i].yKey) <-0.5f*/) { game[i].DoOnA(); }
+            if (Input.GetButton(gamepads[i].bKey) || Input.GetAxisRaw(gamepads[i].yKey) <= -0.5f) { game[i].DoOnB(); }
 
 
             

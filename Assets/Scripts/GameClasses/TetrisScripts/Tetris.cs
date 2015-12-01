@@ -226,25 +226,13 @@ public class Tetris : GameClass {
     {
         
         int offset = axisy < 0 ? -1 : 1;
-        if (offset == 1 && activeBlock != null)
-        {
-            activeBlock.RotateBlock(mapWidth, tetris2DMap);
-            DestroyActiveBlock();
-            activeBlock.CalculateAdditionalPos();
-            drawBlock();
-            drawMap();
-        }
+        
     }
 
     override public void MoveY(float axisy)
     {
         int offset = axisy < 0 ? -1 : 1;
-        if (offset == -1)
-        {
-            moveBlock();
-            drawBlock();
-            drawMap();
-        }
+       
     }
 
     public bool checkCompletedLines()
@@ -337,5 +325,24 @@ public class Tetris : GameClass {
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeDrawn = false;
             tetris2DMap[coords[i].xCord, coords[i].yCord].cubeInPos = false;
         }
+    }
+
+    override public void DoOnA()
+    {
+        if (activeBlock != null)
+        {
+            activeBlock.RotateBlock(mapWidth, tetris2DMap);
+            DestroyActiveBlock();
+            activeBlock.CalculateAdditionalPos();
+            drawBlock();
+            drawMap();
+        }
+    }
+
+    override public void DoOnB()
+    {
+        moveBlock();
+        drawBlock();
+        drawMap();
     }
 }
