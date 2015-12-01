@@ -13,13 +13,10 @@ public abstract class GameClass : MonoBehaviour {
     protected uint Tokens = 0;
 
     //Gui elements
+    public Text playerTitle;
     public Text scoreDisplayed;
     public Text tokensDisplayed;
     public Text difficultyDisplayed;
-
-    public Text[] otherScoreDisplayed;
-    public Text[] otherTokensDisplayed;
-    public Text[] otherDifficultyDisplayed;
 
 
     /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
@@ -40,24 +37,10 @@ public abstract class GameClass : MonoBehaviour {
 
     public void UpdateUI()
     {
+        playerTitle.text = "Player " + (gameID + 1);
         scoreDisplayed.text = score.ToString();
         tokensDisplayed.text = Tokens.ToString();
         difficultyDisplayed.text = difficulty.ToString();
-        if (otherScoreDisplayed.Length > 0 && otherTokensDisplayed.Length > 0 && otherDifficultyDisplayed.Length > 0)
-        {
-            int count = 0;
-            GameClass[] games = GameController.Instance.GetGames();
-            for (int i = 0; i < games.Length; i++)
-            {
-                if (games[i].gameID != gameID)
-                {
-                    otherScoreDisplayed[count].text = games[i].score.ToString();
-                    otherTokensDisplayed[count].text = games[i].Tokens.ToString();
-                    otherDifficultyDisplayed[count].text = games[i].difficulty.ToString();
-                    count++;
-                }
-            }
-        }
     }
 
 

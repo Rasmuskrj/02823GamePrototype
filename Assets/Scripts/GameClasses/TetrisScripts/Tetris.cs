@@ -304,7 +304,7 @@ public class Tetris : GameClass {
                             }
                         }
                     }
-                    score += 100;
+                    score += 5;
                     if (score % increaseScoreEvery == 0)
                     {
                         Tokens++;
