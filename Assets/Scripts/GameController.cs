@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
     private GameClass[] game;
     public Transform[] gamesToSetup;
 
-    public GameController Instance
+    public static GameController Instance
     {
         get;
         private set;
@@ -108,5 +108,10 @@ public class GameController : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
+    }
+
+    public GameClass[] GetGames()
+    {
+        return game;
     }
 }
