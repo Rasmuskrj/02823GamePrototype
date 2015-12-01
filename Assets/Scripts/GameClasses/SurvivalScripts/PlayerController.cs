@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public SurvivalShooter shooter;
     public GameObject shot;
     public Transform shotSpawn;
 
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
+            
             nextFire = Time.time + fireRate;
             GameObject newShot;
             Rigidbody rb;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
             rb = newShot.GetComponent<Rigidbody>();
             newShot.transform.parent = gameObject.transform;
             newShot.transform.localPosition = new Vector3(0f, 0f, 0f);
+            newShot.GetComponent<Mover>().shooter = shooter;
             rb.velocity = new Vector3(axisx, 0, 0);
         }
         
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
             rb = newShot.GetComponent<Rigidbody>();
             newShot.transform.parent = gameObject.transform;
             newShot.transform.localPosition = new Vector3(0f, 0f, 0f);
+            newShot.GetComponent<Mover>().shooter = shooter;
             rb.velocity = new Vector3(0, axisy, 0);
         }
     }

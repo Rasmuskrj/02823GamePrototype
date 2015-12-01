@@ -16,11 +16,11 @@ public class Breakout : GameClass
 	// Update is called once per frame
 	void Update () {
         base.Update();
-	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
+	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -13.5f, 13.5f), -10.0f, 0.0f); }
 	}
     public override void MoveX(float axisx)
     {
-        paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
+        paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -13.5f, 13.5f), -10.0f, 0.0f);
     }
     override public void IncreaseDifficulty()
     {
