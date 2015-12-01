@@ -18,7 +18,7 @@ public class SnakeHead : MonoBehaviour {
     public bool lose=false;
     Vector2 headPos;
     public int apples=0;
-    Snake sn;
+    public Snake sn;
     
     
 
