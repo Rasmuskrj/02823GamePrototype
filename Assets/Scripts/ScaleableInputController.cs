@@ -34,8 +34,8 @@ public class ScaleableInputController : MonoBehaviour {
                 else if (Input.GetAxisRaw(gamepads[i].LTrigger) > 0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
                 if (Input.GetButton(gamepads[i].TargetKey))
                 {
-                    if(Input.GetAxisRaw(gamepads[i].xKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 4); }
-                    else if (Input.GetAxisRaw(gamepads[i].xKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+                    if(Input.GetAxisRaw(gamepads[i].xKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+                    else if (Input.GetAxisRaw(gamepads[i].xKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
                     else if (Input.GetAxisRaw(gamepads[i].yKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
                     else if (Input.GetAxisRaw(gamepads[i].yKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
                     continue;
