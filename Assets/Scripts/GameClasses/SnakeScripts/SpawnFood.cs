@@ -12,28 +12,19 @@ public class SpawnFood : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Spawn food every 4 seconds, starting in 3
-        // InvokeRepeating("SpawnSnakeFood", 3, 0.2f);
+        InvokeRepeating("SpawnSnakeFood", 3, 0.2f);
         SpawnSnakeFood();
     }
 
-    void SpawnSnakeFood()
+   public void SpawnSnakeFood()
     {
-        int x = (int)Random.Range(borderLeft.position.x+1, borderRight.position.x);
-        int y = (int)Random.Range(borderTop.position.y-1, borderBot.position.y);
+        int x = (int)Random.Range(borderLeft.localPosition.x, borderRight.localPosition.x);
+        int y = (int)Random.Range(borderBot.localPosition.y+1, borderTop.localPosition.y);
      
-        Instantiate(foodPrefab,
-                new Vector2(x, y),
-                Quaternion.identity); // default rotation
-        
+        GameObject newfood = Instantiate(foodPrefab);
+        newfood.transform.parent = transform;
+        newfood.transform.localPosition = new Vector3(x, y);
     }
         // Update is called once per frame
-    void Update () {
-        if (GameObject.Find("foodPrefab(Clone)") == null)
-           
-        {
-           
-            SpawnSnakeFood();
-        }
-	
-	}
+    
 }

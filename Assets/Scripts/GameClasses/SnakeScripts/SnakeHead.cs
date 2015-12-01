@@ -19,7 +19,7 @@ public class SnakeHead : MonoBehaviour {
     Vector2 headPos;
     public int apples=0;
     public Snake sn;
-    
+    public SpawnFood sf;
     
 
 
@@ -84,6 +84,7 @@ public class SnakeHead : MonoBehaviour {
       
             // Remove the Food
             Destroy(coll.gameObject);
+            sf.SpawnSnakeFood();
         }
         
         // Collided with Tail or Border
@@ -138,11 +139,11 @@ public class SnakeHead : MonoBehaviour {
                 tailInc();
                 ate = false;
                 apples++;
-                if (apples == 1)
+               /* if (apples == 1)
                 {
                     apples = 0;
                     sn.addToken();
-                }
+                }*/
                 
             }
             
