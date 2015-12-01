@@ -11,6 +11,16 @@ public class GameController : MonoBehaviour {
     private GameClass[] game;
     public Transform[] gamesToSetup;
 
+    public GameController Instance
+    {
+        get;
+        private set;
+    }
+
+    void Awake(){
+        Instance = this;
+    }
+
     // Use this for initialization
     void Start() {
         /*gamesToSetup = new Transform[3];
