@@ -46,14 +46,25 @@ public class Snake : GameClass
 
     override public void IncreaseDifficulty()
     {
-        level++;
+        difficulty++;
         snakeHead.tailInc();
     }
 
     override public void ReduceDifficulty()
     {
-        level--;
+        if (difficulty == 0)
+        {
+            Tokens++;
+            return;
+        }
+        difficulty--;
         snakeHead.tailReduce();
+    }
+    public void addToken()
+    {
+            Tokens++;
+           
+        
     }
 
 
