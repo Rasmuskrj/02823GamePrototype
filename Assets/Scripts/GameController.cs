@@ -26,8 +26,7 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        Transform input = Instantiate(InputControllerPrefab);
-        inputController = input.GetComponent<ScaleableInputController>();
+        
         /*gamesToSetup = new Transform[3];
         gamesToSetup[0] = Breakout;
         gamesToSetup[1] = Snake;
@@ -39,6 +38,8 @@ public class GameController : MonoBehaviour {
 	}
     public void Initializegames(Transform[] games, bool[] AIStatus)
     {
+        Transform input = Instantiate(InputControllerPrefab);
+        inputController = input.GetComponent<ScaleableInputController>();
         game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)

@@ -5,14 +5,13 @@ public class Menu : MonoBehaviour{
     public Transform[] games;
 	public Transform[] gamecol;
 	public Transform gameController;
-	public Transform inputController;
 	public string[] gameNames;
     public SubMenu[] subMenus;
 	public bool[] isAI = {false, false, false, false};
     
     void Start()
     {
-        subMenus = new SubMenu[4] { new SubMenu(games.Length), new SubMenu(games.Length), new SubMenu(games.Length), new SubMenu(games.Length) };
+        subMenus = new SubMenu[4] { new SubMenu(games.Length,this), new SubMenu(games.Length, this), new SubMenu(games.Length, this), new SubMenu(games.Length, this) };
         // test function
         for (int i = 0; i < subMenus.Length; i++)
         {
@@ -26,7 +25,7 @@ public class Menu : MonoBehaviour{
     }
 
 
-	void Update()
+	public void RunCheck()
 	{
 		if (subMenus[0].isSelected && subMenus[1].isSelected && subMenus[2].isSelected && subMenus[3].isSelected)
 		{
@@ -40,7 +39,8 @@ public class Menu : MonoBehaviour{
 		Transform gamectrl;
         
 		gamectrl = Instantiate(gameController);
-        gamectrl.GetComponent<GameController>().Initializegames(gamecol, isAI);
+        GameController ctrl = gamectrl.GetComponent<GameController>();
+        ctrl.Initializegames(gamecol, isAI);
         Destroy(gameObject);
 	}
 }
