@@ -6,12 +6,13 @@ public class GameController : MonoBehaviour {
     public Transform Snake;
     public Transform Tetris;
     public Transform SurvivalShooter;
+    public Transform InputControllerPrefab;
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };
     private Vector2[] offsets = { new Vector2(1, 0), new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 1) };
     private GameClass[] game;
     public Transform[] gamesToSetup;
-    public bool[] isAI
+    public bool[] isAI;
 
     public static GameController Instance
     {
@@ -25,16 +26,18 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Transform input = Instantiate(InputControllerPrefab);
+        inputController = input.GetComponent<ScaleableInputController>();
         /*gamesToSetup = new Transform[3];
         gamesToSetup[0] = Breakout;
         gamesToSetup[1] = Snake;
         gamesToSetup[2] = Tetris;*/
-        Initializegames(gamesToSetup, isAI);
+        //Initializegames(gamesToSetup, isAI);
 
-        inputController.GameSetup(game);
+        
         
 	}
-    void Initializegames(Transform[] games, bool[] AIStatus)
+    public void Initializegames(Transform[] games, bool[] AIStatus)
     {
         game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
@@ -59,6 +62,7 @@ public class GameController : MonoBehaviour {
             }
             game[i].SetOtherCams(otherCams);
         }
+        inputController.GameSetup(game);
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
     {
