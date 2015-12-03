@@ -24,6 +24,7 @@ public class TetrisBlock {
     public Shapes shape;
     public int rotation = 0;
     public Color blockColor;
+    public bool AI;
 
 	// Use this for initialization
 	public TetrisBlock () {
@@ -181,6 +182,7 @@ public class TetrisBlock {
     public void GetOffsets()
     {
         int selector = Random.Range(0, 5);
+        if (AI) { selector = 1; }
         if (selector == 0)
         {
             noOfOffsets = 3;

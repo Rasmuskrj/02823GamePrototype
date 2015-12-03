@@ -28,6 +28,7 @@ public class Tetris : GameClass {
     public GameObject cube;
     public mapVal[,] tetris2DMap;
     public float updateTime = 0.5f;
+    public bool AIplaying = false;
     
 
 	// Use this for initialization
@@ -49,6 +50,25 @@ public class Tetris : GameClass {
         
 
 	}
+
+    void Update()
+    {
+        if (AIplaying)
+        {
+            AIMoveBlock();
+        }
+    }
+
+    private void AIMoveBlock()
+    {
+        for (int i = 0; i < tetris2DMap.GetLength(1); i++)
+        {
+            for (int j = 0; j < tetris2DMap.GetLength(0); j++)
+            {
+
+            }
+        }
+    }
     
     private void CreateWalls()
     {
@@ -198,26 +218,31 @@ public class Tetris : GameClass {
 
     override public void MoveXRaw(float axisx)
     {
-        if (activeBlock != null)
+        if (activeBlock != null && !AIplaying)
         {
-            int offset = axisx < 0 ? -1 : 1;
-            bool limitCheck = false;
-            if (offset == -1)
-            {
-                limitCheck = activeBlock.CheckOutOfBounds(0, true, tetris2DMap);
-            }
-            else
-            {
-                limitCheck = activeBlock.CheckOutOfBounds(mapWidth, false, tetris2DMap);
-            }
-            if (limitCheck)
-            {
-                DestroyActiveBlock();
-                activeBlock.pos = new TetrisBlock.CoOrd(activeBlock.pos.xCord + offset, activeBlock.pos.yCord);
-                activeBlock.CalculateAdditionalPos();
-                drawBlock();
-                drawMap();
-            }
+            MoveBlockSideways(axisx);
+        }
+    }
+
+    private void MoveBlockSideways(float axisx)
+    {
+        int offset = axisx < 0 ? -1 : 1;
+        bool limitCheck = false;
+        if (offset == -1)
+        {
+            limitCheck = activeBlock.CheckOutOfBounds(0, true, tetris2DMap);
+        }
+        else
+        {
+            limitCheck = activeBlock.CheckOutOfBounds(mapWidth, false, tetris2DMap);
+        }
+        if (limitCheck)
+        {
+            DestroyActiveBlock();
+            activeBlock.pos = new TetrisBlock.CoOrd(activeBlock.pos.xCord + offset, activeBlock.pos.yCord);
+            activeBlock.CalculateAdditionalPos();
+            drawBlock();
+            drawMap();
         }
     }
 
@@ -329,17 +354,30 @@ public class Tetris : GameClass {
 
     override public void DoOnA()
     {
-        if (activeBlock != null)
+        if (activeBlock != null && !AIplaying)
         {
-            activeBlock.RotateBlock(mapWidth, tetris2DMap);
-            DestroyActiveBlock();
-            activeBlock.CalculateAdditionalPos();
-            drawBlock();
-            drawMap();
+            RotateBlock();
         }
     }
 
+    private void RotateBlock()
+    {
+        activeBlock.RotateBlock(mapWidth, tetris2DMap);
+        DestroyActiveBlock();
+        activeBlock.CalculateAdditionalPos();
+        drawBlock();
+        drawMap();
+    }
+
     override public void DoOnB()
+    {
+        if (!AIplaying)
+        {
+            MoveBlockDown();
+        }
+    }
+
+    private void MoveBlockDown()
     {
         moveBlock();
         drawBlock();
