@@ -8,7 +8,11 @@ public class Menu : MonoBehaviour{
 	public string[] gameNames;
     public SubMenu[] subMenus;
 	public bool[] isAI = {false, false, false, false};
-    
+
+    public float joystickRate = 0.5f;
+    public float joystickMovementThreshhold = 0.6f;
+    private Gamepad[] gamepads = { new Gamepad(0), new Gamepad(1), new Gamepad(2), new Gamepad(3) };
+
     void Start()
     {
         subMenus = new SubMenu[4] { new SubMenu(games.Length,this), new SubMenu(games.Length, this), new SubMenu(games.Length, this), new SubMenu(games.Length, this) };
@@ -23,7 +27,18 @@ public class Menu : MonoBehaviour{
             subMenus[i].selectGame();
         }
     }
-
+    void Update()
+    {
+        for (int i = 0; i < gamepads.Length; i++)
+        {
+            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) {if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
+            else { gamepads[i].x_isAxisInUse = false; }
+            if (Input.GetButton(gamepads[i].TargetKey)) { subMenus[i].selectGame(); }
+        }
+        
+    }
 
 	public void RunCheck()
 	{
