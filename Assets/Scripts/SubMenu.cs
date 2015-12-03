@@ -9,8 +9,10 @@ public class SubMenu{
 	private int cenGame = 1;
 	private int rightGame = 2;
 	public bool isSelected = false;
-	public SubMenu (int numOfGames)
+    private Menu menu;
+	public SubMenu (int numOfGames, Menu menuRef)
     {
+        menu = menuRef;
         numGames = numOfGames;
     }
     public void moveRight()
@@ -46,6 +48,7 @@ public class SubMenu{
 	public void selectGame()
 	{
 		isSelected = true;
+        menu.RunCheck();
 	}
 	public void unSelectGame()
 	{
