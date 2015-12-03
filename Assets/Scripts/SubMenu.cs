@@ -5,15 +5,20 @@ public class SubMenu{
     public int numGames;
 	
 	public string[] gameNames;
-    private int leftGame = 0;
-	private int cenGame = 1;
-	private int rightGame = 2;
+    public int leftGame = 0;
+    public int cenGame = 1;
+    public int rightGame = 2;
 	public bool isSelected = false;
     private Menu menu;
 	public SubMenu (int numOfGames, Menu menuRef)
     {
         menu = menuRef;
         numGames = numOfGames;
+    }
+    public void MoveXRaw(float axisx)
+    {
+        if (axisx > 0) { moveRight(); }
+        else { moveLeft(); }
     }
     public void moveRight()
 	{
