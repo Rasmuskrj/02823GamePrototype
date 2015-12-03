@@ -61,12 +61,25 @@ public class Tetris : GameClass {
 
     private void AIMoveBlock()
     {
+        int colToGoTo = -1;
         for (int i = 0; i < tetris2DMap.GetLength(1); i++)
         {
             for (int j = 0; j < tetris2DMap.GetLength(0); j++)
             {
-
+                if (!tetris2DMap[j, i].cubeInPos)
+                {
+                    colToGoTo = j;
+                    break;
+                }
             }
+            if (colToGoTo < 0)
+            {
+                break;
+            }
+        }
+        if (activeBlock != null)
+        {
+            
         }
     }
     
