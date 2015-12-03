@@ -6,11 +6,13 @@ public class GameController : MonoBehaviour {
     public Transform Snake;
     public Transform Tetris;
     public Transform SurvivalShooter;
+    public Transform InputControllerPrefab;
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };
     private Vector2[] offsets = { new Vector2(1, 0), new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 1) };
     private GameClass[] game;
-    public static Transform[] gamesToSetup;
+    public Transform[] gamesToSetup;
+    public bool[] isAI;
 
     public static GameController Instance
     {
@@ -24,22 +26,24 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Transform input = Instantiate(InputControllerPrefab);
+        inputController = input.GetComponent<ScaleableInputController>();
         /*gamesToSetup = new Transform[3];
         gamesToSetup[0] = Breakout;
         gamesToSetup[1] = Snake;
         gamesToSetup[2] = Tetris;*/
-        Initializegames(gamesToSetup);
+        //Initializegames(gamesToSetup, isAI);
 
-        inputController.GameSetup(game);
+        
         
 	}
-    void Initializegames(Transform[] games)
+    public void Initializegames(Transform[] games, bool[] AIStatus)
     {
         game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
-            game[i] = MakeGame(games[i], gamePos[i], campos[i], i, offsets[i]);
+            game[i] = MakeGame(games[i], gamePos[i], campos[i], i, offsets[i], AIStatus[i]);
         }
         Camera[] camCol = new Camera[game.Length];
         for (int i = 0; i < games.Length; i++)
@@ -58,6 +62,7 @@ public class GameController : MonoBehaviour {
             }
             game[i].SetOtherCams(otherCams);
         }
+        inputController.GameSetup(game);
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
     {
@@ -76,7 +81,7 @@ public class GameController : MonoBehaviour {
         }
             
     }
-    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID, Vector2 offset)
+    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID, Vector2 offset, bool AIStatus)
     {
         Transform newGame;
         GameClass gameInterface;
@@ -88,6 +93,7 @@ public class GameController : MonoBehaviour {
         gameInterface.SetCamera(rect);
         gameInterface.SetGameController(this);
         gameInterface.SetPanel(offset);
+        gameInterface.isAI = AIStatus;
         return gameInterface;
     }
     public void IncreaseDifficulty(int playerID)
