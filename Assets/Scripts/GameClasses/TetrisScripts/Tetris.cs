@@ -28,7 +28,7 @@ public class Tetris : GameClass {
     public GameObject cube;
     public mapVal[,] tetris2DMap;
     public float updateTime = 0.5f;
-    public bool AIplaying = false;
+    private bool AIplacedBlock = false;
     
 
 	// Use this for initialization
@@ -43,6 +43,7 @@ public class Tetris : GameClass {
         }
 
         CreateWalls();
+        isAI = true;
 
 
 
@@ -53,7 +54,7 @@ public class Tetris : GameClass {
 
     void Update()
     {
-        if (AIplaying)
+        if (isAI)
         {
             AIMoveBlock();
         }
@@ -61,25 +62,40 @@ public class Tetris : GameClass {
 
     private void AIMoveBlock()
     {
-        int colToGoTo = -1;
-        for (int i = 0; i < tetris2DMap.GetLength(1); i++)
+        if (!AIplacedBlock)
         {
-            for (int j = 0; j < tetris2DMap.GetLength(0); j++)
+            int colToGoTo = -1;
+            for (int i = 0; i < tetris2DMap.GetLength(1); i++)
             {
-                if (!tetris2DMap[j, i].cubeInPos)
+                for (int j = 0; j < tetris2DMap.GetLength(0); j++)
                 {
-                    colToGoTo = j;
+                    if (!tetris2DMap[j, i].cubeInPos)
+                    {
+                        colToGoTo = j;
+                        break;
+                    }
+                }
+                if (colToGoTo >= 0)
+                {
                     break;
                 }
             }
-            if (colToGoTo < 0)
+            if (activeBlock != null)
             {
-                break;
+                if (activeBlock.pos.xCord < colToGoTo)
+                {
+                    MoveBlockSideways(1);
+                }
+                else if (activeBlock.pos.xCord > colToGoTo)
+                {
+                    MoveBlockSideways(-1);
+                }
+                else
+                {
+                    AIplacedBlock = true;
+                    //Do Nothing
+                }
             }
-        }
-        if (activeBlock != null)
-        {
-            
         }
     }
     
@@ -214,7 +230,7 @@ public class Tetris : GameClass {
     public void CreateNewBlock()
     {
         Debug.Log("Spawning new tetris block");
-        TetrisBlock newBlock = new TetrisBlock();
+        TetrisBlock newBlock = new TetrisBlock(isAI);
         newBlock.pos = new TetrisBlock.CoOrd(5, 20);
         newBlock.CalculateAdditionalPos();
         TetrisBlock.CoOrd[] coords = newBlock.GetInhabitedCoords();
@@ -227,11 +243,12 @@ public class Tetris : GameClass {
             }
         }
         activeBlock = newBlock;
+        AIplacedBlock = false;
     }
 
     override public void MoveXRaw(float axisx)
     {
-        if (activeBlock != null && !AIplaying)
+        if (activeBlock != null && !isAI)
         {
             MoveBlockSideways(axisx);
         }
@@ -367,7 +384,7 @@ public class Tetris : GameClass {
 
     override public void DoOnA()
     {
-        if (activeBlock != null && !AIplaying)
+        if (activeBlock != null && !isAI)
         {
             RotateBlock();
         }
@@ -384,7 +401,7 @@ public class Tetris : GameClass {
 
     override public void DoOnB()
     {
-        if (!AIplaying)
+        if (!isAI)
         {
             MoveBlockDown();
         }

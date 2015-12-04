@@ -27,7 +27,8 @@ public class TetrisBlock {
     public bool AI;
 
 	// Use this for initialization
-	public TetrisBlock () {
+	public TetrisBlock (bool isAI) {
+        AI = isAI;
         GetOffsets();
 	}
 
