@@ -5,8 +5,10 @@ using System;
 public class Snake : GameClass
 {
     public Vector2 dir = Vector2.right;
+    public Vector2 olddir=Vector2.left;
     public SnakeHead snakeHead;
-    public int level = 0;
+    private int scorefortoken = 100;
+    private int progressOnToken = 0;
     // Use this for initialization
     void Start()
     {
@@ -19,13 +21,31 @@ public class Snake : GameClass
         Debug.Log(axisx);
         if (axisx == 1f && dir != Vector2.left)
         {
+            olddir = dir;
             dir = Vector2.right;
-            snakeHead.SetDir(dir);
+
+            if (olddir != Vector2.right)
+            {
+                snakeHead.SetDir(dir);
+                olddir = Vector2.zero;
+
+            }
+            
         }
         else if (axisx == -1f && dir != Vector2.right)
         {
+            olddir = dir;
             dir = -Vector2.right; // '-right' means 'left'
-            snakeHead.SetDir(dir);
+
+
+            if (olddir != Vector2.left)
+            {
+                snakeHead.SetDir(dir);
+                olddir = Vector2.zero;
+
+            }
+            
+            
         }
         
     }
@@ -33,13 +53,28 @@ public class Snake : GameClass
         Debug.Log(axisy);
         if (axisy == 1f && dir != -Vector2.up)
         {
+            olddir = dir;
             dir = Vector2.up;
-            snakeHead.SetDir(dir);
+            if(olddir != Vector2.up){
+                snakeHead.SetDir(dir);
+                olddir = Vector2.zero;
+
+            }
+                
+            
         }
         else if (axisy == -1f && dir != Vector2.up)
         {
+            olddir = dir;
             dir = -Vector2.up;    // '-up' means 'down'
-            snakeHead.SetDir(dir);
+
+            if (olddir != -Vector2.up)
+            {
+                snakeHead.SetDir(dir);
+                olddir = Vector2.zero;
+
+            }
+            
         }
     }
 
@@ -59,9 +94,16 @@ public class Snake : GameClass
         difficulty--;
         snakeHead.tailReduce();
     }
+    
     public void addToken()
     {
+        progressOnToken += 20;
+        if (progressOnToken>=100)
+        {
             Tokens++;
+            progressOnToken -= 100;
+        }
+            
            
         
     }

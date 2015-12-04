@@ -12,19 +12,25 @@ public class SnakeHead : MonoBehaviour {
     public List<Transform> tail = new List<Transform>();
     bool ate = false;
     public GameObject tailPrefab;
+    private int tokenfor=100;
     protected bool paused;
     public GameObject foodPrefab;
     public Camera cam;
     public bool lose=false;
     Vector2 headPos;
-    public int apples=0;
+    
     public Snake sn;
     public SpawnFood sf;
+
+    bool[,] field;
+   
     
-
-
     // Use this for initialization
     void Start () {
+        int x = (int)(sf.borderLeft.localPosition.x - sf.borderRight.localPosition.x - 1);
+        int y = (int)(sf.borderBot.localPosition.y - sf.borderTop.localPosition.y - 1);
+        field = new bool [x,y];
+
         tailInc();
         tailInc();
         if (action)
@@ -48,8 +54,45 @@ public class SnakeHead : MonoBehaviour {
 
     }
 
+    public void aibfs()
+    {
+        bool[,] wasChecked = new bool [x,y];
+        Vector2 movedVec = converCoord(headPos);
+        wasChecked[(int)movedVec.x, (int)movedVec.y] = false;
 
-    
+
+         static void BFS(List<int> persons, int times, Boolean[] isInList, List<int> Chain)
+        {
+            List<int> Persons2 = new List<int>();
+            foreach (int per in persons)
+            {
+                foreach (int person in accounts[per].GetConnections())
+                {
+                    if (!isInList[person])
+                    {
+                        Chain.Add(person);
+                        Persons2.Add(person);
+                        isInList[person] = true;
+                    }
+                }
+            }
+            if (times > 1)
+            {
+                BFS(Persons2, times - 1, isInList, Chain);
+            }
+        }
+
+
+
+
+
+
+    }
+
+    Vector2 converCoord(Vector2 vec)
+    {
+        return new Vector2(vec.x - sf.borderLeft.position.x, vec.y - sf.borderBot.position.y);
+    }
     
     public void SetDir(Vector2 newDir)
     {
@@ -127,6 +170,8 @@ public class SnakeHead : MonoBehaviour {
     public void move() {
 
         headPos = transform.position;
+        Vector2 movedVec = converCoord(headPos);
+        field[(int)movedVec.x, (int)movedVec.y]=true;
         
         
         if (action)
@@ -138,19 +183,17 @@ public class SnakeHead : MonoBehaviour {
                
                 tailInc();
                 ate = false;
-                apples++;
-               /* if (apples == 1)
-                {
-                    apples = 0;
-                    sn.addToken();
-                }*/
+                sn.addToken();
+               
                 
             }
             
 
             //check if we have tail and move it behind the head
             if (tail.Count > 0)
-            {
+            {   
+                movedVec = converCoord(tail.Last().position);
+                field[(int)movedVec.x, (int)movedVec.y] = false;
                 tail.Last().position = headPos;
 
                 // Add to front of list, remove from the back

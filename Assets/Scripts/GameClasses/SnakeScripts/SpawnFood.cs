@@ -1,20 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnFood : MonoBehaviour {
     public GameObject foodPrefab;
 
-   
     public Transform borderTop;
     public Transform borderBot;
     public Transform borderLeft;
     public Transform borderRight;
+    
     // Use this for initialization
+    
     void Start () {
         // Spawn food every 4 seconds, starting in 3
         //InvokeRepeating("SpawnSnakeFood", 3, 0.2f);
         SpawnSnakeFood();
     }
+
+    
+    
 
    public void SpawnSnakeFood()
     {

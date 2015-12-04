@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: c5333faa8377cc544aee4af806ea2f87
-timeCreated: 1445360810
+timeCreated: 1449236735
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tailPrefab: {instanceID: 0}
+  - foodPrefab: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - sn: {instanceID: 0}
+  - sf: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
