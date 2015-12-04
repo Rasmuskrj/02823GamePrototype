@@ -39,7 +39,10 @@ public abstract class GameClass : MonoBehaviour {
         tokensDisplayed.text = Tokens.ToString();
         difficultyDisplayed.text = difficulty.ToString();
     }
-
+    public void AIUseToken()
+    {
+        gameController.IncreaseDifficultyOnPlayer((int)Random.Range(0, gameController.gamesToSetup.Length),gameID);
+    }
 
     public void SetGameID(int ID) { gameID = ID; }
     public void SetCamera(Rect rect) { cam.rect = rect; }

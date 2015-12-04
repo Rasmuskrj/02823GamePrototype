@@ -37,6 +37,7 @@ public class SurvivalShooter : GameClass
         {
             progressOnToken -= requirementForToken;
             Tokens++;
+            if (isAI) { AIUseToken(); }
         }
     }
 }

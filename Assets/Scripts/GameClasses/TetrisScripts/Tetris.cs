@@ -347,6 +347,7 @@ public class Tetris : GameClass {
                     if (score % increaseScoreEvery == 0)
                     {
                         Tokens++;
+                        if (isAI) { AIUseToken(); }
                     } 
                     return true;
                 }

@@ -103,6 +103,7 @@ public class Snake : GameClass
         {
             Tokens++;
             progressOnToken -= 100;
+            if (isAI) { AIUseToken(); }
         }
             
            
