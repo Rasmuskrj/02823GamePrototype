@@ -31,7 +31,7 @@ public class MenuController : MonoBehaviour {
         PlayAIMenu.SetActive(true);
     }
 
-    public void VsAIBreakout()
+    /*public void VsAIBreakout()
     {
         GameController.gamesToSetup = new Transform[4];
         GameController.gamesToSetup[0] = Breakout;
@@ -74,5 +74,5 @@ public class MenuController : MonoBehaviour {
     public void ChangeScene()
     {
         Application.LoadLevel("2PlayerScene");
-    }
+    }*/
 }
