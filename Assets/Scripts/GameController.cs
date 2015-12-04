@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
     private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };
     private Vector2[] offsets = { new Vector2(1, 0), new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 1) };
     private GameClass[] game;
-    public Transform[] gamesToSetup;
+    public static Transform[] gamesToSetup;
     public bool[] isAI;
 
     public static GameController Instance
