@@ -43,7 +43,6 @@ public class Tetris : GameClass {
         }
 
         CreateWalls();
-        isAI = true;
 
 
 
