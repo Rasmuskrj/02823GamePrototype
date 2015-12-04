@@ -188,7 +188,6 @@ public class Tetris : GameClass {
         if (activeBlock != null)
         {
             bool willCollide = false;
-            List<TetrisBlock.CoOrd> lowestCoOrds = activeBlock.GetLowestYCoOrds();
             TetrisBlock.CoOrd[] coords = activeBlock.GetInhabitedCoords();
 
             for (int i = 0; i < coords.Length; i++)
@@ -279,13 +278,11 @@ public class Tetris : GameClass {
     override public void MoveYRaw(float axisy)
     {
         
-        int offset = axisy < 0 ? -1 : 1;
         
     }
 
     override public void MoveY(float axisy)
     {
-        int offset = axisy < 0 ? -1 : 1;
        
     }
 

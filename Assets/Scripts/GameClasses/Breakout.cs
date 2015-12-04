@@ -6,6 +6,7 @@ public class Breakout : GameClass
     public GameObject paddle;
     public Ball ball;
     public BreakoutBlockSpawner breakoutBlockSpawner;
+
     public int lives = 3;
     private int progressOnToken = 0;
     // Use this for initialization
