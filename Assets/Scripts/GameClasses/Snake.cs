@@ -14,6 +14,7 @@ public class Snake : GameClass
     {
         if (gameID % 2 == 0) { cam.transform.localPosition += new Vector3(5, 0, 0); }
         else { cam.transform.localPosition += new Vector3(-5, 0, 0); }
+        snakeHead.isAI = isAI;
     }
 
     // Update is called once per frame

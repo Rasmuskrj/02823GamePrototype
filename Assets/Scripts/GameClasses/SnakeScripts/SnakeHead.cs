@@ -18,18 +18,22 @@ public class SnakeHead : MonoBehaviour {
     public Camera cam;
     public bool lose=false;
     Vector2 headPos;
-    
+
+    public bool isAI;
+
     public Snake sn;
     public SpawnFood sf;
 
-    bool[,] field;
-   
-    
+    //bool[,] field;
+
+    private int x;
+    private int y;
+
     // Use this for initialization
     void Start () {
-        int x = (int)(sf.borderLeft.localPosition.x - sf.borderRight.localPosition.x - 1);
-        int y = (int)(sf.borderBot.localPosition.y - sf.borderTop.localPosition.y - 1);
-        field = new bool [x,y];
+        x = (int)(sf.borderRight.localPosition.x - sf.borderLeft.localPosition.x - 1);
+        y = (int)(sf.borderTop.localPosition.y - sf.borderBot.localPosition.y - 1);
+        //field = new bool [x,y];
 
         tailInc();
         tailInc();
@@ -41,7 +45,7 @@ public class SnakeHead : MonoBehaviour {
         {
             //You lose screen appears
         }
-
+        dir = Vector2.down;
         
 
 
@@ -56,12 +60,12 @@ public class SnakeHead : MonoBehaviour {
 
     public void aibfs()
     {
-        bool[,] wasChecked = new bool [x,y];
+        //bool[,] wasChecked = new bool [x,y];
         Vector2 movedVec = converCoord(headPos);
-        wasChecked[(int)movedVec.x, (int)movedVec.y] = false;
+        //wasChecked[(int)movedVec.x, (int)movedVec.y] = false;
 
 
-         static void BFS(List<int> persons, int times, Boolean[] isInList, List<int> Chain)
+         /*static void BFS(List<int> persons, int times, Boolean[] isInList, List<int> Chain)
         {
             List<int> Persons2 = new List<int>();
             foreach (int per in persons)
@@ -80,13 +84,33 @@ public class SnakeHead : MonoBehaviour {
             {
                 BFS(Persons2, times - 1, isInList, Chain);
             }
+        }*/
+
+
+
+
+
+
+    }
+
+    public void AIDirection(Vector2 pos)
+    {
+        if (pos.y == 1) {
+            if (pos.x == 1) { dir = Vector2.up; }
+            else if (pos.x == x) { dir = Vector2.left; }
         }
-
-
-
-
-
-
+        else if (pos.y == 2)
+        {
+            if (pos.x == 1) { }
+            else if (pos.x == x) { }
+            else if (pos.x%2 == 1) { dir = Vector2.up; }
+            else { dir = Vector2.right; }
+        }
+        else if (pos.y == y)
+        {
+            if (pos.x % 2 == 1) { dir = Vector2.right; }
+            else { dir = Vector2.down; }
+        }
     }
 
     Vector2 converCoord(Vector2 vec)
@@ -170,8 +194,12 @@ public class SnakeHead : MonoBehaviour {
     public void move() {
 
         headPos = transform.position;
-        Vector2 movedVec = converCoord(headPos);
-        field[(int)movedVec.x, (int)movedVec.y]=true;
+        if (isAI)
+        {
+            Vector2 movedVec = converCoord(headPos);
+            AIDirection(movedVec);
+        }
+        
         
         
         if (action)
@@ -192,13 +220,14 @@ public class SnakeHead : MonoBehaviour {
             //check if we have tail and move it behind the head
             if (tail.Count > 0)
             {   
-                movedVec = converCoord(tail.Last().position);
-                field[(int)movedVec.x, (int)movedVec.y] = false;
+                //movedVec = converCoord(tail.Last().position);
+                //field[(int)movedVec.x, (int)movedVec.y] = false;
                 tail.Last().position = headPos;
 
                 // Add to front of list, remove from the back
                 tail.Insert(0, tail.Last());
                 tail.RemoveAt(tail.Count - 1);
+
             }
           
 
