@@ -46,7 +46,8 @@ public class SubMenu{
 		{
 			leftGame--;
 		}
-	}
+        menu.UpdateGameList();
+    }
 	public int GetSelectGame()
 	{
 		return cenGame;
