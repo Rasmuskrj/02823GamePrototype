@@ -32,6 +32,7 @@ public class SubMenu{
 		{
 			rightGame++;
 		}
+        menu.UpdateGameList();
 	}
 	public void moveLeft()
 	{

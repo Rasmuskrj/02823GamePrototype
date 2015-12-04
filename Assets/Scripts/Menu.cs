@@ -1,22 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour{
     public Transform[] games;
 	public Transform[] gamecol;
 	public Transform gameController;
 	public string[] gameNames;
-    public SubMenu[] subMenus;
+    public SubMenu[] subMenus = new SubMenu[4];
 	public bool[] isAI = {false, false, false, false};
 
     public float joystickRate = 0.5f;
     public float joystickMovementThreshhold = 0.6f;
     private Gamepad[] gamepads = { new Gamepad(0), new Gamepad(1), new Gamepad(2), new Gamepad(3) };
 
+    public Text[] leftGameList;
+    public Text[] centerGameList;
+    public Text[] rightGameList;
+
     void Start()
     {
         subMenus = new SubMenu[4] { new SubMenu(games.Length,this), new SubMenu(games.Length, this), new SubMenu(games.Length, this), new SubMenu(games.Length, this) };
-        // test function
+        UpdateGameList();
+        /*// test function
         for (int i = 0; i < subMenus.Length; i++)
         {
             int k = (int)Random.Range(0f, 100f);
@@ -25,7 +31,7 @@ public class Menu : MonoBehaviour{
                 subMenus[i].moveLeft();
             }
             subMenus[i].selectGame();
-        }
+        }*/
     }
     void Update()
     {
@@ -39,8 +45,16 @@ public class Menu : MonoBehaviour{
         }
         
     }
-
-	public void RunCheck()
+    public void UpdateGameList()
+    {
+        for (int i = 0; i < subMenus.Length; i++)
+        {
+            leftGameList[i].text = gameNames[subMenus[i].leftGame];
+            centerGameList[i].text = gameNames[subMenus[i].cenGame];
+            rightGameList[i].text = gameNames[subMenus[i].rightGame];
+        }
+    }
+    public void RunCheck()
 	{
 		if (subMenus[0].isSelected && subMenus[1].isSelected && subMenus[2].isSelected && subMenus[3].isSelected)
 		{
