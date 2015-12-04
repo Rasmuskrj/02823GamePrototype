@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
     private GameClass[] game;
     public Transform[] gamesToSetup;
     public bool[] isAI;
+    public int numOfGames;
 
     public static GameController Instance
     {
@@ -38,8 +39,10 @@ public class GameController : MonoBehaviour {
 	}
     public void Initializegames(Transform[] games, bool[] AIStatus)
     {
+        numOfGames = games.Length;
         Transform input = Instantiate(InputControllerPrefab);
         inputController = input.GetComponent<ScaleableInputController>();
+        inputController.gameController = this;
         game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
@@ -95,6 +98,7 @@ public class GameController : MonoBehaviour {
         gameInterface.SetGameController(this);
         gameInterface.SetPanel(offset);
         gameInterface.isAI = AIStatus;
+        gameInterface.gameID = gameID;
         return gameInterface;
     }
     public void IncreaseDifficulty(int playerID)

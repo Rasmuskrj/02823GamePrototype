@@ -38,8 +38,8 @@ public class Breakout : GameClass
 
     public void RunOnDestroyedBlock ()
     {
-        progressOnToken += 7;
-        if (progressOnToken >= 100) { Tokens++; progressOnToken -= 100; if (isAI) { AIUseToken(); } }
+        progressOnToken += 1;
+        if (progressOnToken >= 15) { Tokens++; progressOnToken -= 15; if (isAI) { AIUseToken(); } }
         if (breakoutBlockSpawner.transform.childCount == 1)
         {
             /*IncreaseDifficultyOnOther();
