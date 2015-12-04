@@ -41,7 +41,10 @@ public abstract class GameClass : MonoBehaviour {
     }
     public void AIUseToken()
     {
-        gameController.IncreaseDifficultyOnPlayer((int)Random.Range(0, gameController.gamesToSetup.Length),gameID);
+        int othergame = (int)Random.Range(0, gameController.numOfGames);
+        while (othergame == gameID) { othergame = (int)Random.Range(0, gameController.numOfGames); }
+        gameController.IncreaseDifficultyOnPlayer(gameID, othergame);
+        Tokens--;
     }
 
     public void SetGameID(int ID) { gameID = ID; }
