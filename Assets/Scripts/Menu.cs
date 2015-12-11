@@ -14,13 +14,15 @@ public class Menu : MonoBehaviour{
     public float joystickMovementThreshhold = 0.6f;
     private Gamepad[] gamepads = { new Gamepad(0), new Gamepad(1), new Gamepad(2), new Gamepad(3) };
 
-    public Text[] leftGameList;
+    public Text[] topTopGameList;
+    public Text[] topGameList;
     public Text[] centerGameList;
-    public Text[] rightGameList;
+    public Text[] bottomGameList;
+    public Text[] bottomBottomGameList;
 
     void Start()
     {
-        subMenus = new SubMenu[4] { new SubMenu(games.Length,this), new SubMenu(games.Length, this), new SubMenu(games.Length, this), new SubMenu(games.Length, this) };
+        subMenus = new SubMenu[4] { new SubMenu(games.Length + 1,this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this) };
         UpdateGameList();
         /*// test function
         for (int i = 0; i < subMenus.Length; i++)
@@ -49,9 +51,11 @@ public class Menu : MonoBehaviour{
     {
         for (int i = 0; i < subMenus.Length; i++)
         {
-            leftGameList[i].text = gameNames[subMenus[i].leftGame];
+            topTopGameList[i].text = gameNames[subMenus[i].topTopGame];
+            topGameList[i].text = gameNames[subMenus[i].topGame];
             centerGameList[i].text = gameNames[subMenus[i].cenGame];
-            rightGameList[i].text = gameNames[subMenus[i].rightGame];
+            bottomGameList[i].text = gameNames[subMenus[i].botGame];
+            bottomBottomGameList[i].text = gameNames[subMenus[i].botBotGame];
         }
     }
     public void RunCheck()

@@ -8,6 +8,11 @@ public class SurvivalShooter : GameClass
     private int progressOnToken = 0;
     public int requirementForToken = 15;
 
+    void Start()
+    {
+        enmctrl.isAI = isAI;
+        enmctrl.shooter = this;
+    }
 
     public override void MoveXRaw(float axisx)
     {

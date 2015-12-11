@@ -98,11 +98,10 @@ public class Snake : GameClass
     
     public void addToken()
     {
-        progressOnToken += 20;
-        if (progressOnToken>=100)
+        score += 5;
+        if (score%25==0)
         {
             Tokens++;
-            progressOnToken -= 100;
             if (isAI) { AIUseToken(); }
         }
             

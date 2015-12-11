@@ -5,12 +5,15 @@ public class SubMenu{
     public int numGames;
 	
 	public string[] gameNames;
-    public int leftGame = 0;
+    public int topTopGame = 4;
+    public int topGame = 0;
     public int cenGame = 1;
-    public int rightGame = 2;
-	public bool isSelected = false;
+    public int botGame = 2;
+    public int botBotGame = 2;
+    public bool isSelected = false;
     private Menu menu;
-	public SubMenu (int numOfGames, Menu menuRef)
+    public int playertype = 0;
+    public SubMenu (int numOfGames, Menu menuRef)
     {
         menu = menuRef;
         numGames = numOfGames;
@@ -20,35 +23,54 @@ public class SubMenu{
         if (axisx > 0) { moveRight(); }
         else { moveLeft(); }
     }
-    public void moveRight()
+    public void MoveYRaw(float axisy)
+    {
+        if (axisy > 0) { moveUp(); }
+        else { moveDown(); }
+    }
+    public void moveUp()
 	{
-		leftGame=cenGame;
-		cenGame=rightGame;
-		if (rightGame == numGames-1)
+        botBotGame = botGame;
+        botGame = cenGame;
+        cenGame = topGame;
+        topGame = topTopGame;
+		if (topTopGame == numGames-1)
 		{
-			rightGame = 0;
+			topTopGame = 0;
 		}
 		else
 		{
-			rightGame++;
+			topTopGame++;
 		}
         menu.UpdateGameList();
 	}
-	public void moveLeft()
+	public void moveDown()
 	{
-		rightGame=cenGame;
-		cenGame=leftGame;
-		if (leftGame == 0)
+        topTopGame = topGame;
+        topGame = cenGame;
+        cenGame = botGame;
+        botGame = botBotGame;
+		if (botBotGame == 0)
 		{
-			leftGame = numGames-1;
+            botBotGame = numGames-1;
 		}
 		else
 		{
-			leftGame--;
+            botBotGame--;
 		}
         menu.UpdateGameList();
     }
-	public int GetSelectGame()
+    public void moveRight()
+    {
+        playertype++;
+        if (playertype == 3) { playertype = 0; }
+    }
+    public void moveLeft()
+    {
+        playertype--;
+        if (playertype == -1) { playertype = 2; }
+    }
+    public int GetSelectGame()
 	{
 		return cenGame;
 	}

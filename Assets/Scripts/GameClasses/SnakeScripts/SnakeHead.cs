@@ -37,9 +37,11 @@ public class SnakeHead : MonoBehaviour {
 
         tailInc();
         tailInc();
+        float speed = 0.1f;
+        if (isAI) { speed = 1f/30f; }
         if (action)
         {
-            InvokeRepeating("move", 0.5f, 0.1f);
+            InvokeRepeating("move", 0.5f, speed);
         }
         else
         {
