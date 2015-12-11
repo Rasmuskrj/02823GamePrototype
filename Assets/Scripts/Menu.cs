@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour{
     public Transform[] games;
-	public Transform[] gamecol;
+	//public Transform[] gamecol;
 	public Transform gameController;
 	public string[] gameNames;
     public SubMenu[] subMenus = new SubMenu[4];
-	public bool[] isAI = {false, false, false, false};
+	//public bool[] isAI = {false, false, false, false};
 
     public float joystickRate = 0.5f;
     public float joystickMovementThreshhold = 0.6f;
@@ -39,11 +39,18 @@ public class Menu : MonoBehaviour{
     {
         for (int i = 0; i < gamepads.Length; i++)
         {
-            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) {if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
-            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
-            else { gamepads[i].x_isAxisInUse = false; }
-            if (Input.GetButton(gamepads[i].TargetKey)) { subMenus[i].selectGame(); }
+            if (!subMenus[i].isSelected)
+            {
+                if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
+                else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
+                else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; subMenus[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
+                else { gamepads[i].x_isAxisInUse = false; }
+                if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; subMenus[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
+                else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; subMenus[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
+                else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; subMenus[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
+                else { gamepads[i].x_isAxisInUse = false; }
+                if (Input.GetButton(gamepads[i].TargetKey)) { subMenus[i].selectGame(); }
+            }
         }
         
     }
@@ -58,22 +65,46 @@ public class Menu : MonoBehaviour{
             bottomBottomGameList[i].text = gameNames[subMenus[i].botBotGame];
         }
     }
+    
     public void RunCheck()
 	{
 		if (subMenus[0].isSelected && subMenus[1].isSelected && subMenus[2].isSelected && subMenus[3].isSelected)
 		{
-            gamecol =  new Transform[] { games[subMenus[0].GetSelectGame()], games[subMenus[1].GetSelectGame()], games[subMenus[2].GetSelectGame()], games[subMenus[3].GetSelectGame()]};
-			startGame();
+            int numOfGames = 0;
+            for (int i = 0; i < subMenus.Length; i++)
+            {
+                if (subMenus[i].playertype != 0)
+                {
+                    numOfGames++;
+                }
+            }
+            bool[] isAI = new bool[numOfGames];
+            Gamepad[] newGamepads = new Gamepad[numOfGames];
+            Transform[] gamesToMake = new Transform[numOfGames];
+            int j = 0;
+            for (int i = 0; i < subMenus.Length; i++)
+            {
+                if (subMenus[i].playertype != 0) { continue; }
+                else { newGamepads[j] = gamepads[i]; }
+                if (subMenus[i].playertype == 2) { isAI[j] = true; }
+                int GametoSet = 0;
+                if (subMenus[i].GetSelectGame() == 4) { GametoSet = Random.Range(0, 3); }
+                else { GametoSet = subMenus[i].GetSelectGame(); }
+                gamesToMake[j] = games[GametoSet];
+                j++;
+            }
+            //gamecol =  new Transform[] { games[subMenus[0].GetSelectGame()], games[subMenus[1].GetSelectGame()], games[subMenus[2].GetSelectGame()], games[subMenus[3].GetSelectGame()]};
+			startGame(isAI, newGamepads, gamesToMake);
 		}
 	}
 	
-	public void startGame ()
+	public void startGame (bool[] isAI, Gamepad[] newGamepads, Transform[] gamesToMake)
 	{
 		Transform gamectrl;
         
 		gamectrl = Instantiate(gameController);
         GameController ctrl = gamectrl.GetComponent<GameController>();
-        ctrl.Initializegames(gamecol, isAI);
+        ctrl.Initializegames(gamesToMake, isAI, newGamepads);
         Destroy(gameObject);
 	}
 }

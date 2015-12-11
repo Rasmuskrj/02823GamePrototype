@@ -15,7 +15,6 @@ public class TetrisBlock {
         }
     }
 
-    private bool moving = true;
     public CoOrd pos;
     public CoOrd[] additionalPos;
     public int noOfOffsets;

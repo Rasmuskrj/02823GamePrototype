@@ -17,9 +17,10 @@ public class ScaleableInputController : MonoBehaviour {
     // Use this for initialization
     void Start () {
     }
-    public void GameSetup(GameClass[] games)
+    public void GameSetup(GameClass[] games, Gamepad[] newGamepads)
     {
         game = games;
+        gamepads = newGamepads;
     }
 	
 	// Update is called once per frame

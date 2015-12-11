@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
         
         
 	}
-    public void Initializegames(Transform[] games, bool[] AIStatus)
+    public void Initializegames(Transform[] games, bool[] AIStatus, Gamepad[] newGamepad)
     {
         numOfGames = games.Length;
         Transform input = Instantiate(InputControllerPrefab);
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour {
             }
             game[i].SetOtherCams(otherCams);
         }
-        inputController.GameSetup(game);
+        inputController.GameSetup(game, newGamepad);
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
     {
