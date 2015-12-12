@@ -38,7 +38,9 @@ public class SnakeHead : MonoBehaviour {
         tailInc();
         tailInc();
         float speed = 0.1f;
-        if (isAI) { speed = 1f/30f; }
+        if (isAI) { speed = 1f/30f;
+        dir = Vector2.down;
+        }
         if (action)
         {
             InvokeRepeating("move", 0.5f, speed);
@@ -47,7 +49,6 @@ public class SnakeHead : MonoBehaviour {
         {
             //You lose screen appears
         }
-        dir = Vector2.down;
         
 
 
