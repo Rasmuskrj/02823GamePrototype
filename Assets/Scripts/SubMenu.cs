@@ -13,6 +13,9 @@ public class SubMenu{
     public bool isSelected = false;
     private Menu menu;
     public int playertype = 0;
+
+    public RectTransform Selectorplacement;
+
     public SubMenu (int numOfGames, Menu menuRef)
     {
         menu = menuRef;
@@ -64,11 +67,13 @@ public class SubMenu{
     {
         playertype++;
         if (playertype == 3) { playertype = 0; }
+        UpdateSelectedGame();
     }
     public void moveLeft()
     {
         playertype--;
         if (playertype == -1) { playertype = 2; }
+        UpdateSelectedGame();
     }
     public int GetSelectGame()
 	{
@@ -83,4 +88,8 @@ public class SubMenu{
 	{
 		isSelected = false;
 	}
+    public void UpdateSelectedGame()
+    {
+        Selectorplacement.localPosition = new Vector3( -220f+60f*playertype,0f);
+    }
 }

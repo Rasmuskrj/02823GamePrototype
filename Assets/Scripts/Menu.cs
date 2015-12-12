@@ -20,10 +20,13 @@ public class Menu : MonoBehaviour{
     public Text[] bottomGameList;
     public Text[] bottomBottomGameList;
 
+    public RectTransform[] Selectorplacement;
+
     void Start()
     {
         subMenus = new SubMenu[4] { new SubMenu(games.Length + 1,this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this) };
         UpdateGameList();
+        for (int i = 0; i < 4; i++) { subMenus[i].Selectorplacement = Selectorplacement[i]; }
         /*// test function
         for (int i = 0; i < subMenus.Length; i++)
         {
