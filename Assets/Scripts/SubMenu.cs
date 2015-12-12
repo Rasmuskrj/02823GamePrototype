@@ -9,7 +9,7 @@ public class SubMenu{
     public int topGame = 0;
     public int cenGame = 1;
     public int botGame = 2;
-    public int botBotGame = 2;
+    public int botBotGame = 3;
     public bool isSelected = false;
     private Menu menu;
     public int playertype = 0;
