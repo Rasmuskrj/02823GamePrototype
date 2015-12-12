@@ -155,6 +155,7 @@ public class Tetris : GameClass {
                     float posX = gameObject.transform.position.x + i;
                     float posY = gameObject.transform.position.y + j;
                     GameObject thisCube = Instantiate(cube, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
+                    //In this pass the only cells that should be drawn are from the active block, so we use that color
                     thisCube.GetComponent<Renderer>().material.color = activeBlock.blockColor;
                     tetris2DMap[i, j].color = activeBlock.blockColor;
                     tetris2DMap[i, j].cubeDrawn = true;
