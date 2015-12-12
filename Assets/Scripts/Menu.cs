@@ -81,9 +81,10 @@ public class Menu : MonoBehaviour{
             bool[] isAI = new bool[numOfGames];
             Gamepad[] newGamepads = new Gamepad[numOfGames];
             Transform[] gamesToMake = new Transform[numOfGames];
-            int j = 0;
+            int j = -1;
             for (int i = 0; i < subMenus.Length; i++)
             {
+                j++;
                 if (subMenus[i].playertype != 0) { continue; }
                 else { newGamepads[j] = gamepads[i]; }
                 if (subMenus[i].playertype == 2) { isAI[j] = true; }
@@ -91,7 +92,7 @@ public class Menu : MonoBehaviour{
                 if (subMenus[i].GetSelectGame() == 4) { GametoSet = Random.Range(0, 3); }
                 else { GametoSet = subMenus[i].GetSelectGame(); }
                 gamesToMake[j] = games[GametoSet];
-                j++;
+                
             }
             //gamecol =  new Transform[] { games[subMenus[0].GetSelectGame()], games[subMenus[1].GetSelectGame()], games[subMenus[2].GetSelectGame()], games[subMenus[3].GetSelectGame()]};
 			startGame(isAI, newGamepads, gamesToMake);
