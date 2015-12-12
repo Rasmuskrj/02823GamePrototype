@@ -18,7 +18,7 @@ public abstract class GameClass : MonoBehaviour {
     public Text scoreDisplayed;
     public Text tokensDisplayed;
     public Text difficultyDisplayed;
-    
+    public float minWidth;
 
     /*public GameClass (int ID, Rect camRect, GameController gameCtrl)
     {
@@ -29,8 +29,9 @@ public abstract class GameClass : MonoBehaviour {
     void Awake()
     {
         InvokeRepeating("UpdateUI", 0, 0.5f);
+        
     }
-
+    
 
     public void UpdateUI()
     {
@@ -54,7 +55,7 @@ public abstract class GameClass : MonoBehaviour {
     }
 
     public void SetGameID(int ID) { gameID = ID; }
-    public void SetCamera(Rect rect) { cam.rect = rect; }
+    public void SetCamera(Rect rect) { cam.rect = rect; cam.orthographicSize = Mathf.Max(cam.orthographicSize, minWidth * cam.aspect);}
     public void SetGameController(GameController gameCtrl) { gameController = gameCtrl; }
     public void SetOtherCams(Camera[] cams) { otherCams = cams; }
     public bool HasToken() { return (Tokens > 0); }
