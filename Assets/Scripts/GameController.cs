@@ -2,10 +2,6 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
-    public Transform Breakout;
-    public Transform Snake;
-    public Transform Tetris;
-    public Transform SurvivalShooter;
     public Transform InputControllerPrefab;
     public ScaleableInputController inputController;
     private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };

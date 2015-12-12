@@ -1,70 +1,212 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Breakout" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="5.25" Width="1.5" />
+  <Class Name="Breakout" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAQAggAAACAAAAAAAAAACAAAgAIAAAACAAAAAgAAAAA=</HashCode>
       <FileName>Assets\Scripts\GameClasses\Breakout.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="DuckHunt" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\GameClasses\DuckHunt.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Snake" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\GameClasses\Snake.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Tetris" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\GameClasses\Tetris.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="GameManager">
-    <Position X="5" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>4BQAAAAAACAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\GameManager.cs</FileName>
-    </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="player1" />
-      <Field Name="player2" />
-      <Field Name="player3" />
-      <Field Name="player4" />
+      <Field Name="ball" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Player">
-    <Position X="2.25" Y="1.75" Width="1.5" />
+  <Class Name="Snake" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="GameClass" FixedFromPoint="true">
+      <Path>
+        <Point X="1.25" Y="2.441" />
+        <Point X="1.25" Y="4" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAQAAAABACAAAACAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Assets\Scripts\Player.cs</FileName>
+      <HashCode>AAAgAAAAACAAAAAAAAAAAAAAgAAhAAACCBAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\Snake.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="snakeHead" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Tetris" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Tetris.mapVal" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\Tetris.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <InheritanceLine Type="GameClass" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="1.25" Y="2.441" />
+        <Point X="1.25" Y="3.625" />
+        <Point X="5" Y="3.625" />
+        <Point X="5" Y="4" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>QCQYigAAACCAkCAAAAAIAAAggAAhASCAAAGAEIAgAIA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\TetrisScripts\Tetris.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="activeBlock" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ScaleableInputController" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="game" Type="GameClass" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="3" />
+        <Point X="1.656" Y="3" />
+        <Point X="1.656" Y="2.441" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="gamepads" Type="Gamepad" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.125" Y="2.5" />
+        <Point X="6.125" Y="0.846" />
+        <Point X="6.5" Y="0.846" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQABAAAACAAAAAQCAAAAAAAAABAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScaleableInputController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="game" />
+      <Field Name="gameController" />
+      <Field Name="gamepads" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameController" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAACACAAAAAABAAAAAAhAAQAAAAMQIBDAAABAGA=</HashCode>
+      <FileName>Assets\Scripts\GameController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="inputController" />
+      <Field Name="game" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameClass" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>UYAYBgARACAAEAAwAAAKAAAhkAAhAAAAADCAARABIEE=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\GameClass.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="InputController">
-    <Position X="10.5" Y="3.5" Width="1.5" />
+  <Class Name="Gamepad" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\InputController.cs</FileName>
+      <HashCode>AAgAAIgAACACAQAABAAAAAEAAAAAAQIAEAAAAgCEAEA=</HashCode>
+      <FileName>Assets\Scripts\Gamepad.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="IGameTypeInterface" Collapsed="true">
-    <Position X="10" Y="1" Width="1.5" />
+  <Class Name="Menu" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\GameClasses\IGameTypeInterface.cs</FileName>
+      <HashCode>AAQABQAAACABEAAQCCAAgADAAABBAGAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Menu.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+    <ShowAsAssociation>
+      <Field Name="subMenus" />
+      <Field Name="gamepads" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SubMenu" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAASAxAAAQAAAAIAAAAAggAAAhAGAAwAAACEAAgAA=</HashCode>
+      <FileName>Assets\Scripts\SubMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SurvivalShooter" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACAAABAAAAAAQAAAgAAhAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\SurvivalScripts\SurvivalShooter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="enmctrl" />
+      <Field Name="playercontroller" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TetrisBlock" Collapsed="true">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="TetrisBlock.CoOrd" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Enum Name="TetrisBlock.Shapes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ARARAIAQAAAAAAAAACCAEIABAoQAAAAAAAEAAAABBAA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ball" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAiAAAEAGAAAAAAAIAAAAAAAABAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\BreakoutScripts\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SnakeHead" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQIBAAAImgAEAiAAggAgAAgAEAAAhAAgABgAACAIgA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\SnakeScripts\SnakeHead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyController" Collapsed="true">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAABIAiAAAQAAAEEAAAAgAAAAAQAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\SurvivalScripts\EnemyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAIAAQAAAAAAAAAAAAAhAAEACAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameClasses\SurvivalScripts\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
