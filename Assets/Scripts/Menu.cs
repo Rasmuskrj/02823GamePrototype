@@ -55,7 +55,7 @@ public class Menu : MonoBehaviour{
                 else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; subMenus[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
                 else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; subMenus[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey)); } }
                 else { gamepads[i].y_isAxisInUse = false; }
-                if (Input.GetButton(gamepads[i].TargetKey)) { subMenus[i].selectGame(); }
+                if (Input.GetButton(gamepads[i].TargetKey)||Input.GetButton(gamepads[i].aKey)) { subMenus[i].selectGame(); }
             }
         }
         
