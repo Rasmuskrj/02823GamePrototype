@@ -115,10 +115,15 @@ public class GameController : MonoBehaviour {
             game[targetPlayer].IncreaseDifficulty();
         }
     }
-	// Update is called once per frame
-	void Update () {
+    public void runLostCheck()
+    {
+        for (int i = 0; i<game.Length; i++)
+        {
+            if (game[i].isAI) { continue; }
+            if (!game[i].hasLost) { return; }
+        }
+        Application.LoadLevel("MenuScene");
     }
-
     public GameClass[] GetGames()
     {
         return game;

@@ -12,7 +12,7 @@ public abstract class GameClass : MonoBehaviour {
     public GameController gameController;
     protected uint Tokens = 0;
     public RectTransform panel;
-
+    public bool hasLost = false;
     //Gui elements
     public Text playerTitle;
     public Text scoreDisplayed;
@@ -45,6 +45,12 @@ public abstract class GameClass : MonoBehaviour {
         while (othergame == gameID) { othergame = (int)Random.Range(0, gameController.numOfGames); }
         gameController.IncreaseDifficultyOnPlayer(gameID, othergame);
         Tokens--;
+    }
+
+    public void playerLost()
+    {
+        hasLost = true;
+        gameController.runLostCheck();
     }
 
     public void SetGameID(int ID) { gameID = ID; }
