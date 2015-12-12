@@ -20,6 +20,9 @@ public class Menu : MonoBehaviour{
     public Text[] bottomGameList;
     public Text[] bottomBottomGameList;
 
+    public Text[] PressStartText;
+    public Text[] Ready;
+    
     public RectTransform[] Selectorplacement;
 
     void Start()
@@ -71,6 +74,20 @@ public class Menu : MonoBehaviour{
     
     public void RunCheck()
 	{
+        for (int i = 0; i < subMenus.Length; i++)
+        {
+            if (subMenus[i].isSelected)
+            {
+                PressStartText[i].color = new Color(0f, 0f, 0f, 0f);
+                Ready[i].color = new Color(0f, 0f, 0f, 255f);
+            }
+            else
+            {
+                PressStartText[i].color = new Color(0f, 0f, 0f, 255f);
+                Ready[i].color = new Color(0f, 0f, 0f, 0f);
+            }
+                
+        }
 		if (subMenus[0].isSelected && subMenus[1].isSelected && subMenus[2].isSelected && subMenus[3].isSelected)
 		{
             int numOfGames = 0;
@@ -104,11 +121,13 @@ public class Menu : MonoBehaviour{
 	
 	public void startGame (bool[] isAI, Gamepad[] newGamepads, Transform[] gamesToMake)
 	{
-		Transform gamectrl;
+        if (gamesToMake.Length == 0) { Application.LoadLevel("MenuScene"); }
+        Transform gamectrl;
         
 		gamectrl = Instantiate(gameController);
         GameController ctrl = gamectrl.GetComponent<GameController>();
         ctrl.Initializegames(gamesToMake, isAI, newGamepads);
+        
         Destroy(gameObject);
 	}
 }

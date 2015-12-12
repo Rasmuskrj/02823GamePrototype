@@ -83,13 +83,13 @@ public class SubMenu{
 	{
 		isSelected = true;
         menu.RunCheck();
-	}
+    }
 	public void unSelectGame()
 	{
 		isSelected = false;
 	}
     public void UpdateSelectedGame()
     {
-        Selectorplacement.localPosition = new Vector3( -220f+60f*playertype,0f);
+        Selectorplacement.anchoredPosition = new Vector3( -190+60f*playertype,0f);
     }
 }
