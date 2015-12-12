@@ -27,6 +27,7 @@ public class ScaleableInputController : MonoBehaviour {
 	void Update () {
         for (int i = 0; i< game.Length; i++)
         {
+            if (game[i].isAI) { continue; }
             if (game[i].HasToken())
             {
                 if (Input.GetButton(gamepads[i].LBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
