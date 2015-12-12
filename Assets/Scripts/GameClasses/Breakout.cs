@@ -9,6 +9,7 @@ public class Breakout : GameClass
 
     public int lives = 3;
     private int progressOnToken = 0;
+    
     // Use this for initialization
     void Start () {
         if (gameID % 2 == 0) { cam.transform.localPosition += new Vector3(5, 0, 0); }
