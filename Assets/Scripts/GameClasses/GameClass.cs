@@ -55,7 +55,7 @@ public abstract class GameClass : MonoBehaviour {
     }
 
     public void SetGameID(int ID) { gameID = ID; }
-    public void SetCamera(Rect rect) { cam.rect = rect; cam.orthographicSize = Mathf.Max(cam.orthographicSize, minWidth * cam.aspect);}
+    public void SetCamera(Rect rect) { cam.rect = rect; cam.orthographicSize = Mathf.Max(cam.orthographicSize, minWidth / cam.aspect);}
     public void SetGameController(GameController gameCtrl) { gameController = gameCtrl; }
     public void SetOtherCams(Camera[] cams) { otherCams = cams; }
     public bool HasToken() { return (Tokens > 0); }
