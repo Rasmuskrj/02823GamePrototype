@@ -129,6 +129,7 @@ public class Tetris : GameClass {
     public void GameOver()
     {
         CancelInvoke("UpdateGame");
+        playerLost();
         //gameObject.SetActive(true);
        
     }
