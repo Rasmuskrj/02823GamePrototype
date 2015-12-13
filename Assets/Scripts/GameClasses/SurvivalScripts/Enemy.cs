@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour {
 	
         if(transform.localPosition.magnitude < 1.5f)
         {
-            playerHealth.currentHealth--;
+            playerHealth.TakeDamage(1);
             Destroy(gameObject);
         }
         if (transform.localPosition.magnitude > 20f) { Destroy(gameObject); }
