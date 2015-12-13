@@ -37,13 +37,6 @@
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <NestedTypes>
-      <Struct Name="Tetris.mapVal" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\Tetris.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <InheritanceLine Type="GameClass" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
         <Point X="1.25" Y="2.441" />
@@ -97,7 +90,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAAAACACAAAAAABAAAAAAhAAQAAAAMQIBDAAABAGA=</HashCode>
+      <HashCode>AAAAAAACACAAAAAABAAAAAAhAAQAAAAMQIBDAAABAGA=</HashCode>
       <FileName>Assets\Scripts\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -112,7 +105,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>UYAYBgARACAAEAAwAAAKAAAhkAAhAAAAADCAARABIEE=</HashCode>
+      <HashCode>UYAYBgARACAAEAAwAAAKAAAhkAAhABAAADCAARABIEE=</HashCode>
       <FileName>Assets\Scripts\GameClasses\GameClass.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -120,6 +113,7 @@
     <Position X="6.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAgAAIgAACACAQAABAAAAAEAAAAAAQIAEAAAAgCEAEA=</HashCode>
@@ -157,24 +151,12 @@
       <FileName>Assets\Scripts\GameClasses\SurvivalScripts\SurvivalShooter.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="enmctrl" />
       <Field Name="playercontroller" />
+      <Field Name="enmctrl" />
     </ShowAsAssociation>
   </Class>
   <Class Name="TetrisBlock" Collapsed="true">
     <Position X="4.25" Y="5.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="TetrisBlock.CoOrd" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Enum Name="TetrisBlock.Shapes" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>ARARAIAQAAAAAAAAACCAEIABAoQAAAAAAAEAAAABBAA=</HashCode>
       <FileName>Assets\Scripts\GameClasses\TetrisScripts\TetrisBlock.cs</FileName>
