@@ -47,6 +47,7 @@ public class SnakeHead : MonoBehaviour {
         }
         else
         {
+            sn.playerLost();
             //You lose screen appears
         }
         
