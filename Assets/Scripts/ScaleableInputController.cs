@@ -3,36 +3,69 @@ using System.Collections;
 
 public class ScaleableInputController : MonoBehaviour {
 
-    private IGameTypeInterface[] game;
-    private IGameTypeInterface game1;
+    private GameClass[] game;
+    //private IGameTypeInterface game1;
+
+    public GameController gameController;
 
     public float joystickRate = 0.5f;
+    public float joystickMovementThreshhold = 0.6f;
+    private Gamepad[] gamepads = { new Gamepad(0), new Gamepad(1) , new Gamepad(2) , new Gamepad(3) };
 
-    private bool[] x_isAxisInUse = { false, false, false, false };
-    private bool[] y_isAxisInUse = { false, false, false, false };
-    private string[] xControlNames = { "P1Horizontal", "P2Horizontal", "P3Horizontal", "P4Horizontal" };
-    private string[] yControlNames = { "P1Vertical", "P2Vertical" , "P3Vertical" , "P4Vertical" };
-    private string[] xKeyControlNames = { "P1HorizontalKey", "P2HorizontalKey", "P3HorizontalKey", "P4HorizontalKey" };
-    private string[] yKeyControlNames = { "P1VerticalKey", "P2VerticalKey", "P3VerticalKey", "P4VerticalKey" };
+    
 
     // Use this for initialization
     void Start () {
     }
-    public void GameSetup(IGameTypeInterface[] games)
+    public void GameSetup(GameClass[] games, Gamepad[] newGamepads)
     {
         game = games;
+        gamepads = newGamepads;
     }
 	
 	// Update is called once per frame
 	void Update () {
         for (int i = 0; i< game.Length; i++)
         {
-            if (Input.GetAxisRaw(xControlNames[i]) != 0) { game[i].MoveX(joystickRate * Input.GetAxis(xControlNames[i])); if (x_isAxisInUse[i] == false) { x_isAxisInUse[i] = true; game[i].MoveXRaw(Input.GetAxisRaw(xControlNames[i])); } }
-            else if (Input.GetAxisRaw(xKeyControlNames[i]) != 0) { game[i].MoveX(Input.GetAxis(xKeyControlNames[i])); if (x_isAxisInUse[i] == false) { x_isAxisInUse[i] = true; game[i].MoveXRaw(Input.GetAxisRaw(xKeyControlNames[i])); } }
-            else { x_isAxisInUse[i] = false; }
-            if (Input.GetAxisRaw(yControlNames[i]) != 0) { game[i].MoveY(joystickRate * Input.GetAxis(yControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yControlNames[i])); } }
-            else if (Input.GetAxisRaw(yKeyControlNames[i]) != 0) { game[i].MoveY(Input.GetAxis(yKeyControlNames[i])); if (y_isAxisInUse[i] == false) { y_isAxisInUse[i] = true; game[i].MoveYRaw(Input.GetAxisRaw(yKeyControlNames[i])); } }
-            else { y_isAxisInUse[i] = false; }
+            if (game[i].isAI) { continue; }
+            if (game[i].HasToken())
+            {
+                if (Input.GetButton(gamepads[i].LBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
+                else if (Input.GetButton(gamepads[i].RBKey)) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
+                else if (Input.GetAxisRaw(gamepads[i].LTrigger) > 0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
+                else if (Input.GetAxisRaw(gamepads[i].LTrigger) > 0.5f) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+                if (Input.GetButton(gamepads[i].TargetKey))
+                {
+                    if(Input.GetAxisRaw(gamepads[i].xKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 3); }
+                    else if (Input.GetAxisRaw(gamepads[i].xKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 1); }
+                    else if (Input.GetAxisRaw(gamepads[i].yKey) == 1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 0); }
+                    else if (Input.GetAxisRaw(gamepads[i].yKey) == -1) { game[i].ReduceTokens(); gameController.IncreaseDifficultyOnPlayer(i, 2); }
+                    continue;
+                }
+            }
+            //Debug.Log(gamepads[i].xAxis);
+            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].xAxis)) > joystickMovementThreshhold) { game[i].MoveX(joystickRate * Input.GetAxis(gamepads[i].xAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].xDpadAxis) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xDpadAxis)); if (gamepads[i].x_isAxisInUse == false) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xDpadAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].xKey) != 0) { game[i].MoveX(Input.GetAxis(gamepads[i].xKey)); if (gamepads[i].x_isAxisInUse == false ) { gamepads[i].x_isAxisInUse = true; game[i].MoveXRaw(Input.GetAxisRaw(gamepads[i].xKey)); } }
+            else { gamepads[i].x_isAxisInUse = false; }
+            if (Mathf.Abs(Input.GetAxisRaw(gamepads[i].yAxis)) > joystickMovementThreshhold) { game[i].MoveY(joystickRate * Input.GetAxis(gamepads[i].yAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].yDpadAxis) != 0) { game[i].MoveY(Input.GetAxis(gamepads[i].yDpadAxis)); if (gamepads[i].y_isAxisInUse == false) { gamepads[i].y_isAxisInUse = true; game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yDpadAxis)); } }
+            else if (Input.GetAxisRaw(gamepads[i].yKey) != 0) { 
+                game[i].MoveY(Input.GetAxis(gamepads[i].yKey)); 
+                if (gamepads[i].y_isAxisInUse == false) 
+                { 
+                    gamepads[i].y_isAxisInUse = true; 
+                    game[i].MoveYRaw(Input.GetAxisRaw(gamepads[i].yKey));
+                    if (Input.GetAxisRaw(gamepads[i].yKey) > 0.5f) { game[i].DoOnA(); }
+                } 
+            }
+            else { gamepads[i].y_isAxisInUse = false; }
+            
+            if (Input.GetButton(gamepads[i].aKey) /*|| Input.GetAxisRaw(gamepads[i].yKey) <-0.5f*/) { game[i].DoOnA(); }
+            if (Input.GetButton(gamepads[i].bKey) || Input.GetAxisRaw(gamepads[i].yKey) <= -0.5f) { game[i].DoOnB(); }
+
+
+            
         }
     }
 }

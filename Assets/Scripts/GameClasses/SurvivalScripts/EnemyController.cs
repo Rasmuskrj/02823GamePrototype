@@ -6,18 +6,25 @@ public class EnemyController : MonoBehaviour {
     public GameObject enemy;
     public Transform[] enemySpawn;
     public PlayerHealth playerHealth;
-    public float spawnTime = 3f;
-    public float speed = 0.5f;
+    public SurvivalShooter shooter;
+    private float speed = 0.8f;
     private int ran;
-   
+    public float resettime = 0.5f;
+    public float nextspawn = 0f;
+    public bool isAI;
     void Start()
     {
-        InvokeRepeating("Spawn", 0, spawnTime);
+        //InvokeRepeating("Spawn", 0, spawnTime);
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (Time.time > nextspawn)
+        {
 
+            nextspawn = Time.time + resettime;
+            Spawn();
+        }
     }
 
     void Spawn()
@@ -38,5 +45,15 @@ public class EnemyController : MonoBehaviour {
         newEnemy.transform.position = enemySpawn[ran].position;
         rb.velocity = -newEnemy.transform.localPosition * speed;
         newEnemy.GetComponent<Enemy>().playerHealth = playerHealth;
+        if (isAI)
+        {
+            if (rb.velocity.x != 0)
+            {
+                shooter.MoveXRaw(-rb.velocity.x);
+            }
+            else {
+                shooter.MoveYRaw(-rb.velocity.y);
+            }
+        }
     }
 }

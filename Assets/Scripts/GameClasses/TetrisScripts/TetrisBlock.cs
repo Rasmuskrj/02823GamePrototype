@@ -15,7 +15,6 @@ public class TetrisBlock {
         }
     }
 
-    private bool moving = true;
     public CoOrd pos;
     public CoOrd[] additionalPos;
     public int noOfOffsets;
@@ -23,9 +22,12 @@ public class TetrisBlock {
     public enum Shapes { LShape, IShape, CubeShape, TShape, JShape}
     public Shapes shape;
     public int rotation = 0;
+    public Color blockColor;
+    public bool AI;
 
 	// Use this for initialization
-	public TetrisBlock () {
+	public TetrisBlock (bool isAI) {
+        AI = isAI;
         GetOffsets();
 	}
 
@@ -71,7 +73,7 @@ public class TetrisBlock {
         return returnArr;
     }
 
-    public bool CheckOutOfBounds(int limit, bool left, TetrisController.mapVal[,] map)
+    public bool CheckOutOfBounds(int limit, bool left, Tetris.mapVal[,] map)
     {
         CoOrd[] coords = GetInhabitedCoords();
         for (int i = 0; i < coords.Length; i++)
@@ -111,7 +113,7 @@ public class TetrisBlock {
         return false;
     }
 
-    public void RotateBlock(int limit, TetrisController.mapVal[,] map)
+    public void RotateBlock(int limit, Tetris.mapVal[,] map)
     {
         switch (shape)
         {
@@ -180,6 +182,7 @@ public class TetrisBlock {
     public void GetOffsets()
     {
         int selector = Random.Range(0, 5);
+        if (AI) { selector = 1; }
         if (selector == 0)
         {
             noOfOffsets = 3;
@@ -187,6 +190,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(0, -1);
             offsets[2] = new CoOrd(1, -1);
+            blockColor = Color.blue;
             shape = Shapes.LShape;
         }
         else if (selector == 1)
@@ -196,6 +200,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, -1);
             offsets[1] = new CoOrd(0, 1);
             offsets[2] = new CoOrd(0, 2);
+            blockColor = Color.yellow;
             shape = Shapes.IShape;
         }
         else if (selector == 2)
@@ -205,6 +210,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(1, 0);
             offsets[2] = new CoOrd(1, 1);
+            blockColor = Color.red;
             shape = Shapes.CubeShape;
         }
         else if (selector == 3)
@@ -214,6 +220,7 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, -1);
             offsets[1] = new CoOrd(1, 0);
             offsets[2] = new CoOrd(-1, 0);
+            blockColor = Color.green;
             shape = Shapes.TShape;
         }
         else if (selector == 4)
@@ -223,11 +230,12 @@ public class TetrisBlock {
             offsets[0] = new CoOrd(0, 1);
             offsets[1] = new CoOrd(0, -1);
             offsets[2] = new CoOrd(-1, -1);
+            blockColor = Color.white;
             shape = Shapes.JShape;
         }
     }
 
-    public bool CheckIfCoordsAreFree(CoOrd[] coords,int width,TetrisController.mapVal[,] map)
+    public bool CheckIfCoordsAreFree(CoOrd[] coords,int width,Tetris.mapVal[,] map)
     {
         for (int i = 0; i < coords.Length; i++)
         {
@@ -242,7 +250,7 @@ public class TetrisBlock {
         return true;
     }
 
-    private void SetRotationOffsets(CoOrd[] verticalOffsets, CoOrd[] horizontalOffsets, int limit, TetrisController.mapVal[,] map)
+    private void SetRotationOffsets(CoOrd[] verticalOffsets, CoOrd[] horizontalOffsets, int limit, Tetris.mapVal[,] map)
     {
         if (rotation == 0 && CheckIfCoordsAreFree(horizontalOffsets, limit, map))
         {
@@ -295,5 +303,4 @@ public class TetrisBlock {
             rotation = 0;
         }
     }
-
 }

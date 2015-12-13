@@ -2,33 +2,67 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
-    public Transform Breakout;
-    public Transform Snake;
-    public Transform Tetris;
+    public Transform InputControllerPrefab;
     public ScaleableInputController inputController;
-    private Vector2[] gamePos = { new Vector2(-50, 50), new Vector2(50, 50), new Vector2(-50, -50), new Vector2(50, -50) };
-    private IGameTypeInterface[] game;
-    Transform[] gamesToSetup;
+    private Vector2[] gamePos = { new Vector2(-100, 100), new Vector2(100, 100), new Vector2(-100, -100), new Vector2(100, -100) };
+    private Vector2[] offsets = { new Vector2(1, 0), new Vector2(0, 0), new Vector2(1, 1), new Vector2(0, 1) };
+    private GameClass[] game;
+    public Transform[] gamesToSetup;
+    public bool[] isAI;
+    public int numOfGames;
+
+    public static GameController Instance
+    {
+        get;
+        private set;
+    }
+
+    void Awake(){
+        Instance = this;
+    }
 
     // Use this for initialization
     void Start() {
-        gamesToSetup = new Transform[3];
+        
+        /*gamesToSetup = new Transform[3];
         gamesToSetup[0] = Breakout;
         gamesToSetup[1] = Snake;
-        gamesToSetup[2] = Tetris;
-        Initializegames(gamesToSetup);
+        gamesToSetup[2] = Tetris;*/
+        //Initializegames(gamesToSetup, isAI);
 
-        inputController.GameSetup(game);
+        
         
 	}
-    void Initializegames(Transform[] games)
+    public void Initializegames(Transform[] games, bool[] AIStatus, Gamepad[] newGamepad)
     {
-        game = new IGameTypeInterface[games.Length];
+        numOfGames = games.Length;
+        Transform input = Instantiate(InputControllerPrefab);
+        inputController = input.GetComponent<ScaleableInputController>();
+        inputController.gameController = this;
+        game = new GameClass[games.Length];
         Rect[] campos = GetCameraPositions(games.Length);
         for (int i = 0; i < games.Length; i++)
         {
-            game[i] = MakeGame(games[i], gamePos[i], campos[i], 1);
+            game[i] = MakeGame(games[i], gamePos[i], campos[i], i, offsets[i], AIStatus[i]);
         }
+        Camera[] camCol = new Camera[game.Length];
+        for (int i = 0; i < games.Length; i++)
+        {
+            camCol[i] = game[i].cam;
+        }
+        for (int i = 0; i < games.Length; i++)
+        {
+            Camera[] otherCams = new Camera[game.Length-1];
+            int j = 0;
+            for (int k = 0; k < games.Length-1; k++)
+            {
+                if (i == j) { j++; }
+                otherCams[k] = game[j].cam;
+                j++;
+            }
+            game[i].SetOtherCams(otherCams);
+        }
+        inputController.GameSetup(game, newGamepad);
     }
     Rect[] GetCameraPositions(int numberOfPlayers)
     {
@@ -47,27 +81,51 @@ public class GameController : MonoBehaviour {
         }
             
     }
-    IGameTypeInterface MakeGame(Transform game, Vector2 pos, Rect rect, uint gameID)
+    GameClass MakeGame(Transform game, Vector2 pos, Rect rect, int gameID, Vector2 offset, bool AIStatus)
     {
         Transform newGame;
-        IGameTypeInterface gameInterface;
+        GameClass gameInterface;
         newGame = Instantiate(game);
         newGame.position = pos;
         newGame.rotation = Quaternion.identity;
-        gameInterface = newGame.GetComponent<IGameTypeInterface>();
+        gameInterface = newGame.GetComponent<GameClass>();
         gameInterface.SetGameID(gameID);
         gameInterface.SetCamera(rect);
         gameInterface.SetGameController(this);
+        gameInterface.SetPanel(offset);
+        gameInterface.isAI = AIStatus;
+        gameInterface.gameID = gameID;
         return gameInterface;
     }
-    public void IncreaseDifficulty(uint playerID)
+    public void IncreaseDifficulty(int playerID)
     {
         for (int i = 0; i < game.Length; i++)
         {
-            if (playerID != i+1) { game[i].IncreaseDifficulty(); }
+            if (playerID != i) { game[i].IncreaseDifficulty(); }
         }
     }
-	// Update is called once per frame
-	void Update () {
+    public void IncreaseDifficultyOnPlayer(int sendingPlayer, int targetPlayer)
+    {
+        if (sendingPlayer == targetPlayer)
+        {
+            game[targetPlayer].ReduceDifficulty();
+        }
+        else
+        {
+            game[targetPlayer].IncreaseDifficulty();
+        }
+    }
+    public void runLostCheck()
+    {
+        for (int i = 0; i<game.Length; i++)
+        {
+            if (game[i].isAI) { continue; }
+            if (!game[i].hasLost) { return; }
+        }
+        Application.LoadLevel("MenuScene");
+    }
+    public GameClass[] GetGames()
+    {
+        return game;
     }
 }

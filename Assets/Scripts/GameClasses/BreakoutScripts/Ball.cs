@@ -45,6 +45,10 @@ public class Ball : MonoBehaviour {
     {
         mag*=1.1f;
     }
+    public void ReduceMag()
+    {
+        mag /= 1.1f;
+    }
     public void ResetBallPos()
     {
         transform.localPosition = new Vector3(0, -9, 0); // reset position

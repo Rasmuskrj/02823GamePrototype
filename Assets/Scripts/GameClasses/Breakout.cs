@@ -1,64 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Breakout : MonoBehaviour, IGameTypeInterface
+public class Breakout : GameClass
 {
     public GameObject paddle;
-    public int score = 0;
-    public int difficulty = 0;
-    public Camera cam;
     public Ball ball;
-    public bool isAI;
-    public uint gameID;
-    public GameController gameController;
     public BreakoutBlockSpawner breakoutBlockSpawner;
+
     public int lives = 3;
+    private int progressOnToken = 0;
+    
     // Use this for initialization
     void Start () {
-
+        if (gameID % 2 == 0) { cam.transform.localPosition += new Vector3(5, 0, 0); }
+        else { cam.transform.localPosition += new Vector3(-5, 0, 0); }
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -3.5f, 3.5f), -10.0f, 0.0f); }
+	    if (isAI) { paddle.transform.localPosition = new Vector3(Mathf.Clamp(ball.transform.localPosition.x, -13.5f, 13.5f), -10.0f, 0.0f); }
 	}
-    public void SetGameID(uint ID)
+    public override void MoveX(float axisx)
     {
-        gameID = ID;
+        paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -13.5f, 13.5f), -10.0f, 0.0f);
     }
-    public void SetGameController(GameController gameCtrl)
-    {
-        gameController = gameCtrl;
-    }
-    public void MoveX(float axisx)
-    {
-        paddle.transform.localPosition = new Vector3(Mathf.Clamp(paddle.transform.localPosition.x + axisx, -3.5f, 3.5f), -10.0f, 0.0f);
-    }
-    public void MoveY(float axisy)
-    {
-
-    }
-    public void MoveXRaw(float axisx) { }
-    public void MoveYRaw(float axisy) { }
-    public void SetCamera(Rect rect)
-    {
-        cam.rect = rect;
-    }
-    public void IncreaseDifficulty()
+    override public void IncreaseDifficulty()
     {
         difficulty++;
         ball.IncreaseMag();
     }
-    public void IncreaseDifficultyOnOther()
+    override public void ReduceDifficulty()
     {
-        gameController.IncreaseDifficulty(gameID);
+        if (difficulty == 0) { Tokens++; return; }
+        difficulty--;
+        ball.ReduceMag();
     }
+
     public void RunOnDestroyedBlock ()
     {
-        Debug.Log(breakoutBlockSpawner.transform.childCount);
+        progressOnToken += 1;
+        if (progressOnToken >= 15) { Tokens++; progressOnToken -= 15; if (isAI) { AIUseToken(); } }
         if (breakoutBlockSpawner.transform.childCount == 1)
         {
-            IncreaseDifficultyOnOther();
+            /*IncreaseDifficultyOnOther();
             breakoutBlockSpawner.SpawnLine();
             Debug.Log(Mathf.Min(((int)(difficulty / 5)) - ((int)(difficulty / 10) ), 10));
             for (int i = 0; i< Mathf.Min(((int) (difficulty / 5)) - ((int) (difficulty / 5) - 10), 10); i++)
@@ -69,7 +54,10 @@ public class Breakout : MonoBehaviour, IGameTypeInterface
             for (int i = 0; i < Mathf.Min(difficulty / 5-10, 10); i++)
             {
                 breakoutBlockSpawner.DecentLine();
-            }
+            }*/
+            
+            breakoutBlockSpawner.SpawnLine();
+            breakoutBlockSpawner.SpawnLine();
             ball.ResetBallPos();
             
         }
