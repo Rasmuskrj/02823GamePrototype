@@ -7,9 +7,9 @@ public class PlayerHealth : MonoBehaviour
     public int startingHealth = 3;   
     public int currentHealth;
                 
-    bool isDead;   
-    bool damaged;         
-
+      
+    bool damaged;
+    public SurvivalShooter main;
 
     void Awake()
     {
@@ -20,17 +20,17 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-
-        if (currentHealth <= 0 && !isDead)
+        
+        if ( currentHealth <= 0 )
         {
-            
+            main.playerLost();   
         }
     }
 
 
     void Death()
     {
-        isDead = true;
+        
         //disable game somehow?
     }
 }

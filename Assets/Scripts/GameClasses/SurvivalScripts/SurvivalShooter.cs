@@ -12,6 +12,7 @@ public class SurvivalShooter : GameClass
     {
         enmctrl.isAI = isAI;
         enmctrl.shooter = this;
+        enmctrl.playerHealth.main = this;
     }
 
     public override void MoveXRaw(float axisx)
