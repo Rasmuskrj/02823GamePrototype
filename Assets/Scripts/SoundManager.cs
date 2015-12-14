@@ -4,6 +4,19 @@ using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour {
 
+    public static SoundManager Instance
+    {
+        get;
+        private set;
+    }
+
+    public AudioSource bingSound;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
 	// Use this for initialization
 	void Start () {
         OSCHandler.Instance.Init();

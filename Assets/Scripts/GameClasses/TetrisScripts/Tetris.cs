@@ -342,11 +342,12 @@ public class Tetris : GameClass {
                         }
                     }
                     score += 5;
+                    SoundManager.Instance.bingSound.Play();
                     if (score % increaseScoreEvery == 0)
                     {
                         Tokens++;
                         if (isAI) { AIUseToken(); }
-                    } 
+                    }
                     return true;
                 }
             }
