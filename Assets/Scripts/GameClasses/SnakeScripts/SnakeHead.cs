@@ -150,6 +150,9 @@ public class SnakeHead : MonoBehaviour {
        
         if (coll.name.StartsWith("foodPrefab"))
         {
+            //play ate sound
+            SoundManager.Instance.appleBoing.Play();
+
             // Get longer in next Move call
             ate = true;
       

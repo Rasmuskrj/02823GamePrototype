@@ -27,6 +27,7 @@ public class Menu : MonoBehaviour{
 
     void Start()
     {
+        SoundManager.Instance.MuteMusic();
         subMenus = new SubMenu[4] { new SubMenu(games.Length + 1,this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this), new SubMenu(games.Length + 1, this) };
         UpdateGameList();
         for (int i = 0; i < 4; i++) { subMenus[i].Selectorplacement = Selectorplacement[i]; }
@@ -74,6 +75,7 @@ public class Menu : MonoBehaviour{
     
     public void RunCheck()
 	{
+        SoundManager.Instance.MuteMusic();
         for (int i = 0; i < subMenus.Length; i++)
         {
             if (subMenus[i].isSelected)
@@ -127,7 +129,8 @@ public class Menu : MonoBehaviour{
 		gamectrl = Instantiate(gameController);
         GameController ctrl = gamectrl.GetComponent<GameController>();
         ctrl.Initializegames(gamesToMake, isAI, newGamepads);
-        
+        SoundManager.Instance.UnmuteMusic();
+        SoundManager.Instance.SetMusicFrequency(200);
         Destroy(gameObject);
 	}
 }

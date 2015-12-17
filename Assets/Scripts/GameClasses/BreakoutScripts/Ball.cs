@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour {
 	void Update () {
         if (transform.localPosition.y < -11)
         {
+            SoundManager.Instance.yoDead.Play();
             gameObject.GetComponentInParent<BallSpawner>().LaunchBall();
             Destroy(gameObject);
         }
@@ -65,5 +66,15 @@ public class Ball : MonoBehaviour {
         rb.velocity = rb.velocity - 2 * Vector2.Dot(rb.velocity, normal) * normal;
         rb.velocity = rb.velocity.normalized * mag;
     }*/
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        Debug.Log("Ball paddle col");
+        if (coll.gameObject.tag == "Paddle")
+        {
+            SoundManager.Instance.paddleSound.Play();
+            
+        }
+    }
 
 }

@@ -28,6 +28,7 @@ public class SurvivalShooter : GameClass
         difficulty++;
         enmctrl.resettime *= 0.9f;
         playercontroller.fireRate *= 0.9f;
+        SoundManager.Instance.IncreaseMusicFrequency();
     }
     public override void ReduceDifficulty()
     {
@@ -38,6 +39,7 @@ public class SurvivalShooter : GameClass
     }
     public void DoOnDestroyedBlock()
     {
+        SoundManager.Instance.boxDestroy.Play();
         progressOnToken++;
         if (progressOnToken >= requirementForToken)
         {

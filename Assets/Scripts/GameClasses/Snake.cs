@@ -83,6 +83,7 @@ public class Snake : GameClass
     {
         difficulty++;
         snakeHead.tailInc();
+        SoundManager.Instance.IncreaseMusicFrequency();
     }
 
     override public void ReduceDifficulty()

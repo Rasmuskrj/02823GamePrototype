@@ -29,6 +29,7 @@ public class Breakout : GameClass
     {
         difficulty++;
         ball.IncreaseMag();
+        SoundManager.Instance.IncreaseMusicFrequency();
     }
     override public void ReduceDifficulty()
     {
@@ -39,6 +40,7 @@ public class Breakout : GameClass
 
     public void RunOnDestroyedBlock ()
     {
+        SoundManager.Instance.breakBlockSound.Play();
         progressOnToken += 1;
         if (progressOnToken >= 15) { Tokens++; progressOnToken -= 15; if (isAI) { AIUseToken(); } }
         if (breakoutBlockSpawner.transform.childCount == 1)

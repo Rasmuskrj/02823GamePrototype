@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour {
     }
     public void IncreaseDifficultyOnPlayer(int sendingPlayer, int targetPlayer)
     {
+        SoundManager.Instance.tokenFanfare.Play();
         if (sendingPlayer == targetPlayer)
         {
             game[targetPlayer].ReduceDifficulty();

@@ -33,6 +33,7 @@ public class SubMenu{
     }
     public void moveUp()
 	{
+        SoundManager.Instance.clickSound.Play();
         botBotGame = botGame;
         botGame = cenGame;
         cenGame = topGame;
@@ -49,6 +50,7 @@ public class SubMenu{
 	}
 	public void moveDown()
 	{
+        SoundManager.Instance.clickSound.Play();
         topTopGame = topGame;
         topGame = cenGame;
         cenGame = botGame;
@@ -91,5 +93,6 @@ public class SubMenu{
     public void UpdateSelectedGame()
     {
         Selectorplacement.anchoredPosition = new Vector3( -190+60f*playertype,0f);
+        SoundManager.Instance.clickSound.Play();
     }
 }

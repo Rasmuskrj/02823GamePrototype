@@ -173,6 +173,7 @@ public class Tetris : GameClass {
             updateTime -= 0.05f;
             InvokeRepeating("UpdateGame", 0, updateTime);
             difficulty++;
+            SoundManager.Instance.IncreaseMusicFrequency();
         }
     }
 
@@ -199,7 +200,6 @@ public class Tetris : GameClass {
                     willCollide = true;
                 }
             }
-
             if (!willCollide)
             {
                 for (int i = 0; i < coords.Length; i++)
@@ -392,6 +392,7 @@ public class Tetris : GameClass {
 
     private void RotateBlock()
     {
+        SoundManager.Instance.blipSound.Play();
         activeBlock.RotateBlock(mapWidth, tetris2DMap);
         DestroyActiveBlock();
         activeBlock.CalculateAdditionalPos();

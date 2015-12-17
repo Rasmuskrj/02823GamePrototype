@@ -128,6 +128,7 @@ public class OSCHandler : MonoBehaviour
 	/// </summary>
 	void OnApplicationQuit() 
 	{
+        SendMessageToClient("PD", "/command/mute", 1.0f);
 		foreach(KeyValuePair<string,ClientLog> pair in _clients)
 		{
 			pair.Value.client.Close();

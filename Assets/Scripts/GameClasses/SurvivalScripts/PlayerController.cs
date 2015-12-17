@@ -19,7 +19,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
-            
+            float rand = Random.Range(0.9f, 1.5f);
+            SoundManager.Instance.shotSound.Play();
+            SoundManager.Instance.shotSound.pitch = 1;
+            SoundManager.Instance.shotSound.pitch *= rand;
             nextFire = Time.time + fireRate;
             GameObject newShot;
             Rigidbody rb;
@@ -37,6 +40,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
+            float rand = Random.Range(0.9f, 1.5f);
+            SoundManager.Instance.shotSound.Play();
+            SoundManager.Instance.shotSound.pitch = 1;
+            SoundManager.Instance.shotSound.pitch *= rand;
             nextFire = Time.time + fireRate;
             GameObject newShot;
             Rigidbody rb;

@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        SoundManager.Instance.yoDead.Play();
         currentHealth -= amount;
         
         if ( currentHealth <= 0 )
